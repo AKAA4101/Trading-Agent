@@ -61,7 +61,12 @@ def run_analysis_cycle(db: DBManager) -> None:
         " | ".join(f"{k}={v}" for k, v in sorted(by_type.items())),
     )
 
-    for inst in active:
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
+    BATCH_SIZE  = 50
+    MAX_WORKERS = 4
+
+    def _safe_analyse(inst):
         try:
             _analyse_instrument(
                 inst, db, risk_mgr, portfolio_value,
@@ -71,7 +76,18 @@ def run_analysis_cycle(db: DBManager) -> None:
         except Exception as exc:
             logger.error("Error analysing %s: %s", inst.symbol, exc)
 
-    logger.info("──── Analysis cycle complete ────")
+    total = len(active)
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+        for i in range(0, total, BATCH_SIZE):
+            batch = active[i : i + BATCH_SIZE]
+            batch_num   = i // BATCH_SIZE + 1
+            total_batches = (total + BATCH_SIZE - 1) // BATCH_SIZE
+            logger.info("Batch %d/%d — %d instruments", batch_num, total_batches, len(batch))
+            futures = [pool.submit(_safe_analyse, inst) for inst in batch]
+            for f in as_completed(futures):
+                f.result()
+
+    logger.info("──── Analysis cycle complete — %d instruments ────", total)
 
 
 def _analyse_instrument(inst, db, risk_mgr, portfolio_value,
@@ -286,7 +302,10 @@ def run_daily_summary(db: DBManager) -> None:
 
 def run_tier2_screen(db: DBManager) -> None:
     from data.watchlist import activate_tier2
-    logger.info("Weekly Tier 2 screen — activating global equities")
+    from data.index_loader import refresh_all_indices
+    logger.info("Weekly Tier 2 screen — refreshing all index constituents")
+    summary = refresh_all_indices()
+    logger.info("Index refresh complete: %s", summary)
     activate_tier2()
     run_analysis_cycle(db)
 

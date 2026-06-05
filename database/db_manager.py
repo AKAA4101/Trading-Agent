@@ -66,7 +66,9 @@ class DBManager:
 
     @contextmanager
     def _conn(self):
-        conn = sqlite3.connect(self.db_path)
+        # timeout=30 and WAL mode allow concurrent writes from multiple threads
+        conn = sqlite3.connect(self.db_path, timeout=30, check_same_thread=False)
+        conn.execute("PRAGMA journal_mode=WAL")
         conn.row_factory = sqlite3.Row
         try:
             yield conn

@@ -13,7 +13,7 @@ class Instrument:
     exchange: str = ""
 
 
-WATCHLIST: list[Instrument] = [
+CORE_WATCHLIST: list[Instrument] = [
 
     # ── TIER 1: FOREX (OANDA) ────────────────────────────────────────────────
     # Major pairs
@@ -189,21 +189,28 @@ WATCHLIST: list[Instrument] = [
 
 
 def get_active(tier: int | None = None) -> list[Instrument]:
-    return [i for i in WATCHLIST if i.active and (tier is None or i.tier == tier)]
+    """Return all active instruments — core watchlist merged with dynamic index constituents."""
+    from data.index_loader import get_dynamic_instruments
+    core = [i for i in CORE_WATCHLIST if i.active and (tier is None or i.tier == tier)]
+    core_symbols = {i.symbol for i in CORE_WATCHLIST}
+    dynamic = get_dynamic_instruments(core_symbols)
+    if tier is not None:
+        dynamic = [i for i in dynamic if i.tier == tier]
+    return core + dynamic
 
 
 def get_by_market(market_type: MarketType, active_only: bool = True) -> list[Instrument]:
-    return [i for i in WATCHLIST if i.market_type == market_type and (not active_only or i.active)]
+    return [i for i in CORE_WATCHLIST if i.market_type == market_type and (not active_only or i.active)]
 
 
 def activate_tier2() -> None:
-    for i in WATCHLIST:
+    for i in CORE_WATCHLIST:
         if i.tier == 2:
             i.active = True
 
 
 def coverage_summary() -> dict[str, int]:
-    """Return instrument counts by market type and exchange for active instruments."""
+    """Return instrument counts by market type and exchange for all active instruments."""
     summary: dict[str, int] = {}
     for inst in get_active():
         key = f"{inst.market_type}/{inst.exchange}" if inst.exchange else inst.market_type
