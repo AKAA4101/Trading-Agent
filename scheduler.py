@@ -3,11 +3,14 @@ APScheduler configuration.
 Jobs:
   - Full analysis cycle   : every 4 hours
   - Portfolio snapshot    : daily 07:00 Brisbane (UTC+10)
-  - Daily summary email   : daily 07:00 Brisbane (UTC+10)
+  - Daily summary email   : daily 07:05 Brisbane (UTC+10)
+  - Weekly summary email  : Monday 07:00 Brisbane (UTC+10)
   - Tier 2 weekly screen  : Monday 06:00 Brisbane (UTC+10)
 """
 import logging
+from collections import defaultdict
 from datetime import datetime, timezone
+from threading import Lock
 
 import pytz
 from apscheduler.schedulers.blocking import BlockingScheduler
@@ -20,6 +23,8 @@ from database.db_manager import DBManager
 logger = logging.getLogger(__name__)
 
 BRISBANE = pytz.timezone(config.BRISBANE_TZ)
+
+MARKET_AMBER_THRESHOLD = 0.30  # 30% of a market returning RED triggers AMBER alert
 
 
 def run_analysis_cycle(db: DBManager) -> None:
@@ -62,17 +67,25 @@ def run_analysis_cycle(db: DBManager) -> None:
     )
 
     from concurrent.futures import ThreadPoolExecutor, as_completed
+    from notifications.email_notifier import send_market_amber_alert
 
     BATCH_SIZE  = 50
     MAX_WORKERS = 4
 
+    # Track RED verdicts per market for the AMBER alert check
+    market_verdicts: dict[str, list[str]] = defaultdict(list)
+    mv_lock = Lock()
+
     def _safe_analyse(inst):
         try:
-            _analyse_instrument(
+            verdict = _analyse_instrument(
                 inst, db, risk_mgr, portfolio_value,
                 alpaca_exec, oanda_exec,
                 send_signal_alert, send_red_alert,
             )
+            if verdict is not None:
+                with mv_lock:
+                    market_verdicts[inst.market_type].append(verdict)
         except Exception as exc:
             logger.error("Error analysing %s: %s", inst.symbol, exc)
 
@@ -88,6 +101,19 @@ def run_analysis_cycle(db: DBManager) -> None:
                 f.result()
 
     logger.info("──── Analysis cycle complete — %d instruments ────", total)
+
+    # ── Market-wide AMBER alert check ────────────────────────────────────
+    for market, verdicts in market_verdicts.items():
+        if not verdicts:
+            continue
+        red_count = sum(1 for v in verdicts if v == "RED")
+        red_pct   = red_count / len(verdicts)
+        if red_pct > MARKET_AMBER_THRESHOLD:
+            logger.warning(
+                "Market AMBER alert: %s — %d/%d instruments RED (%.1f%%)",
+                market, red_count, len(verdicts), red_pct * 100,
+            )
+            send_market_amber_alert(market, red_count, len(verdicts), red_pct * 100)
 
 
 def _analyse_instrument(inst, db, risk_mgr, portfolio_value,
@@ -128,13 +154,13 @@ def _analyse_instrument(inst, db, risk_mgr, portfolio_value,
 
     if df is None or df.empty:
         logger.warning("No price data for %s — skipping", symbol)
-        return
+        return None
 
     # ── 2. Technical analysis ─────────────────────────────────────
     tech = tech_compute(df)
     if tech is None:
         logger.warning("Insufficient data for technical analysis: %s", symbol)
-        return
+        return None
 
     current_price = float(df["Close"].iloc[-1])
 
@@ -255,6 +281,7 @@ def _analyse_instrument(inst, db, risk_mgr, portfolio_value,
 
     send_signal_alert(signal, risk_decision, executed)
     logger.info("Done: %s | conf=%.1f | action=%s", symbol, signal.confidence, action)
+    return news.verdict
 
 
 def run_portfolio_snapshot(db: DBManager) -> None:
@@ -292,12 +319,24 @@ def run_portfolio_snapshot(db: DBManager) -> None:
 
 
 def run_daily_summary(db: DBManager) -> None:
+    from data.watchlist import get_active
     from notifications.email_notifier import send_daily_summary
-    signals = db.get_recent_signals(50)
-    closed  = db.get_recent_closed_trades(20)
-    snap    = db.latest_portfolio_snapshot()
-    send_daily_summary(signals, closed, snap)
+    signals             = db.get_signals_today()
+    closed              = db.get_closed_trades_today()
+    snap                = db.latest_portfolio_snapshot()
+    instruments_scanned = len(get_active())
+    send_daily_summary(signals, closed, snap, instruments_scanned)
     logger.info("Daily summary email sent")
+
+
+def run_weekly_summary(db: DBManager) -> None:
+    from notifications.email_notifier import send_weekly_summary
+    signals_week      = db.get_signals_this_week()
+    closed_week       = db.get_closed_trades_this_week()
+    snap              = db.latest_portfolio_snapshot()
+    week_start_snap   = db.get_snapshot_days_ago(7)
+    send_weekly_summary(signals_week, closed_week, snap, week_start_snap)
+    logger.info("Weekly summary email sent")
 
 
 def run_tier2_screen(db: DBManager) -> None:
@@ -351,6 +390,16 @@ def build_scheduler(db: DBManager) -> BlockingScheduler:
         id="tier2_screen",
         name="Weekly Tier 2 Screen",
         misfire_grace_time=600,
+    )
+
+    # Weekly performance summary email: Monday 07:00 Brisbane
+    scheduler.add_job(
+        run_weekly_summary,
+        trigger=CronTrigger(day_of_week="mon", hour=7, minute=0, timezone=BRISBANE),
+        args=[db],
+        id="weekly_summary",
+        name="Weekly Performance Summary Email",
+        misfire_grace_time=300,
     )
 
     return scheduler

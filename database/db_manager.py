@@ -164,9 +164,57 @@ class DBManager:
             ).fetchall()
             return [dict(r) for r in rows]
 
+    def get_signals_today(self) -> list[dict]:
+        today = datetime.now(timezone.utc).date().isoformat()
+        with self._conn() as conn:
+            rows = conn.execute(
+                "SELECT * FROM signals WHERE timestamp LIKE ? ORDER BY id",
+                (f"{today}%",),
+            ).fetchall()
+            return [dict(r) for r in rows]
+
+    def get_signals_this_week(self) -> list[dict]:
+        from datetime import timedelta
+        week_ago = (datetime.now(timezone.utc) - timedelta(days=7)).isoformat()
+        with self._conn() as conn:
+            rows = conn.execute(
+                "SELECT * FROM signals WHERE timestamp >= ? ORDER BY id",
+                (week_ago,),
+            ).fetchall()
+            return [dict(r) for r in rows]
+
     def get_recent_closed_trades(self, limit: int = 10) -> list[dict]:
         with self._conn() as conn:
             rows = conn.execute(
                 "SELECT * FROM trades WHERE status='CLOSED' ORDER BY id DESC LIMIT ?", (limit,)
             ).fetchall()
             return [dict(r) for r in rows]
+
+    def get_closed_trades_today(self) -> list[dict]:
+        today = datetime.now(timezone.utc).date().isoformat()
+        with self._conn() as conn:
+            rows = conn.execute(
+                "SELECT * FROM trades WHERE status='CLOSED' AND exit_time LIKE ? ORDER BY id",
+                (f"{today}%",),
+            ).fetchall()
+            return [dict(r) for r in rows]
+
+    def get_closed_trades_this_week(self) -> list[dict]:
+        from datetime import timedelta
+        week_ago = (datetime.now(timezone.utc) - timedelta(days=7)).isoformat()
+        with self._conn() as conn:
+            rows = conn.execute(
+                "SELECT * FROM trades WHERE status='CLOSED' AND exit_time >= ? ORDER BY id",
+                (week_ago,),
+            ).fetchall()
+            return [dict(r) for r in rows]
+
+    def get_snapshot_days_ago(self, days: int) -> dict | None:
+        from datetime import timedelta
+        target = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
+        with self._conn() as conn:
+            row = conn.execute(
+                "SELECT * FROM portfolio_snapshots WHERE timestamp <= ? ORDER BY id DESC LIMIT 1",
+                (target,),
+            ).fetchone()
+            return dict(row) if row else None
