@@ -13,3 +13,4 @@ lxml>=4.9.0
 pytz>=2024.1
 aiohttp>=3.9.0
 yfinance>=0.2.40
+supabase>=2.0.0

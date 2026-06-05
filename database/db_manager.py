@@ -1,12 +1,14 @@
 """
-SQLite database layer.  Creates schema on first use.
+Dual-write database layer.
+Writes to both Supabase (primary) and local SQLite (backup) simultaneously.
+All reads come from Supabase with automatic SQLite fallback.
+If Supabase write fails, error is logged and SQLite backup preserves the data.
 """
-import json
 import logging
+import os
 import sqlite3
 from contextlib import contextmanager
-from datetime import datetime, timezone
-from typing import Any
+from datetime import datetime, timedelta, timezone
 
 from config import config
 
@@ -17,8 +19,8 @@ CREATE TABLE IF NOT EXISTS signals (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
     timestamp       TEXT    NOT NULL,
     instrument      TEXT    NOT NULL,
-    market_type     TEXT    NOT NULL,
-    direction       TEXT    NOT NULL,
+    market_type     TEXT,
+    direction       TEXT,
     technical_score REAL,
     news_verdict    TEXT,
     confidence_score REAL,
@@ -59,14 +61,32 @@ CREATE TABLE IF NOT EXISTS portfolio_snapshots (
 """
 
 
+def _init_supabase():
+    url = os.getenv("SUPABASE_URL")
+    key = os.getenv("SUPABASE_SERVICE_KEY")
+    if not url or not key:
+        logger.warning("Supabase credentials missing — SQLite-only mode")
+        return None
+    try:
+        from supabase import create_client
+        client = create_client(url, key)
+        logger.info("Supabase client initialised (dual-write active)")
+        return client
+    except Exception as exc:
+        logger.error("Supabase init failed: %s", exc)
+        return None
+
+
 class DBManager:
     def __init__(self, db_path: str | None = None):
         self.db_path = db_path or config.DB_PATH
-        self._initialise()
+        self._init_sqlite()
+        self._sb = _init_supabase()
+
+    # ── SQLite ─────────────────────────────────────────────────────────────
 
     @contextmanager
     def _conn(self):
-        # timeout=30 and WAL mode allow concurrent writes from multiple threads
         conn = sqlite3.connect(self.db_path, timeout=30, check_same_thread=False)
         conn.execute("PRAGMA journal_mode=WAL")
         conn.row_factory = sqlite3.Row
@@ -79,85 +99,70 @@ class DBManager:
         finally:
             conn.close()
 
-    def _initialise(self) -> None:
+    def _init_sqlite(self) -> None:
         with self._conn() as conn:
             conn.executescript(SCHEMA)
-        logger.debug("Database initialised at %s", self.db_path)
+        logger.debug("SQLite initialised at %s", self.db_path)
 
-    # ── Signals ───────────────────────────────────────────────────
+    # ── Supabase helpers ───────────────────────────────────────────────────
+
+    def _sb_insert(self, table: str, data: dict) -> None:
+        if not self._sb:
+            return
+        try:
+            self._sb.table(table).insert(data).execute()
+        except Exception as exc:
+            logger.error("Supabase insert [%s] failed — data safe in SQLite: %s", table, exc)
+
+    def _sb_update(self, table: str, local_id: int, data: dict) -> None:
+        if not self._sb:
+            return
+        try:
+            self._sb.table(table).update(data).eq("local_id", local_id).execute()
+        except Exception as exc:
+            logger.error("Supabase update [%s] local_id=%s failed: %s", table, local_id, exc)
+
+    # ── Signals ────────────────────────────────────────────────────────────
 
     def insert_signal(self, **kwargs) -> int:
         kwargs.setdefault("timestamp", datetime.now(timezone.utc).isoformat())
         cols = ", ".join(kwargs.keys())
         placeholders = ", ".join(["?"] * len(kwargs))
-        sql = f"INSERT INTO signals ({cols}) VALUES ({placeholders})"
         with self._conn() as conn:
-            cur = conn.execute(sql, list(kwargs.values()))
-            return cur.lastrowid
+            cur = conn.execute(
+                f"INSERT INTO signals ({cols}) VALUES ({placeholders})",
+                list(kwargs.values()),
+            )
+            local_id = cur.lastrowid
+        self._sb_insert("signals", {**kwargs, "local_id": local_id})
+        return local_id
 
     def get_signal(self, signal_id: int) -> dict | None:
+        if self._sb:
+            try:
+                resp = self._sb.table("signals").select("*").eq("local_id", signal_id).execute()
+                if resp.data:
+                    return resp.data[0]
+            except Exception as exc:
+                logger.warning("Supabase get_signal fallback to SQLite: %s", exc)
         with self._conn() as conn:
             row = conn.execute("SELECT * FROM signals WHERE id=?", (signal_id,)).fetchone()
             return dict(row) if row else None
 
-    # ── Trades ────────────────────────────────────────────────────
-
-    def insert_trade(self, **kwargs) -> int:
-        kwargs.setdefault("entry_time", datetime.now(timezone.utc).isoformat())
-        kwargs.setdefault("status", "OPEN")
-        cols = ", ".join(kwargs.keys())
-        placeholders = ", ".join(["?"] * len(kwargs))
-        sql = f"INSERT INTO trades ({cols}) VALUES ({placeholders})"
-        with self._conn() as conn:
-            cur = conn.execute(sql, list(kwargs.values()))
-            return cur.lastrowid
-
-    def close_trade(self, trade_id: int, exit_price: float, pnl: float, pnl_pct: float) -> None:
-        sql = """
-            UPDATE trades
-               SET exit_price=?, exit_time=?, pnl=?, pnl_pct=?, status='CLOSED'
-             WHERE id=?
-        """
-        with self._conn() as conn:
-            conn.execute(sql, (exit_price, datetime.now(timezone.utc).isoformat(), pnl, pnl_pct, trade_id))
-
-    def count_open_trades(self) -> int:
-        with self._conn() as conn:
-            row = conn.execute("SELECT COUNT(*) FROM trades WHERE status='OPEN'").fetchone()
-            return row[0] if row else 0
-
-    def get_open_trades(self) -> list[dict]:
-        with self._conn() as conn:
-            rows = conn.execute("SELECT * FROM trades WHERE status='OPEN'").fetchall()
-            return [dict(r) for r in rows]
-
-    def get_trades_today(self) -> list[dict]:
-        today = datetime.now(timezone.utc).date().isoformat()
-        with self._conn() as conn:
-            rows = conn.execute(
-                "SELECT * FROM trades WHERE entry_time LIKE ?", (f"{today}%",)
-            ).fetchall()
-            return [dict(r) for r in rows]
-
-    # ── Portfolio snapshots ───────────────────────────────────────
-
-    def insert_snapshot(self, **kwargs) -> int:
-        kwargs.setdefault("timestamp", datetime.now(timezone.utc).isoformat())
-        cols = ", ".join(kwargs.keys())
-        placeholders = ", ".join(["?"] * len(kwargs))
-        sql = f"INSERT INTO portfolio_snapshots ({cols}) VALUES ({placeholders})"
-        with self._conn() as conn:
-            cur = conn.execute(sql, list(kwargs.values()))
-            return cur.lastrowid
-
-    def latest_portfolio_snapshot(self) -> dict | None:
-        with self._conn() as conn:
-            row = conn.execute(
-                "SELECT * FROM portfolio_snapshots ORDER BY id DESC LIMIT 1"
-            ).fetchone()
-            return dict(row) if row else None
-
     def get_recent_signals(self, limit: int = 20) -> list[dict]:
+        if self._sb:
+            try:
+                resp = (
+                    self._sb.table("signals")
+                    .select("*")
+                    .order("local_id", desc=True)
+                    .limit(limit)
+                    .execute()
+                )
+                if resp.data is not None:
+                    return resp.data
+            except Exception as exc:
+                logger.warning("Supabase get_recent_signals fallback to SQLite: %s", exc)
         with self._conn() as conn:
             rows = conn.execute(
                 "SELECT * FROM signals ORDER BY id DESC LIMIT ?", (limit,)
@@ -165,7 +170,22 @@ class DBManager:
             return [dict(r) for r in rows]
 
     def get_signals_today(self) -> list[dict]:
-        today = datetime.now(timezone.utc).date().isoformat()
+        today    = datetime.now(timezone.utc).date().isoformat()
+        tomorrow = (datetime.now(timezone.utc).date() + timedelta(days=1)).isoformat()
+        if self._sb:
+            try:
+                resp = (
+                    self._sb.table("signals")
+                    .select("*")
+                    .gte("timestamp", today)
+                    .lt("timestamp", tomorrow)
+                    .order("local_id")
+                    .execute()
+                )
+                if resp.data is not None:
+                    return resp.data
+            except Exception as exc:
+                logger.warning("Supabase get_signals_today fallback to SQLite: %s", exc)
         with self._conn() as conn:
             rows = conn.execute(
                 "SELECT * FROM signals WHERE timestamp LIKE ? ORDER BY id",
@@ -174,16 +194,117 @@ class DBManager:
             return [dict(r) for r in rows]
 
     def get_signals_this_week(self) -> list[dict]:
-        from datetime import timedelta
         week_ago = (datetime.now(timezone.utc) - timedelta(days=7)).isoformat()
+        if self._sb:
+            try:
+                resp = (
+                    self._sb.table("signals")
+                    .select("*")
+                    .gte("timestamp", week_ago)
+                    .order("local_id")
+                    .execute()
+                )
+                if resp.data is not None:
+                    return resp.data
+            except Exception as exc:
+                logger.warning("Supabase get_signals_this_week fallback to SQLite: %s", exc)
         with self._conn() as conn:
             rows = conn.execute(
-                "SELECT * FROM signals WHERE timestamp >= ? ORDER BY id",
-                (week_ago,),
+                "SELECT * FROM signals WHERE timestamp >= ? ORDER BY id", (week_ago,)
+            ).fetchall()
+            return [dict(r) for r in rows]
+
+    # ── Trades ─────────────────────────────────────────────────────────────
+
+    def insert_trade(self, **kwargs) -> int:
+        kwargs.setdefault("entry_time", datetime.now(timezone.utc).isoformat())
+        kwargs.setdefault("status", "OPEN")
+        cols = ", ".join(kwargs.keys())
+        placeholders = ", ".join(["?"] * len(kwargs))
+        with self._conn() as conn:
+            cur = conn.execute(
+                f"INSERT INTO trades ({cols}) VALUES ({placeholders})",
+                list(kwargs.values()),
+            )
+            local_id = cur.lastrowid
+        self._sb_insert("trades", {**kwargs, "local_id": local_id})
+        return local_id
+
+    def close_trade(self, trade_id: int, exit_price: float, pnl: float, pnl_pct: float) -> None:
+        exit_time = datetime.now(timezone.utc).isoformat()
+        with self._conn() as conn:
+            conn.execute(
+                "UPDATE trades SET exit_price=?, exit_time=?, pnl=?, pnl_pct=?, status='CLOSED' WHERE id=?",
+                (exit_price, exit_time, pnl, pnl_pct, trade_id),
+            )
+        self._sb_update("trades", trade_id, {
+            "exit_price": exit_price,
+            "exit_time":  exit_time,
+            "pnl":        pnl,
+            "pnl_pct":    pnl_pct,
+            "status":     "CLOSED",
+        })
+
+    def count_open_trades(self) -> int:
+        if self._sb:
+            try:
+                resp = self._sb.table("trades").select("local_id").eq("status", "OPEN").execute()
+                return len(resp.data or [])
+            except Exception as exc:
+                logger.warning("Supabase count_open_trades fallback to SQLite: %s", exc)
+        with self._conn() as conn:
+            row = conn.execute("SELECT COUNT(*) FROM trades WHERE status='OPEN'").fetchone()
+            return row[0] if row else 0
+
+    def get_open_trades(self) -> list[dict]:
+        if self._sb:
+            try:
+                resp = self._sb.table("trades").select("*").eq("status", "OPEN").execute()
+                if resp.data is not None:
+                    return resp.data
+            except Exception as exc:
+                logger.warning("Supabase get_open_trades fallback to SQLite: %s", exc)
+        with self._conn() as conn:
+            rows = conn.execute("SELECT * FROM trades WHERE status='OPEN'").fetchall()
+            return [dict(r) for r in rows]
+
+    def get_trades_today(self) -> list[dict]:
+        today    = datetime.now(timezone.utc).date().isoformat()
+        tomorrow = (datetime.now(timezone.utc).date() + timedelta(days=1)).isoformat()
+        if self._sb:
+            try:
+                resp = (
+                    self._sb.table("trades")
+                    .select("*")
+                    .gte("entry_time", today)
+                    .lt("entry_time", tomorrow)
+                    .execute()
+                )
+                if resp.data is not None:
+                    return resp.data
+            except Exception as exc:
+                logger.warning("Supabase get_trades_today fallback to SQLite: %s", exc)
+        with self._conn() as conn:
+            rows = conn.execute(
+                "SELECT * FROM trades WHERE entry_time LIKE ?", (f"{today}%",)
             ).fetchall()
             return [dict(r) for r in rows]
 
     def get_recent_closed_trades(self, limit: int = 10) -> list[dict]:
+        if self._sb:
+            try:
+                resp = (
+                    self._sb.table("trades")
+                    .select("*")
+                    .eq("status", "CLOSED")
+                    .order("local_id", desc=True)
+                    .limit(limit)
+                    .execute()
+                )
+                if resp.data is not None:
+                    return resp.data
+            except Exception as exc:
+                logger.warning("Supabase get_recent_closed_trades fallback to SQLite: %s", exc)
         with self._conn() as conn:
             rows = conn.execute(
                 "SELECT * FROM trades WHERE status='CLOSED' ORDER BY id DESC LIMIT ?", (limit,)
@@ -191,7 +312,23 @@ class DBManager:
             return [dict(r) for r in rows]
 
     def get_closed_trades_today(self) -> list[dict]:
-        today = datetime.now(timezone.utc).date().isoformat()
+        today    = datetime.now(timezone.utc).date().isoformat()
+        tomorrow = (datetime.now(timezone.utc).date() + timedelta(days=1)).isoformat()
+        if self._sb:
+            try:
+                resp = (
+                    self._sb.table("trades")
+                    .select("*")
+                    .eq("status", "CLOSED")
+                    .gte("exit_time", today)
+                    .lt("exit_time", tomorrow)
+                    .order("local_id")
+                    .execute()
+                )
+                if resp.data is not None:
+                    return resp.data
+            except Exception as exc:
+                logger.warning("Supabase get_closed_trades_today fallback to SQLite: %s", exc)
         with self._conn() as conn:
             rows = conn.execute(
                 "SELECT * FROM trades WHERE status='CLOSED' AND exit_time LIKE ? ORDER BY id",
@@ -200,8 +337,21 @@ class DBManager:
             return [dict(r) for r in rows]
 
     def get_closed_trades_this_week(self) -> list[dict]:
-        from datetime import timedelta
         week_ago = (datetime.now(timezone.utc) - timedelta(days=7)).isoformat()
+        if self._sb:
+            try:
+                resp = (
+                    self._sb.table("trades")
+                    .select("*")
+                    .eq("status", "CLOSED")
+                    .gte("exit_time", week_ago)
+                    .order("local_id")
+                    .execute()
+                )
+                if resp.data is not None:
+                    return resp.data
+            except Exception as exc:
+                logger.warning("Supabase get_closed_trades_this_week fallback to SQLite: %s", exc)
         with self._conn() as conn:
             rows = conn.execute(
                 "SELECT * FROM trades WHERE status='CLOSED' AND exit_time >= ? ORDER BY id",
@@ -209,9 +359,57 @@ class DBManager:
             ).fetchall()
             return [dict(r) for r in rows]
 
+    # ── Portfolio snapshots ────────────────────────────────────────────────
+
+    def insert_snapshot(self, **kwargs) -> int:
+        kwargs.setdefault("timestamp", datetime.now(timezone.utc).isoformat())
+        cols = ", ".join(kwargs.keys())
+        placeholders = ", ".join(["?"] * len(kwargs))
+        with self._conn() as conn:
+            cur = conn.execute(
+                f"INSERT INTO portfolio_snapshots ({cols}) VALUES ({placeholders})",
+                list(kwargs.values()),
+            )
+            local_id = cur.lastrowid
+        self._sb_insert("portfolio_snapshots", {**kwargs, "local_id": local_id})
+        return local_id
+
+    def latest_portfolio_snapshot(self) -> dict | None:
+        if self._sb:
+            try:
+                resp = (
+                    self._sb.table("portfolio_snapshots")
+                    .select("*")
+                    .order("local_id", desc=True)
+                    .limit(1)
+                    .execute()
+                )
+                if resp.data:
+                    return resp.data[0]
+            except Exception as exc:
+                logger.warning("Supabase latest_portfolio_snapshot fallback to SQLite: %s", exc)
+        with self._conn() as conn:
+            row = conn.execute(
+                "SELECT * FROM portfolio_snapshots ORDER BY id DESC LIMIT 1"
+            ).fetchone()
+            return dict(row) if row else None
+
     def get_snapshot_days_ago(self, days: int) -> dict | None:
-        from datetime import timedelta
         target = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
+        if self._sb:
+            try:
+                resp = (
+                    self._sb.table("portfolio_snapshots")
+                    .select("*")
+                    .lte("timestamp", target)
+                    .order("local_id", desc=True)
+                    .limit(1)
+                    .execute()
+                )
+                if resp.data:
+                    return resp.data[0]
+            except Exception as exc:
+                logger.warning("Supabase get_snapshot_days_ago fallback to SQLite: %s", exc)
         with self._conn() as conn:
             row = conn.execute(
                 "SELECT * FROM portfolio_snapshots WHERE timestamp <= ? ORDER BY id DESC LIMIT 1",
