@@ -136,6 +136,60 @@ P&L %       : {pnl_pct:+.2f}%
     return _send(subject, body)
 
 
+# ── 2b. Position monitor close alert ──────────────────────────────────────────
+
+def send_position_closed(trade: dict, exit_reason: str) -> bool:
+    """
+    Dedicated alert from the 30-minute position monitor.
+    exit_reason: 'TAKE_PROFIT' or 'STOP_LOSS' or 'ALPACA_CLOSED'
+    """
+    pnl_pct   = trade.get("pnl_pct", 0) or 0
+    symbol    = trade.get("instrument", "?")
+    direction = trade.get("direction", "?")
+    entry     = trade.get("entry_price", 0) or 0
+    exit_p    = trade.get("exit_price", 0) or 0
+    broker    = trade.get("broker", "").upper()
+    pnl       = trade.get("pnl", 0) or 0
+
+    if exit_reason == "TAKE_PROFIT":
+        emoji = "✅"
+        label = "TAKE PROFIT"
+    elif exit_reason == "STOP_LOSS":
+        emoji = "🛑"
+        label = "STOP LOSS"
+    else:
+        emoji = "🔔"
+        label = "POSITION CLOSED"
+
+    subject = f"[TRADING AGENT] {emoji} {label} — {symbol} {pnl_pct:+.1f}%"
+
+    body = f"""
+TRADING AGENT — POSITION CLOSED
+{'='*50}
+{emoji} {label}
+
+Instrument  : {symbol}
+Direction   : {direction}
+Broker      : {broker}
+Exit Reason : {exit_reason}
+
+Entry Price : {entry}
+Exit Price  : {exit_p}
+P&L         : {pnl:+.4f}
+P&L %       : {pnl_pct:+.2f}%
+
+Exit Time   : {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}
+{'='*50}
+This is a paper trading system. No real money is at risk.
+""".strip()
+
+    logger.info(
+        "Position closed alert: %s %s %s%.1f%%", emoji, symbol,
+        "+" if pnl_pct >= 0 else "", pnl_pct,
+    )
+    return _send(subject, body)
+
+
 # ── 3. Daily summary ───────────────────────────────────────────────────────
 
 def send_daily_summary(
@@ -143,6 +197,7 @@ def send_daily_summary(
     closed_today: list,
     snapshot: dict | None,
     instruments_scanned: int = 0,
+    open_trades: list | None = None,
 ) -> bool:
     subject = f"[TRADING AGENT] Daily Summary — {datetime.now(timezone.utc).strftime('%Y-%m-%d')}"
 
@@ -209,6 +264,41 @@ def send_daily_summary(
         if red_alerts else "  None"
     )
 
+    # ── Open positions block ──────────────────────────────────────────────
+    open_block = ""
+    if open_trades:
+        from execution.position_monitor import _fetch_price
+        lines = []
+        total_unrealised = 0.0
+        for t in open_trades:
+            sym       = t.get("instrument", "?")
+            direction = t.get("direction", "?")
+            entry     = float(t.get("entry_price") or 0)
+            broker    = t.get("broker", "")
+            # Use stored unrealised_pnl if fresh, else try to fetch live
+            unrealised_pct = float(t.get("unrealised_pnl") or 0)
+            if entry:
+                price, _ = _fetch_price(sym)
+                if price:
+                    if direction == "LONG":
+                        unrealised_pct = (price - entry) / entry * 100
+                    else:
+                        unrealised_pct = (entry - price) / entry * 100
+                trend = "📈" if unrealised_pct >= 0 else "📉"
+                lines.append(
+                    f"  {sym:<12s} {direction:<5s} Entry: {entry:<10g} "
+                    f"Current: {price or 0:<10g} {unrealised_pct:+.1f}% {trend}"
+                )
+                total_unrealised += unrealised_pct
+            else:
+                lines.append(f"  {sym:<12s} {direction:<5s} (no entry price)")
+        avg_unrealised = total_unrealised / len(open_trades) if open_trades else 0
+        open_block = (
+            "\n── OPEN POSITIONS ───────────────────────────────\n"
+            + "\n".join(lines)
+            + f"\n\n  Total unrealised P&L (avg): {avg_unrealised:+.1f}%"
+        )
+
     body = f"""
 TRADING AGENT — DAILY SUMMARY
 {'='*50}
@@ -234,6 +324,7 @@ Signals Generated   : {total_signals}
 
 ── TRADES CLOSED ────────────────────────────────
 {trade_lines}
+{open_block}
 {'='*50}
 """.strip()
 

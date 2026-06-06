@@ -131,6 +131,8 @@ class DBManager:
         migrations = [
             "ALTER TABLE trades ADD COLUMN stop_loss REAL",
             "ALTER TABLE trades ADD COLUMN take_profit REAL",
+            "ALTER TABLE trades ADD COLUMN unrealised_pnl REAL DEFAULT 0",
+            "ALTER TABLE trades ADD COLUMN exit_reason TEXT",
             "ALTER TABLE portfolio_snapshots ADD COLUMN alpaca_value REAL",
             "ALTER TABLE portfolio_snapshots ADD COLUMN oanda_value REAL",
             "ALTER TABLE portfolio_snapshots ADD COLUMN paper_sim_value REAL",
@@ -275,20 +277,37 @@ class DBManager:
         self._sb_insert("trades", {**kwargs, "local_id": local_id})
         return local_id
 
-    def close_trade(self, trade_id: int, exit_price: float, pnl: float, pnl_pct: float) -> None:
+    def close_trade(
+        self,
+        trade_id: int,
+        exit_price: float,
+        pnl: float,
+        pnl_pct: float,
+        exit_reason: str = "",
+    ) -> None:
         exit_time = datetime.now(timezone.utc).isoformat()
         with self._conn() as conn:
             conn.execute(
-                "UPDATE trades SET exit_price=?, exit_time=?, pnl=?, pnl_pct=?, status='CLOSED' WHERE id=?",
-                (exit_price, exit_time, pnl, pnl_pct, trade_id),
+                "UPDATE trades SET exit_price=?, exit_time=?, pnl=?, pnl_pct=?, "
+                "status='CLOSED', exit_reason=? WHERE id=?",
+                (exit_price, exit_time, pnl, pnl_pct, exit_reason, trade_id),
             )
         self._sb_update("trades", trade_id, {
-            "exit_price": exit_price,
-            "exit_time":  exit_time,
-            "pnl":        pnl,
-            "pnl_pct":    pnl_pct,
-            "status":     "CLOSED",
+            "exit_price":  exit_price,
+            "exit_time":   exit_time,
+            "pnl":         pnl,
+            "pnl_pct":     pnl_pct,
+            "status":      "CLOSED",
+            "exit_reason": exit_reason,
         })
+
+    def update_trade_unrealised_pnl(self, trade_id: int, unrealised_pnl: float) -> None:
+        with self._conn() as conn:
+            conn.execute(
+                "UPDATE trades SET unrealised_pnl=? WHERE id=?",
+                (unrealised_pnl, trade_id),
+            )
+        self._sb_update("trades", trade_id, {"unrealised_pnl": unrealised_pnl})
 
     def count_open_trades(self) -> int:
         if self._sb:

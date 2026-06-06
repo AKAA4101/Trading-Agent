@@ -317,14 +317,22 @@ def run_portfolio_snapshot(db: DBManager) -> None:
     )
 
 
+def run_position_monitor(db: DBManager) -> None:
+    """Lightweight 30-minute position check — no watchlist scan."""
+    from execution.position_monitor import run_position_check
+    summary = run_position_check(db)
+    logger.info("Position monitor: %s", summary)
+
+
 def run_daily_summary(db: DBManager) -> None:
     from data.watchlist import get_active
     from notifications.email_notifier import send_daily_summary
     signals             = db.get_signals_today()
     closed              = db.get_closed_trades_today()
     snap                = db.latest_portfolio_snapshot()
+    open_trades         = db.get_open_trades()
     instruments_scanned = len(get_active())
-    send_daily_summary(signals, closed, snap, instruments_scanned)
+    send_daily_summary(signals, closed, snap, instruments_scanned, open_trades=open_trades)
     logger.info("Daily summary email sent")
 
 
@@ -350,6 +358,16 @@ def run_tier2_screen(db: DBManager) -> None:
 
 def build_scheduler(db: DBManager) -> BlockingScheduler:
     scheduler = BlockingScheduler(timezone=pytz.utc)
+
+    # Lightweight position monitor every 30 minutes
+    scheduler.add_job(
+        run_position_monitor,
+        trigger=IntervalTrigger(minutes=30),
+        args=[db],
+        id="position_monitor",
+        name="Position Monitor",
+        misfire_grace_time=60,
+    )
 
     # Full analysis every 4 hours
     scheduler.add_job(
