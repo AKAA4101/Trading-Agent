@@ -45,7 +45,9 @@ CREATE TABLE IF NOT EXISTS trades (
     status      TEXT    DEFAULT 'OPEN',
     broker      TEXT,
     order_id    TEXT,
-    units       REAL
+    units       REAL,
+    stop_loss   REAL,
+    take_profit REAL
 );
 
 CREATE TABLE IF NOT EXISTS portfolio_snapshots (
@@ -56,7 +58,26 @@ CREATE TABLE IF NOT EXISTS portfolio_snapshots (
     open_positions  INTEGER,
     daily_pnl       REAL,
     total_pnl       REAL,
-    drawdown_pct    REAL
+    drawdown_pct    REAL,
+    alpaca_value    REAL,
+    oanda_value     REAL,
+    paper_sim_value REAL
+);
+
+CREATE TABLE IF NOT EXISTS queued_signals (
+    id                       INTEGER PRIMARY KEY AUTOINCREMENT,
+    signal_id                INTEGER REFERENCES signals(id),
+    instrument               TEXT    NOT NULL,
+    market_type              TEXT    NOT NULL,
+    direction                TEXT    NOT NULL,
+    entry_price              REAL,
+    stop_loss                REAL,
+    take_profit              REAL,
+    units                    REAL,
+    broker                   TEXT,
+    created_at               TEXT    NOT NULL,
+    scheduled_execution_time TEXT,
+    status                   TEXT    DEFAULT 'PENDING'
 );
 """
 
@@ -102,7 +123,23 @@ class DBManager:
     def _init_sqlite(self) -> None:
         with self._conn() as conn:
             conn.executescript(SCHEMA)
+            self._migrate(conn)
         logger.debug("SQLite initialised at %s", self.db_path)
+
+    def _migrate(self, conn) -> None:
+        """Add new columns to existing tables (idempotent)."""
+        migrations = [
+            "ALTER TABLE trades ADD COLUMN stop_loss REAL",
+            "ALTER TABLE trades ADD COLUMN take_profit REAL",
+            "ALTER TABLE portfolio_snapshots ADD COLUMN alpaca_value REAL",
+            "ALTER TABLE portfolio_snapshots ADD COLUMN oanda_value REAL",
+            "ALTER TABLE portfolio_snapshots ADD COLUMN paper_sim_value REAL",
+        ]
+        for sql in migrations:
+            try:
+                conn.execute(sql)
+            except Exception:
+                pass  # column already exists — safe to ignore
 
     # ── Supabase helpers ───────────────────────────────────────────────────
 
@@ -192,6 +229,14 @@ class DBManager:
                 (f"{today}%",),
             ).fetchall()
             return [dict(r) for r in rows]
+
+    def update_signal_action(self, signal_id: int, action: str) -> None:
+        with self._conn() as conn:
+            conn.execute(
+                "UPDATE signals SET action_taken=? WHERE id=?",
+                (action, signal_id),
+            )
+        self._sb_update("signals", signal_id, {"action_taken": action})
 
     def get_signals_this_week(self) -> list[dict]:
         week_ago = (datetime.now(timezone.utc) - timedelta(days=7)).isoformat()
@@ -358,6 +403,96 @@ class DBManager:
                 (week_ago,),
             ).fetchall()
             return [dict(r) for r in rows]
+
+    # ── Queued signals ─────────────────────────────────────────────────────
+
+    def insert_queued_signal(self, **kwargs) -> int:
+        kwargs.setdefault("created_at", datetime.now(timezone.utc).isoformat())
+        kwargs.setdefault("status", "PENDING")
+        cols = ", ".join(kwargs.keys())
+        placeholders = ", ".join(["?"] * len(kwargs))
+        with self._conn() as conn:
+            cur = conn.execute(
+                f"INSERT INTO queued_signals ({cols}) VALUES ({placeholders})",
+                list(kwargs.values()),
+            )
+            local_id = cur.lastrowid
+        self._sb_insert("queued_signals", {**kwargs, "local_id": local_id})
+        return local_id
+
+    def get_pending_queued_signals(self, broker: str | None = None) -> list[dict]:
+        if self._sb:
+            try:
+                q = self._sb.table("queued_signals").select("*").eq("status", "PENDING")
+                if broker:
+                    q = q.eq("broker", broker)
+                resp = q.order("local_id").execute()
+                if resp.data is not None:
+                    return resp.data
+            except Exception as exc:
+                logger.warning("Supabase get_pending_queued_signals fallback: %s", exc)
+        with self._conn() as conn:
+            if broker:
+                rows = conn.execute(
+                    "SELECT * FROM queued_signals WHERE status='PENDING' AND broker=? ORDER BY id",
+                    (broker,),
+                ).fetchall()
+            else:
+                rows = conn.execute(
+                    "SELECT * FROM queued_signals WHERE status='PENDING' ORDER BY id"
+                ).fetchall()
+            return [dict(r) for r in rows]
+
+    def close_queued_signal(self, queued_id: int, status: str = "EXECUTED") -> None:
+        with self._conn() as conn:
+            conn.execute(
+                "UPDATE queued_signals SET status=? WHERE id=?",
+                (status, queued_id),
+            )
+        self._sb_update("queued_signals", queued_id, {"status": status})
+
+    # ── Paper sim helpers ──────────────────────────────────────────────────
+
+    def get_open_paper_sim_trades(self) -> list[dict]:
+        if self._sb:
+            try:
+                resp = (
+                    self._sb.table("trades")
+                    .select("*")
+                    .eq("status", "OPEN")
+                    .eq("broker", "paper_sim")
+                    .execute()
+                )
+                if resp.data is not None:
+                    return resp.data
+            except Exception as exc:
+                logger.warning("Supabase get_open_paper_sim_trades fallback: %s", exc)
+        with self._conn() as conn:
+            rows = conn.execute(
+                "SELECT * FROM trades WHERE status='OPEN' AND broker='paper_sim'"
+            ).fetchall()
+            return [dict(r) for r in rows]
+
+    def get_paper_sim_realized_pnl(self) -> float:
+        """Sum of P&L for all CLOSED paper_sim trades."""
+        if self._sb:
+            try:
+                resp = (
+                    self._sb.table("trades")
+                    .select("pnl")
+                    .eq("status", "CLOSED")
+                    .eq("broker", "paper_sim")
+                    .execute()
+                )
+                if resp.data is not None:
+                    return sum(float(r.get("pnl") or 0) for r in resp.data)
+            except Exception as exc:
+                logger.warning("Supabase get_paper_sim_realized_pnl fallback: %s", exc)
+        with self._conn() as conn:
+            row = conn.execute(
+                "SELECT COALESCE(SUM(pnl),0) FROM trades WHERE status='CLOSED' AND broker='paper_sim'"
+            ).fetchone()
+            return float(row[0]) if row else 0.0
 
     # ── Portfolio snapshots ────────────────────────────────────────────────
 

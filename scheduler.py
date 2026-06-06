@@ -30,15 +30,13 @@ MARKET_AMBER_THRESHOLD = 0.30  # 30% of a market returning RED triggers AMBER al
 def run_analysis_cycle(db: DBManager) -> None:
     """Full 4-hourly analysis cycle across all active instruments."""
     from data.watchlist import get_active
-    from data.collectors.alpaca_collector import get_equity_bars, get_crypto_bars
-    from data.collectors.oanda_collector import get_forex_bars
-    from data.collectors.massive_collector import get_global_equity_bars
     from analysis.technical import compute as tech_compute
     from analysis.news_filter import analyse as news_analyse
     from analysis.confidence_scorer import score as conf_score
     from risk.risk_manager import RiskManager
-    from execution.alpaca_executor import submit_bracket_order as alpaca_exec, get_account as alpaca_account
-    from execution.oanda_executor import submit_bracket_order as oanda_exec, get_account as oanda_account
+    from execution.alpaca_executor import get_account as alpaca_account
+    from execution.oanda_executor import get_account as oanda_account, execute_queued_signals
+    from execution.paper_broker import manage_positions as paper_manage
     from notifications.email_notifier import send_signal_alert, send_red_alert
 
     logger.info("──── Analysis cycle started ────")
@@ -48,13 +46,32 @@ def run_analysis_cycle(db: DBManager) -> None:
         logger.warning("Drawdown halt active — skipping analysis cycle")
         return
 
-    # Portfolio value for position sizing
+    # ── Pre-cycle tasks ───────────────────────────────────────────────────
+    # Execute any queued forex signals if market is now open
+    queued_exec = execute_queued_signals(db)
+    if queued_exec:
+        logger.info("Executed %d queued OANDA signals", queued_exec)
+
+    # Check open paper_sim positions for SL/TP hits
+    paper_summary = paper_manage(db)
+    logger.info("paper_sim position check: %s", paper_summary)
+
+    # Portfolio value for position sizing (all three sources)
     alpaca_acct = alpaca_account()
     oanda_acct  = oanda_account()
+    from execution.paper_broker import PAPER_SIM_STARTING_VALUE
+    paper_sim_realized = db.get_paper_sim_realized_pnl()
+    paper_sim_value    = PAPER_SIM_STARTING_VALUE + paper_sim_realized
     portfolio_value = (
         alpaca_acct.get("portfolio_value", 100_000)
         + oanda_acct.get("nav", 0)
+        + paper_sim_value
     ) or 100_000
+    logger.info(
+        "Portfolio values — Alpaca=%.2f OANDA=%.2f PaperSim=%.2f Total=%.2f",
+        alpaca_acct.get("portfolio_value", 0), oanda_acct.get("nav", 0),
+        paper_sim_value, portfolio_value,
+    )
 
     active = get_active()
     by_type: dict[str, int] = {}
@@ -117,7 +134,7 @@ def run_analysis_cycle(db: DBManager) -> None:
 
 
 def _analyse_instrument(inst, db, risk_mgr, portfolio_value,
-                         alpaca_exec, oanda_exec,
+                         _alpaca_exec_unused, _oanda_exec_unused,
                          send_signal_alert, send_red_alert):
     from data.collectors.alpaca_collector import get_equity_bars, get_crypto_bars
     from data.collectors.oanda_collector import get_forex_bars
@@ -190,80 +207,50 @@ def _analyse_instrument(inst, db, risk_mgr, portfolio_value,
 
     if signal.direction == "NEUTRAL":
         action = "NO_SIGNAL"
+        db.insert_signal(
+            instrument=symbol, market_type=inst.market_type,
+            direction=signal.direction, technical_score=signal.technical_score,
+            news_verdict=signal.news_verdict, confidence_score=signal.confidence,
+            action_taken="NO_SIGNAL", reasoning=signal.reasoning,
+            entry_price=current_price, stop_loss=signal.stop_loss,
+            take_profit=signal.take_profit,
+        )
     elif risk_decision.approved:
-        # ── 7. Execute ────────────────────────────────────────────
-        if inst.market_type == "yfinance":
-            # International exchange tickers are not executable via Alpaca/OANDA.
-            # Record as PAPER_SIGNAL so the signal is visible in the DB and email.
-            db.insert_signal(
-                instrument=symbol,
-                market_type=inst.market_type,
-                direction=signal.direction,
-                technical_score=signal.technical_score,
-                news_verdict=signal.news_verdict,
-                confidence_score=signal.confidence,
-                action_taken="PAPER_SIGNAL",
-                reasoning=signal.reasoning,
-                entry_price=current_price,
-                stop_loss=signal.stop_loss,
-                take_profit=signal.take_profit,
-            )
-            action = "PAPER_SIGNAL"
-            executed = True
-        else:
-            signal_id = db.insert_signal(
-                instrument=symbol,
-                market_type=inst.market_type,
-                direction=signal.direction,
-                technical_score=signal.technical_score,
-                news_verdict=signal.news_verdict,
-                confidence_score=signal.confidence,
-                action_taken="PENDING",
-                reasoning=signal.reasoning,
-                entry_price=current_price,
-                stop_loss=signal.stop_loss,
-                take_profit=signal.take_profit,
-            )
+        # ── 7. Insert signal as PENDING, route to execution ───────
+        from execution.execution_router import route as exec_route
 
-            if inst.market_type == "forex":
-                result = oanda_exec(
-                    instrument=symbol,
-                    direction=signal.direction,
-                    units=risk_decision.position_size_units,
-                    stop_loss=signal.stop_loss,
-                    take_profit=signal.take_profit,
-                    signal_id=signal_id,
-                    db=db,
-                )
-            else:
-                result = alpaca_exec(
-                    symbol=symbol,
-                    direction=signal.direction,
-                    units=risk_decision.position_size_units,
-                    stop_loss=signal.stop_loss,
-                    take_profit=signal.take_profit,
-                    signal_id=signal_id,
-                    db=db,
-                )
+        signal_id = db.insert_signal(
+            instrument=symbol,
+            market_type=inst.market_type,
+            direction=signal.direction,
+            technical_score=signal.technical_score,
+            news_verdict=signal.news_verdict,
+            confidence_score=signal.confidence,
+            action_taken="PENDING",
+            reasoning=signal.reasoning,
+            entry_price=current_price,
+            stop_loss=signal.stop_loss,
+            take_profit=signal.take_profit,
+        )
 
-            if result.success:
-                action = "EXECUTED"
-                executed = True
-                db.insert_signal(
-                    instrument=symbol,
-                    market_type=inst.market_type,
-                    direction=signal.direction,
-                    technical_score=signal.technical_score,
-                    news_verdict=signal.news_verdict,
-                    confidence_score=signal.confidence,
-                    action_taken=action,
-                    reasoning=signal.reasoning,
-                    entry_price=current_price,
-                    stop_loss=signal.stop_loss,
-                    take_profit=signal.take_profit,
-                )
-            else:
-                action = f"EXECUTION_FAILED: {result.message}"
+        route_result = exec_route(
+            symbol=symbol,
+            market_type=inst.market_type,
+            direction=signal.direction,
+            units=risk_decision.position_size_units,
+            stop_loss=signal.stop_loss,
+            take_profit=signal.take_profit,
+            signal_id=signal_id,
+            db=db,
+            entry_price=current_price,
+        )
+
+        action = route_result.action
+        executed = route_result.success
+        logger.info(
+            "Execution route result | %s → broker=%s action=%s trade_id=%s",
+            symbol, route_result.broker, action, route_result.trade_db_id,
+        )
     else:
         db.insert_signal(
             instrument=symbol,
@@ -287,11 +274,17 @@ def _analyse_instrument(inst, db, risk_mgr, portfolio_value,
 def run_portfolio_snapshot(db: DBManager) -> None:
     from execution.alpaca_executor import get_account as alpaca_account
     from execution.oanda_executor import get_account as oanda_account
+    from execution.paper_broker import PAPER_SIM_STARTING_VALUE
 
     alpaca = alpaca_account()
     oanda  = oanda_account()
 
-    total_value = alpaca.get("portfolio_value", 0) + oanda.get("nav", 0)
+    alpaca_value   = alpaca.get("portfolio_value", 0)
+    oanda_value    = oanda.get("nav", 0)
+    paper_sim_realized = db.get_paper_sim_realized_pnl()
+    paper_sim_value    = PAPER_SIM_STARTING_VALUE + paper_sim_realized
+
+    total_value = alpaca_value + oanda_value + paper_sim_value
     cash        = alpaca.get("cash", 0) + oanda.get("balance", 0)
     open_pos    = db.count_open_trades()
 
@@ -309,13 +302,19 @@ def run_portfolio_snapshot(db: DBManager) -> None:
         daily_pnl=daily_pnl,
         total_pnl=0,
         drawdown_pct=drawdown_pct,
+        alpaca_value=alpaca_value,
+        oanda_value=oanda_value,
+        paper_sim_value=paper_sim_value,
     )
 
     if drawdown_pct >= config.DAILY_DRAWDOWN_LIMIT_PCT:
         from notifications.email_notifier import send_drawdown_alert
         send_drawdown_alert(drawdown_pct)
 
-    logger.info("Portfolio snapshot: value=%.2f drawdown=%.2f%%", total_value, drawdown_pct)
+    logger.info(
+        "Portfolio snapshot: alpaca=%.2f oanda=%.2f paper_sim=%.2f total=%.2f drawdown=%.2f%%",
+        alpaca_value, oanda_value, paper_sim_value, total_value, drawdown_pct,
+    )
 
 
 def run_daily_summary(db: DBManager) -> None:
