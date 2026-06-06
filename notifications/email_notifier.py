@@ -167,7 +167,7 @@ def send_daily_summary(
     top_reason = "N/A"
     if rejected_signals:
         reasons = [
-            str(s.get("action_taken", "")).removeprefix("REJECTED: ").strip()
+            str(s.get("action_taken", "")).removeprefix("REJECTED: ").split(":")[0].strip()
             for s in rejected_signals
         ]
         top_reason = Counter(reasons).most_common(1)[0][0]

@@ -22,6 +22,9 @@ logger = logging.getLogger(__name__)
 
 CLAUDE_MODEL = "claude-sonnet-4-5"
 
+NEWS_CACHE_PATH = "/opt/trading-agent/data/news_cache.json"
+NEWS_CACHE_TTL_SECONDS = 3600  # 1 hour per query
+
 # ── International ticker → meaningful NewsAPI search term ──────────────────
 # Without this mapping, searching for "7203.T" or "0700.HK" returns nothing.
 TICKER_NEWS_QUERIES: dict[str, str] = {
@@ -46,6 +49,37 @@ TICKER_NEWS_QUERIES: dict[str, str] = {
     "DOT/USD":  "Polkadot DOT price",
     "MATIC/USD":"Polygon MATIC price",
     "LINK/USD": "Chainlink LINK price",
+    # ── Major US equities ────────────────────────────────────────────────────
+    "AAPL":  "Apple AAPL stock earnings",
+    "MSFT":  "Microsoft MSFT stock",
+    "AMZN":  "Amazon AMZN stock earnings",
+    "GOOGL": "Alphabet Google GOOGL stock",
+    "GOOG":  "Alphabet Google stock",
+    "META":  "Meta Facebook META stock",
+    "TSLA":  "Tesla TSLA stock earnings",
+    "NVDA":  "Nvidia NVDA semiconductor stock",
+    "NFLX":  "Netflix NFLX stock streaming",
+    "JPM":   "JPMorgan Chase bank stock",
+    "BAC":   "Bank of America stock",
+    "GS":    "Goldman Sachs bank stock",
+    "MS":    "Morgan Stanley bank stock",
+    "V":     "Visa payment stock",
+    "MA":    "Mastercard payment stock",
+    "JNJ":   "Johnson Johnson pharma stock",
+    "UNH":   "UnitedHealth stock",
+    "XOM":   "ExxonMobil oil stock",
+    "CVX":   "Chevron oil stock",
+    "WMT":   "Walmart retail stock",
+    "HD":    "Home Depot retail stock",
+    "DIS":   "Disney entertainment stock",
+    "PYPL":  "PayPal fintech stock",
+    "INTC":  "Intel semiconductor stock",
+    "AMD":   "AMD semiconductor stock",
+    "CRM":   "Salesforce software stock",
+    "ORCL":  "Oracle software stock",
+    "ADBE":  "Adobe software stock",
+    "COST":  "Costco retail stock",
+    "PFE":   "Pfizer pharma stock",
     # ── US-listed ADRs ───────────────────────────────────────────────────────
     "SHEL":  "Shell oil energy",
     "BP":    "BP oil energy",
@@ -150,8 +184,20 @@ CALENDAR_CACHE_TTL_SECONDS = 6 * 3600
 
 SYSTEM_PROMPT = (
     "You are a financial risk assessment engine for a swing trading system. "
-    "Analyse the provided news headlines and upcoming economic events for the "
-    "given instrument. Return ONLY a JSON response in this exact format:\n"
+    "Analyse the provided news headlines and upcoming economic events for the given instrument.\n\n"
+    "CALIBRATION RULES — read carefully:\n"
+    "- GREEN is the DEFAULT for normal market conditions. Most instruments on most days should be GREEN.\n"
+    "- Return GREEN when: no instrument-specific negative news AND no directly relevant high-impact events "
+    "  TODAY for this specific instrument.\n"
+    "- Return AMBER only when: events DIRECTLY affecting this instrument's currency/sector are within 24h "
+    "  (e.g. central bank decision for this currency pair, earnings for this stock, sector-specific crisis). "
+    "  Generic macro events (NFP, PMI, GDP) only warrant AMBER for USD pairs and US equity indexes — "
+    "  NOT for unrelated equities, commodities, or other currency pairs.\n"
+    "- Return RED only when: a major risk event is happening TODAY directly targeting this instrument "
+    "  (e.g. earnings release day, central bank rate decision for this exact currency, black swan event).\n"
+    "- If no recent headlines found: default to GREEN (no news is good news for swing trading).\n"
+    "- 'Date unclear' calendar events: treat as low relevance — do not use to justify AMBER/RED.\n\n"
+    "Return ONLY a JSON response in this exact format:\n"
     "{\n"
     '  "verdict": "GREEN" | "AMBER" | "RED",\n'
     '  "confidence_impact": -30 to +10 (integer),\n'
@@ -171,8 +217,35 @@ class NewsResult:
     calendar_events: list[str]
 
 
+def _load_news_cache() -> dict:
+    try:
+        if os.path.exists(NEWS_CACHE_PATH):
+            with open(NEWS_CACHE_PATH) as f:
+                return json.load(f)
+    except Exception:
+        pass
+    return {}
+
+
+def _save_news_cache(cache: dict) -> None:
+    try:
+        os.makedirs(os.path.dirname(NEWS_CACHE_PATH), exist_ok=True)
+        with open(NEWS_CACHE_PATH, "w") as f:
+            json.dump(cache, f)
+    except Exception as exc:
+        logger.warning("Failed to write news cache: %s", exc)
+
+
 def _fetch_headlines(query: str) -> list[str]:
-    """Fetch last-24h headlines from NewsAPI."""
+    """Fetch last-24h headlines from NewsAPI with file-based caching to avoid rate limits."""
+    cache = _load_news_cache()
+    entry = cache.get(query)
+    if entry:
+        age = time.time() - entry.get("timestamp", 0)
+        if age < NEWS_CACHE_TTL_SECONDS:
+            logger.debug("NewsAPI cache hit for %r (age %.0fs)", query, age)
+            return entry["headlines"]
+
     try:
         since = (datetime.now(timezone.utc) - timedelta(hours=24)).strftime("%Y-%m-%dT%H:%M:%S")
         url = "https://newsapi.org/v2/everything"
@@ -187,9 +260,17 @@ def _fetch_headlines(query: str) -> list[str]:
         resp = requests.get(url, params=params, timeout=10)
         resp.raise_for_status()
         articles = resp.json().get("articles", [])
-        return [f"{a['title']} — {a.get('description', '')}" for a in articles if a.get("title")]
+        headlines = [f"{a['title']} — {a.get('description', '')}" for a in articles if a.get("title")]
+        cache[query] = {"timestamp": time.time(), "headlines": headlines}
+        _save_news_cache(cache)
+        logger.debug("NewsAPI fetched %d headlines for %r", len(headlines), query)
+        return headlines
     except Exception as exc:
-        logger.warning("NewsAPI fetch failed: %s", exc)
+        logger.warning("NewsAPI fetch failed for %r: %s", query, exc)
+        # Return stale cache if available
+        if entry:
+            logger.info("Using stale news cache for %r", query)
+            return entry["headlines"]
         return []
 
 
@@ -248,6 +329,9 @@ def _fetch_calendar_events(instrument: str) -> list[str]:
         # Currency codes relevant to this instrument (e.g. EUR_USD → EUR, USD)
         currencies = _instrument_currencies(instrument)
 
+        today = now.date()
+        cutoff_date = (now + timedelta(hours=48)).date()
+
         for item in items:
             try:
                 impact = (item.find("impact") or item.find("impactClass") or item.find("level"))
@@ -264,13 +348,25 @@ def _fetch_calendar_events(instrument: str) -> list[str]:
                 title_tag = item.find("title") or item.find("name")
                 title = title_tag.get_text().strip() if title_tag else "Unknown event"
 
-                if date_tag:
+                if not date_tag:
+                    continue
+
+                date_text = date_tag.get_text().strip()
+                # Forex Factory format: MM-DD-YYYY (e.g. "06-06-2026")
+                try:
+                    event_date = datetime.strptime(date_text, "%m-%d-%Y").date()
+                except ValueError:
                     try:
-                        event_dt = datetime.fromisoformat(date_tag.get_text().strip().replace("Z", "+00:00"))
-                        if now <= event_dt <= cutoff:
-                            events.append(f"{event_dt.strftime('%Y-%m-%d %H:%M UTC')} [{currency}] {title} (HIGH IMPACT)")
+                        # Fallback: try ISO format
+                        event_date = datetime.fromisoformat(date_text.replace("Z", "+00:00")).date()
                     except ValueError:
-                        events.append(f"[{currency}] {title} (HIGH IMPACT, date unclear)")
+                        continue  # skip unparseable dates — never add "date unclear" events
+
+                if today <= event_date <= cutoff_date:
+                    time_tag = item.find("time")
+                    time_text = time_tag.get_text().strip() if time_tag else ""
+                    label = f"{event_date} {time_text}".strip()
+                    events.append(f"{label} [{currency}] {title} (HIGH IMPACT)")
             except Exception:
                 continue
     except Exception as exc:
@@ -308,8 +404,12 @@ def _instrument_news_query(instrument: str) -> str:
     }
     # Merge with the comprehensive international mapping defined above
     combined = {**base_mapping, **TICKER_NEWS_QUERIES}
+    # Try direct lookup, then normalised form (EUR/USD → EUR_USD)
+    normalized = instrument.replace("/", "_")
     if instrument in combined:
         return combined[instrument]
+    if normalized in combined:
+        return combined[normalized]
 
     # Fallback: strip exchange suffixes and use the cleaned symbol
     clean = instrument

@@ -18,9 +18,11 @@ def _client() -> oandapyV20.API:
 def get_forex_bars(instrument: str, lookback_days: int = 60,
                    granularity: str = "D") -> pd.DataFrame:
     """
-    Fetch OHLCV candles for an OANDA instrument (e.g. EUR_USD).
+    Fetch OHLCV candles for an OANDA instrument (e.g. EUR_USD or EUR/USD).
     Returns a DataFrame with columns Open, High, Low, Close, Volume.
     """
+    # OANDA requires underscore format (EUR_USD), not slash (EUR/USD)
+    oanda_instrument = instrument.replace("/", "_")
     end = datetime.now(timezone.utc)
     start = end - timedelta(days=lookback_days)
     params = {
@@ -31,7 +33,7 @@ def get_forex_bars(instrument: str, lookback_days: int = 60,
     }
     try:
         client = _client()
-        req = instruments.InstrumentsCandles(instrument=instrument, params=params)
+        req = instruments.InstrumentsCandles(instrument=oanda_instrument, params=params)
         client.request(req)
         candles = req.response.get("candles", [])
         rows = []

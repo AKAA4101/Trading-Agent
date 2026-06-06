@@ -64,28 +64,58 @@ def compute(df: pd.DataFrame) -> TechnicalResult | None:
     macd   = safe("MACD_12_26_9")
     macd_s = safe("MACDs_12_26_9")
     macd_h = safe("MACDh_12_26_9")
-    bb_u   = safe("BBU_20_2.0")
-    bb_m   = safe("BBM_20_2.0")
-    bb_l   = safe("BBL_20_2.0")
     atr    = safe("ATRr_14")
+
+    # pandas_ta column names for bbands vary by version (BBU_20_2.0 vs BBU_20_2.0_2.0)
+    # Find the actual column names dynamically.
+    cols = df.columns.tolist()
+    bb_u_col = next((c for c in cols if c.startswith("BBU_")), "BBU_20_2.0")
+    bb_m_col = next((c for c in cols if c.startswith("BBM_")), "BBM_20_2.0")
+    bb_l_col = next((c for c in cols if c.startswith("BBL_")), "BBL_20_2.0")
+    bb_u   = safe(bb_u_col)
+    bb_m   = safe(bb_m_col)
+    bb_l   = safe(bb_l_col)
 
     vol_avg = df["Volume"].tail(20).mean()
     vol_ratio = float(last["Volume"]) / vol_avg if vol_avg > 0 else 1.0
 
     # ── Trend score (25 pts) ──────────────────────────────────────
+    # Graduated scoring for both LONG and SHORT directions.
+    # EMA200 is optional — treated as unknown if data is insufficient.
     trend_score = 0.0
-    if ema20 > 0 and ema50 > 0 and ema200 > 0:
+    if ema20 > 0 and ema50 > 0:
         above_ema20  = close > ema20
         above_ema50  = close > ema50
-        above_ema200 = close > ema200
-        ema_aligned_bull = ema20 > ema50 > ema200
-        ema_aligned_bear = ema20 < ema50 < ema200
+        above_ema200 = ema200 > 0 and close > ema200
+        below_ema20  = close < ema20
+        below_ema50  = close < ema50
+        below_ema200 = ema200 > 0 and close < ema200
 
-        if above_ema200:  trend_score += 8
-        if above_ema50:   trend_score += 7
-        if above_ema20:   trend_score += 5
-        if ema_aligned_bull:  trend_score += 5
-        elif ema_aligned_bear: trend_score -= 5
+        # Bullish trend strength (LONG)
+        if above_ema20 and above_ema50 and above_ema200:
+            bull_trend = 25.0
+        elif above_ema20 and above_ema50:
+            bull_trend = 18.0
+        elif above_ema20:
+            bull_trend = 10.0
+        elif not above_ema20 and above_ema50:
+            bull_trend = 5.0
+        else:
+            bull_trend = 0.0
+
+        # Bearish trend strength (SHORT) — mirror of bullish
+        if below_ema20 and below_ema50 and below_ema200:
+            bear_trend = 25.0
+        elif below_ema20 and below_ema50:
+            bear_trend = 18.0
+        elif below_ema20:
+            bear_trend = 10.0
+        elif not below_ema20 and below_ema50:
+            bear_trend = 5.0
+        else:
+            bear_trend = 0.0
+
+        trend_score = max(bull_trend, bear_trend)
 
     trend_score = max(0.0, min(25.0, trend_score))
 
