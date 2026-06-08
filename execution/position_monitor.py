@@ -1,6 +1,6 @@
 """
 Lightweight position monitor — runs every 30 minutes.
-Checks open paper_sim and Alpaca trades for stop-loss / take-profit hits.
+Checks open paper_sim, Alpaca, and OANDA trades for stop-loss / take-profit hits.
 Does NOT run a full analysis cycle or touch the watchlist.
 """
 import logging
@@ -249,27 +249,188 @@ def _check_alpaca(db: DBManager) -> dict:
     return {"checked": len(db_trades), "reconciled": reconciled, "errors": errors}
 
 
+# ── OANDA position check ──────────────────────────────────────────────────────
+
+def _fetch_oanda_prices(instruments: list[str]) -> dict[str, float]:
+    """Fetch mid prices for a list of OANDA instruments. Returns {instrument: mid_price}."""
+    if not instruments:
+        return {}
+    try:
+        import oandapyV20
+        import oandapyV20.endpoints.pricing as pricing_ep
+        from config import config
+        client = oandapyV20.API(access_token=config.OANDA_API_TOKEN, environment="practice")
+        req = pricing_ep.PricingInfo(
+            accountID=config.OANDA_ACCOUNT_ID,
+            params={"instruments": ",".join(instruments)},
+        )
+        client.request(req)
+        result = {}
+        for p in req.response.get("prices", []):
+            instr = p["instrument"]
+            best_bid = float(p["bids"][0]["price"]) if p.get("bids") else None
+            best_ask = float(p["asks"][0]["price"]) if p.get("asks") else None
+            if best_bid and best_ask:
+                result[instr] = round((best_bid + best_ask) / 2, 6)
+        return result
+    except Exception as exc:
+        logger.error("OANDA pricing fetch failed: %s", exc)
+        return {}
+
+
+def _check_oanda(db: DBManager) -> dict:
+    """
+    Reconcile open oanda_practice trades against live OANDA positions.
+    Updates current_price and unrealised_pnl every cycle.
+    If a trade is no longer open in OANDA (closed by SL/TP), close it in the DB.
+    """
+    from notifications.email_notifier import send_position_closed
+
+    db_trades = [t for t in db.get_open_trades() if t.get("broker") == "oanda_practice"]
+    if not db_trades:
+        return {"checked": 0, "updated": 0, "reconciled": 0, "errors": 0}
+
+    logger.info("OANDA monitor: checking %d open trades", len(db_trades))
+
+    try:
+        import oandapyV20
+        import oandapyV20.endpoints.trades as trades_ep
+        import oandapyV20.endpoints.transactions as txn_ep
+        from config import config
+        client = oandapyV20.API(access_token=config.OANDA_API_TOKEN, environment="practice")
+        req = trades_ep.TradesList(accountID=config.OANDA_ACCOUNT_ID)
+        client.request(req)
+        oanda_open = {t["id"]: t for t in req.response.get("trades", [])}
+    except Exception as exc:
+        logger.error("Failed to fetch OANDA open trades: %s", exc)
+        return {"checked": len(db_trades), "updated": 0, "reconciled": 0, "errors": 1}
+
+    # Fetch current mid prices for all instruments
+    instruments = list({t["instrument"] for t in db_trades})
+    current_prices = _fetch_oanda_prices(instruments)
+
+    updated = reconciled = errors = 0
+
+    for trade in db_trades:
+        trade_id   = trade.get("local_id") or trade.get("id")
+        oanda_id   = str(trade.get("order_id", ""))
+        instrument = trade["instrument"]
+        direction  = trade["direction"]
+        entry      = float(trade.get("entry_price") or 0)
+        units      = float(trade.get("units") or 0)
+
+        if oanda_id in oanda_open:
+            # Still open — update current price from pricing API
+            price = current_prices.get(instrument)
+            if price is None:
+                logger.warning("No OANDA price for %s — skipping update", instrument)
+                errors += 1
+                continue
+
+            if direction == "LONG":
+                unrealised_pct = (price - entry) / entry * 100 if entry else 0
+            else:
+                unrealised_pct = (entry - price) / entry * 100 if entry else 0
+
+            oanda_trade = oanda_open[oanda_id]
+            logger.info(
+                "OANDA HOLD | %s %s entry=%.5f current=%.5f unrealised=%.4f%% "
+                "OANDA_unr=%.4f SL=%s TP=%s",
+                direction, instrument, entry, price, unrealised_pct,
+                float(oanda_trade.get("unrealizedPL", 0)),
+                trade.get("stop_loss"), trade.get("take_profit"),
+            )
+            db.update_trade_live(trade_id, round(price, 6), round(unrealised_pct, 4))
+            updated += 1
+
+        else:
+            # Trade no longer in OANDA open list — was closed by SL/TP or manually
+            # Fetch trade details to get closing price
+            close_price = None
+            exit_reason = "OANDA_CLOSED"
+            try:
+                req_detail = trades_ep.TradeDetails(
+                    accountID=config.OANDA_ACCOUNT_ID,
+                    tradeID=oanda_id,
+                )
+                client.request(req_detail)
+                detail = req_detail.response.get("trade", {})
+                close_txn = detail.get("closingTransactionIDs", [])
+                # averageClosePrice is set on the trade when fully closed
+                avg_close = detail.get("averageClosePrice")
+                if avg_close:
+                    close_price = float(avg_close)
+                # Infer exit reason from which order closed it
+                sl_order = trade.get("stop_loss")
+                tp_order = trade.get("take_profit")
+                if close_price and sl_order and tp_order:
+                    sl = float(sl_order)
+                    tp = float(tp_order)
+                    if direction == "LONG":
+                        exit_reason = "TAKE_PROFIT" if close_price >= tp else "STOP_LOSS"
+                    else:
+                        exit_reason = "TAKE_PROFIT" if close_price <= tp else "STOP_LOSS"
+            except Exception as exc:
+                logger.warning("Could not fetch closed OANDA trade %s details: %s", oanda_id, exc)
+
+            if close_price is None:
+                close_price = current_prices.get(instrument)
+            if close_price is None or not entry:
+                logger.warning(
+                    "OANDA trade %s closed but can't determine price — skipping", trade_id
+                )
+                errors += 1
+                continue
+
+            if direction == "LONG":
+                pnl     = (close_price - entry) * units
+                pnl_pct = (close_price - entry) / entry * 100
+            else:
+                pnl     = (entry - close_price) * units
+                pnl_pct = (entry - close_price) / entry * 100
+
+            db.close_trade(
+                trade_id, round(close_price, 6),
+                round(pnl, 4), round(pnl_pct, 4),
+                exit_reason=exit_reason,
+            )
+            closed_trade = {**trade, "exit_price": close_price,
+                            "pnl": pnl, "pnl_pct": pnl_pct, "exit_reason": exit_reason}
+            send_position_closed(closed_trade, exit_reason)
+
+            logger.info(
+                "OANDA RECONCILED | %s %s exit=%.5f pnl=%.2f (%.2f%%) reason=%s",
+                direction, instrument, close_price, pnl, pnl_pct, exit_reason,
+            )
+            reconciled += 1
+
+    return {"checked": len(db_trades), "updated": updated,
+            "reconciled": reconciled, "errors": errors}
+
+
 # ── Public entry point ────────────────────────────────────────────────────────
 
 def run_position_check(db: DBManager) -> dict:
     """
     Main entry point — called every 30 minutes by the scheduler.
-    Checks paper_sim and Alpaca open positions. Returns combined summary.
+    Checks paper_sim, Alpaca, and OANDA open positions. Returns combined summary.
     """
     logger.info("── Position monitor started ──")
     start = datetime.now(timezone.utc)
 
-    paper = _check_paper_sim(db)
+    paper  = _check_paper_sim(db)
     alpaca = _check_alpaca(db)
+    oanda  = _check_oanda(db)
 
     elapsed = (datetime.now(timezone.utc) - start).total_seconds()
     summary = {
         "paper_sim": paper,
         "alpaca":    alpaca,
+        "oanda":     oanda,
         "elapsed_s": round(elapsed, 2),
     }
     logger.info(
-        "── Position monitor done in %.2fs — paper_sim=%s alpaca=%s ──",
-        elapsed, paper, alpaca,
+        "── Position monitor done in %.2fs — paper_sim=%s alpaca=%s oanda=%s ──",
+        elapsed, paper, alpaca, oanda,
     )
     return summary

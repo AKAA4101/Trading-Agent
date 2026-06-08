@@ -151,6 +151,8 @@ def submit_bracket_order(
             broker="oanda_practice",
             order_id=str(order_id),
             units=abs(units),
+            stop_loss=stop_loss,
+            take_profit=take_profit,
         )
         logger.info(
             "OANDA order ACCEPTED | %s %s units=%s order_id=%s fill_price=%s trade_db_id=%d",
