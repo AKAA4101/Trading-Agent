@@ -154,6 +154,19 @@ def _analyse_instrument(inst, db, risk_mgr, portfolio_value,
             logger.info("Skipping %s — exchange has not closed in last 24h", symbol)
             return
 
+    # ── 1b. Liquidity filter — runs before any API calls ─────────
+    liq_ok, liq_reason = risk_mgr.check_liquidity(symbol, inst.market_type)
+    if not liq_ok:
+        db.insert_signal(
+            instrument=symbol, market_type=inst.market_type,
+            direction="NEUTRAL", technical_score=0.0,
+            news_verdict="GREEN", confidence_score=0.0,
+            action_taken="REJECTED: LIQUIDITY",
+            reasoning=liq_reason,
+            entry_price=0.0, stop_loss=None, take_profit=None,
+        )
+        return None
+
     # ── 1. Fetch price data ───────────────────────────────────────
     if inst.market_type == "forex":
         df = get_forex_bars(symbol)

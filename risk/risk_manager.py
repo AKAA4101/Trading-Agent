@@ -2,7 +2,10 @@
 Hard-coded risk management rules.
 These cannot be overridden by AI signals.
 """
+import json
 import logging
+import os
+import time
 from dataclasses import dataclass
 
 from analysis.confidence_scorer import SignalResult
@@ -19,6 +22,32 @@ VOLATILITY_MULTIPLIER = 2.0    # skip if ATR > 2x its 20-period average
 SL_ATR_MULT = 1.5
 TP_ATR_MULT = 3.0
 
+# ── Liquidity filter constants ─────────────────────────────────────────────
+_LIQUIDITY_CACHE_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "liquidity_cache.json")
+_LIQUIDITY_CACHE_TTL  = 7 * 24 * 3600   # 7 days — liquidity is slow-moving
+_MIN_AVG_VOLUME       = 500_000          # 500k shares/day
+_MIN_MARKET_CAP       = 500_000_000      # USD $500M — fallback when volume unavailable
+
+# Instruments known to be liquid but failing yfinance fast_info data gap
+LIQUIDITY_ALLOWLIST = {
+    "BRK.B",  # Berkshire Hathaway B — highly liquid, yfinance fast_info gap
+    "BF.B",   # Brown-Forman B — liquid NYSE stock, yfinance fast_info gap
+}
+
+
+def _load_liquidity_cache() -> dict:
+    try:
+        with open(_LIQUIDITY_CACHE_PATH) as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+
+def _save_liquidity_cache(cache: dict) -> None:
+    os.makedirs(os.path.dirname(_LIQUIDITY_CACHE_PATH), exist_ok=True)
+    with open(_LIQUIDITY_CACHE_PATH, "w") as f:
+        json.dump(cache, f, indent=2)
+
 
 @dataclass
 class RiskDecision:
@@ -34,6 +63,64 @@ class RiskManager:
         self.db = db
 
     # ── Public API ────────────────────────────────────────────────
+
+    def check_liquidity(self, symbol: str, market_type: str) -> tuple[bool, str]:
+        """
+        Pre-filter: returns (passes, reason).
+        Forex and crypto are always exempt — major pairs/coins are always liquid.
+        For equities: require averageVolume >= 500k OR marketCap >= $500M.
+        Results cached 7 days since liquidity doesn't change rapidly.
+        """
+        if market_type in ("forex", "crypto"):
+            return True, "EXEMPT: forex/crypto always liquid"
+
+        if symbol in LIQUIDITY_ALLOWLIST:
+            return True, "PASS: ALLOWLIST — known liquid, yfinance data gap"
+
+        cache = _load_liquidity_cache()
+        now = time.time()
+        entry = cache.get(symbol)
+        if entry and (now - entry.get("timestamp", 0)) < _LIQUIDITY_CACHE_TTL:
+            return entry["passes"], entry["reason"]
+
+        try:
+            import yfinance as yf
+            info = yf.Ticker(symbol).fast_info
+            avg_vol = getattr(info, "three_month_average_volume", None) or 0
+            mkt_cap = getattr(info, "market_cap", None) or 0
+
+            if avg_vol >= _MIN_AVG_VOLUME:
+                passes = True
+                reason = f"PASS: avgVol {avg_vol:,.0f} >= {_MIN_AVG_VOLUME:,}"
+            elif avg_vol == 0 and mkt_cap >= _MIN_MARKET_CAP:
+                # marketCap fallback only when volume data is genuinely unavailable
+                passes = True
+                reason = f"PASS: marketCap ${mkt_cap/1e9:.1f}B >= $500M (vol data unavailable)"
+            elif avg_vol > 0:
+                passes = False
+                reason = (
+                    f"REJECTED: LIQUIDITY — avgVol {avg_vol:,.0f} "
+                    f"below minimum {_MIN_AVG_VOLUME:,}"
+                )
+            else:
+                passes = False
+                reason = (
+                    f"REJECTED: LIQUIDITY — no volume data, "
+                    f"marketCap ${mkt_cap/1e6:.0f}M below $500M minimum"
+                )
+
+        except Exception as exc:
+            logger.warning("Liquidity check error for %s: %s — defaulting PASS", symbol, exc)
+            passes = True
+            reason = "PASS: liquidity check error — defaulting to pass"
+
+        cache[symbol] = {"passes": passes, "reason": reason, "timestamp": now}
+        _save_liquidity_cache(cache)
+
+        if not passes:
+            logger.warning("LIQUIDITY REJECTED: %s — %s", symbol, reason)
+
+        return passes, reason
 
     def evaluate(
         self,

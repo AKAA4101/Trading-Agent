@@ -398,6 +398,7 @@ def send_weekly_summary(
     closed_week: list,
     snapshot: dict | None,
     week_start_snapshot: dict | None,
+    liquidity_stats: dict | None = None,
 ) -> bool:
     subject = (
         f"[TRADING AGENT] Weekly Performance — "
@@ -471,6 +472,33 @@ def send_weekly_summary(
         for mkt, cnt in market_counts.most_common()
     ) or "  None"
 
+    # ── Liquidity filter summary ──────────────────────────────────────────
+    if liquidity_stats:
+        liq_pass     = liquidity_stats.get("pass", 0)
+        liq_fail     = liquidity_stats.get("fail", 0)
+        liq_total    = liq_pass + liq_fail
+        liq_pct      = liq_pass / liq_total * 100 if liq_total else 0
+        top_markets  = liquidity_stats.get("top_fail_markets", {})
+        top10_failed = liquidity_stats.get("top10_failed", [])
+        market_fail_lines = "\n".join(
+            f"  {mkt:20s}: {cnt} instruments filtered"
+            for mkt, cnt in sorted(top_markets.items(), key=lambda x: -x[1])
+        ) or "  None"
+        top10_lines = "\n".join(
+            f"  {sym:<15s} avgVol: {vol:>12,}"
+            for sym, vol in top10_failed
+        ) or "  None"
+        liquidity_block = f"""
+── LIQUIDITY FILTER SUMMARY ─────────────────────
+Instruments passing : {liq_pass} of {liq_total} ({liq_pct:.1f}%)
+Instruments filtered: {liq_fail}
+Markets most affected:
+{market_fail_lines}
+Top 10 filtered instruments:
+{top10_lines}"""
+    else:
+        liquidity_block = ""
+
     body = f"""
 TRADING AGENT — WEEKLY PERFORMANCE
 {'='*50}
@@ -492,6 +520,7 @@ Total P&L       : {total_pnl:+.4f}
 
 ── SIGNAL ACTIVITY BY MARKET ────────────────────
 {market_lines}
+{liquidity_block}
 {'='*50}
 """.strip()
 

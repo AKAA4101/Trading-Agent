@@ -1,0 +1,6988 @@
+{
+  "AAPL": {
+    "passes": true,
+    "reason": "PASS: avgVol 44,895,925",
+    "avg_vol": 44895925,
+    "mkt_cap": 4514011939253.296,
+    "timestamp": 1780888513.145423
+  },
+  "MSFT": {
+    "passes": true,
+    "reason": "PASS: avgVol 34,430,040",
+    "avg_vol": 34430040,
+    "mkt_cap": 3095205987862.728,
+    "timestamp": 1780888513.145423
+  },
+  "GOOGL": {
+    "passes": true,
+    "reason": "PASS: avgVol 29,108,457",
+    "avg_vol": 29108457,
+    "mkt_cap": 4494199462845.795,
+    "timestamp": 1780888513.145423
+  },
+  "AMZN": {
+    "passes": true,
+    "reason": "PASS: avgVol 44,705,992",
+    "avg_vol": 44705992,
+    "mkt_cap": 2646571621407.843,
+    "timestamp": 1780888513.145423
+  },
+  "NVDA": {
+    "passes": true,
+    "reason": "PASS: avgVol 166,757,912",
+    "avg_vol": 166757912,
+    "mkt_cap": 4967727247833.252,
+    "timestamp": 1780888513.145423
+  },
+  "META": {
+    "passes": true,
+    "reason": "PASS: avgVol 16,684,701",
+    "avg_vol": 16684701,
+    "mkt_cap": 1505285019272.0,
+    "timestamp": 1780888513.145423
+  },
+  "TSLA": {
+    "passes": true,
+    "reason": "PASS: avgVol 59,657,679",
+    "avg_vol": 59657679,
+    "mkt_cap": 1468488033561.0,
+    "timestamp": 1780888513.145423
+  },
+  "JPM": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,238,215",
+    "avg_vol": 9238215,
+    "mkt_cap": 836998968557.1082,
+    "timestamp": 1780888513.145423
+  },
+  "V": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,477,245",
+    "avg_vol": 7477245,
+    "mkt_cap": 615347255294.7876,
+    "timestamp": 1780888513.145423
+  },
+  "JNJ": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,658,139",
+    "avg_vol": 7658139,
+    "mkt_cap": 560327904624.4105,
+    "timestamp": 1780888513.145423
+  },
+  "WMT": {
+    "passes": true,
+    "reason": "PASS: avgVol 20,396,762",
+    "avg_vol": 20396762,
+    "mkt_cap": 946056428088.8828,
+    "timestamp": 1780888513.145423
+  },
+  "XOM": {
+    "passes": true,
+    "reason": "PASS: avgVol 20,253,787",
+    "avg_vol": 20253787,
+    "mkt_cap": 621410470937.415,
+    "timestamp": 1780888513.145423
+  },
+  "BAC": {
+    "passes": true,
+    "reason": "PASS: avgVol 38,175,804",
+    "avg_vol": 38175804,
+    "mkt_cap": 382009487737.57556,
+    "timestamp": 1780888513.145423
+  },
+  "PG": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,538,700",
+    "avg_vol": 9538700,
+    "mkt_cap": 341232878602.2157,
+    "timestamp": 1780888513.145423
+  },
+  "MA": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,549,100",
+    "avg_vol": 3549100,
+    "mkt_cap": 433910347648.8707,
+    "timestamp": 1780888513.145423
+  },
+  "BRK.B": {
+    "passes": true,
+    "reason": "PASS: ALLOWLIST \u2014 known liquid, yfinance data gap",
+    "avg_vol": 0,
+    "mkt_cap": 0,
+    "timestamp": 1780889366.0774636
+  },
+  "HD": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,465,309",
+    "avg_vol": 4465309,
+    "mkt_cap": 309883921214.77655,
+    "timestamp": 1780888513.145423
+  },
+  "CVX": {
+    "passes": true,
+    "reason": "PASS: avgVol 11,832,526",
+    "avg_vol": 11832526,
+    "mkt_cap": 373046166318.62085,
+    "timestamp": 1780888513.145423
+  },
+  "ABBV": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,590,598",
+    "avg_vol": 6590598,
+    "mkt_cap": 401468325167.2767,
+    "timestamp": 1780888513.145423
+  },
+  "MRK": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,633,682",
+    "avg_vol": 9633682,
+    "mkt_cap": 298330093349.0418,
+    "timestamp": 1780888513.145423
+  },
+  "SHEL": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,083,384",
+    "avg_vol": 8083384,
+    "mkt_cap": 237102028710.4049,
+    "timestamp": 1780888513.145423
+  },
+  "BP": {
+    "passes": true,
+    "reason": "PASS: avgVol 13,701,990",
+    "avg_vol": 13701990,
+    "mkt_cap": 110650488226.85825,
+    "timestamp": 1780888513.145423
+  },
+  "AZN": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,927,620",
+    "avg_vol": 1927620,
+    "mkt_cap": 288382821914.99414,
+    "timestamp": 1780888513.145423
+  },
+  "ULVR": {
+    "passes": false,
+    "reason": "FAIL: no vol data, mktCap $0M < $500M",
+    "avg_vol": 0,
+    "mkt_cap": 0,
+    "timestamp": 1780888513.145423
+  },
+  "SAP": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,437,470",
+    "avg_vol": 3437470,
+    "mkt_cap": 217831324999.32217,
+    "timestamp": 1780888513.145423
+  },
+  "ASML": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,725,932",
+    "avg_vol": 1725932,
+    "mkt_cap": 632755593573.2556,
+    "timestamp": 1780888513.145423
+  },
+  "NVO": {
+    "passes": true,
+    "reason": "PASS: avgVol 16,249,068",
+    "avg_vol": 16249068,
+    "mkt_cap": 190309596283.48206,
+    "timestamp": 1780888513.145423
+  },
+  "TTE": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,902,667",
+    "avg_vol": 1902667,
+    "mkt_cap": 197041938423.528,
+    "timestamp": 1780888513.145423
+  },
+  "SIEGY": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 223,490 below minimum 500,000",
+    "avg_vol": 223490,
+    "mkt_cap": 235355068566.0,
+    "timestamp": 1780888513.145423
+  },
+  "TM": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 409,639 below minimum 500,000",
+    "avg_vol": 409639,
+    "mkt_cap": 230899429516.36765,
+    "timestamp": 1780888513.145423
+  },
+  "SONY": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,165,101",
+    "avg_vol": 6165101,
+    "mkt_cap": 128910014846.25499,
+    "timestamp": 1780888513.145423
+  },
+  "HMC": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,945,735",
+    "avg_vol": 1945735,
+    "mkt_cap": 34643966923.7344,
+    "timestamp": 1780888513.145423
+  },
+  "TOYOF": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 200,278 below minimum 500,000",
+    "avg_vol": 200278,
+    "mkt_cap": 230690900513.2826,
+    "timestamp": 1780888513.145423
+  },
+  "BABA": {
+    "passes": true,
+    "reason": "PASS: avgVol 11,288,448",
+    "avg_vol": 11288448,
+    "mkt_cap": 290439155577.4393,
+    "timestamp": 1780888513.145423
+  },
+  "BIDU": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,372,395",
+    "avg_vol": 2372395,
+    "mkt_cap": 41395139739.98245,
+    "timestamp": 1780888513.145423
+  },
+  "JD": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,424,975",
+    "avg_vol": 10424975,
+    "mkt_cap": 39002438866.615295,
+    "timestamp": 1780888513.145423
+  },
+  "TCEHY": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,368,923",
+    "avg_vol": 4368923,
+    "mkt_cap": 513998795636.764,
+    "timestamp": 1780888513.145423
+  },
+  "NIO": {
+    "passes": true,
+    "reason": "PASS: avgVol 42,211,293",
+    "avg_vol": 42211293,
+    "mkt_cap": 13430375572.462639,
+    "timestamp": 1780888513.145423
+  },
+  "BHP": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,980,987",
+    "avg_vol": 2980987,
+    "mkt_cap": 210137349111.2472,
+    "timestamp": 1780888513.145423
+  },
+  "RIO": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,754,718",
+    "avg_vol": 2754718,
+    "mkt_cap": 163747333054.53217,
+    "timestamp": 1780888513.145423
+  },
+  "VALE": {
+    "passes": true,
+    "reason": "PASS: avgVol 26,709,209",
+    "avg_vol": 26709209,
+    "mkt_cap": 64927787245.43436,
+    "timestamp": 1780888513.145423
+  },
+  "BHP.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,346,665",
+    "avg_vol": 9346665,
+    "mkt_cap": 311141475395.9298,
+    "timestamp": 1780888513.145423
+  },
+  "CBA.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,180,401",
+    "avg_vol": 2180401,
+    "mkt_cap": 269044696663.96674,
+    "timestamp": 1780888513.145423
+  },
+  "CSL.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,642,611",
+    "avg_vol": 1642611,
+    "mkt_cap": 46890273617.71805,
+    "timestamp": 1780888513.145423
+  },
+  "NAB.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,032,044",
+    "avg_vol": 6032044,
+    "mkt_cap": 112014248117.12265,
+    "timestamp": 1780888513.145423
+  },
+  "WBC.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,341,477",
+    "avg_vol": 5341477,
+    "mkt_cap": 118872929438.73158,
+    "timestamp": 1780888513.145423
+  },
+  "ANZ.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,987,797",
+    "avg_vol": 4987797,
+    "mkt_cap": 102736351711.71263,
+    "timestamp": 1780888513.145423
+  },
+  "WES.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,557,741",
+    "avg_vol": 1557741,
+    "mkt_cap": 89607866067.5008,
+    "timestamp": 1780888513.145423
+  },
+  "MQG.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 856,294",
+    "avg_vol": 856294,
+    "mkt_cap": 90108743376.41472,
+    "timestamp": 1780888513.145423
+  },
+  "RIO.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,328,431",
+    "avg_vol": 1328431,
+    "mkt_cap": 300166544889.6264,
+    "timestamp": 1780888513.145423
+  },
+  "TLS.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 22,778,215",
+    "avg_vol": 22778215,
+    "mkt_cap": 55611899443.45581,
+    "timestamp": 1780888513.145423
+  },
+  "WOW.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,598,329",
+    "avg_vol": 2598329,
+    "mkt_cap": 43598873520.55881,
+    "timestamp": 1780888513.145423
+  },
+  "FMG.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,968,739",
+    "avg_vol": 5968739,
+    "mkt_cap": 63211151901.22743,
+    "timestamp": 1780888513.145423
+  },
+  "NCM.AX": {
+    "passes": false,
+    "reason": "FAIL: no vol data, mktCap $0M < $500M",
+    "avg_vol": 0,
+    "mkt_cap": 0,
+    "timestamp": 1780888513.145423
+  },
+  "S32.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 15,654,329",
+    "avg_vol": 15654329,
+    "mkt_cap": 20748552579.047375,
+    "timestamp": 1780888513.145423
+  },
+  "ALL.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,523,842",
+    "avg_vol": 1523842,
+    "mkt_cap": 30943351563.266037,
+    "timestamp": 1780888513.145423
+  },
+  "SHEL.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 11,933,770",
+    "avg_vol": 11933770,
+    "mkt_cap": 17921470347822.5,
+    "timestamp": 1780888513.145423
+  },
+  "HSBA.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 25,881,405",
+    "avg_vol": 25881405,
+    "mkt_cap": 23335284331718.918,
+    "timestamp": 1780888513.145423
+  },
+  "AZN.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,252,991",
+    "avg_vol": 2252991,
+    "mkt_cap": 21491848409174.0,
+    "timestamp": 1780888513.145423
+  },
+  "ULVR.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,873,826",
+    "avg_vol": 6873826,
+    "mkt_cap": 9069942939465.5,
+    "timestamp": 1780888513.145423
+  },
+  "BP.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 55,646,952",
+    "avg_vol": 55646952,
+    "mkt_cap": 8435908519584.0,
+    "timestamp": 1780888513.145423
+  },
+  "GSK.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,128,351",
+    "avg_vol": 8128351,
+    "mkt_cap": 7772263937304.0,
+    "timestamp": 1780888513.145423
+  },
+  "RIO.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,843,850",
+    "avg_vol": 2843850,
+    "mkt_cap": 12366021356204.0,
+    "timestamp": 1780888513.145423
+  },
+  "BATS.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,435,901",
+    "avg_vol": 4435901,
+    "mkt_cap": 9519245145624.0,
+    "timestamp": 1780888513.145423
+  },
+  "DGE.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,694,335",
+    "avg_vol": 6694335,
+    "mkt_cap": 3324281982060.0,
+    "timestamp": 1780888513.145423
+  },
+  "VOD.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 83,932,207",
+    "avg_vol": 83932207,
+    "mkt_cap": 2542152272668.819,
+    "timestamp": 1780888513.145423
+  },
+  "LLOY.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 204,503,682",
+    "avg_vol": 204503682,
+    "mkt_cap": 5777384404149.006,
+    "timestamp": 1780888513.145423
+  },
+  "BARC.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 63,016,341",
+    "avg_vol": 63016341,
+    "mkt_cap": 6197129398061.884,
+    "timestamp": 1780888513.145423
+  },
+  "NWG.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 29,217,759",
+    "avg_vol": 29217759,
+    "mkt_cap": 4728547113900.588,
+    "timestamp": 1780888513.145423
+  },
+  "REL.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,946,576",
+    "avg_vol": 6946576,
+    "mkt_cap": 4609378517136.0,
+    "timestamp": 1780888513.145423
+  },
+  "CPG.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,985,270",
+    "avg_vol": 3985270,
+    "mkt_cap": 55787269830.80448,
+    "timestamp": 1780888513.145423
+  },
+  "SAP.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,121,260",
+    "avg_vol": 3121260,
+    "mkt_cap": 188537430082.68958,
+    "timestamp": 1780888513.145423
+  },
+  "SIE.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,299,509",
+    "avg_vol": 1299509,
+    "mkt_cap": 205025407469.9679,
+    "timestamp": 1780888513.145423
+  },
+  "ALV.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 713,874",
+    "avg_vol": 713874,
+    "mkt_cap": 141397916826.04065,
+    "timestamp": 1780888513.145423
+  },
+  "MRK.DE": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 373,480 below minimum 500,000",
+    "avg_vol": 373480,
+    "mkt_cap": 59499355121.123566,
+    "timestamp": 1780888513.145423
+  },
+  "BMW.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,196,239",
+    "avg_vol": 1196239,
+    "mkt_cap": 42729687030.77236,
+    "timestamp": 1780888513.145423
+  },
+  "DTE.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,555,413",
+    "avg_vol": 7555413,
+    "mkt_cap": 133819699398.97636,
+    "timestamp": 1780888513.145423
+  },
+  "BAYN.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,831,018",
+    "avg_vol": 2831018,
+    "mkt_cap": 35524454655.21398,
+    "timestamp": 1780888513.145423
+  },
+  "MUV2.DE": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 344,968 below minimum 500,000",
+    "avg_vol": 344968,
+    "mkt_cap": 57339723241.91739,
+    "timestamp": 1780888513.145423
+  },
+  "BAS.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,113,494",
+    "avg_vol": 3113494,
+    "mkt_cap": 45082899157.84804,
+    "timestamp": 1780888513.145423
+  },
+  "RWE.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,778,218",
+    "avg_vol": 1778218,
+    "mkt_cap": 39959623816.0,
+    "timestamp": 1780888513.145423
+  },
+  "7203.T": {
+    "passes": true,
+    "reason": "PASS: avgVol 23,884,162",
+    "avg_vol": 23884162,
+    "mkt_cap": 36754141887360.0,
+    "timestamp": 1780888513.145423
+  },
+  "6758.T": {
+    "passes": true,
+    "reason": "PASS: avgVol 21,366,355",
+    "avg_vol": 21366355,
+    "mkt_cap": 20658581301492.0,
+    "timestamp": 1780888513.145423
+  },
+  "9984.T": {
+    "passes": true,
+    "reason": "PASS: avgVol 69,049,711",
+    "avg_vol": 69049711,
+    "mkt_cap": 39134509054767.0,
+    "timestamp": 1780888513.145423
+  },
+  "6861.T": {
+    "passes": true,
+    "reason": "PASS: avgVol 821,944",
+    "avg_vol": 821944,
+    "mkt_cap": 17925032801760.0,
+    "timestamp": 1780888513.145423
+  },
+  "8306.T": {
+    "passes": true,
+    "reason": "PASS: avgVol 40,577,519",
+    "avg_vol": 40577519,
+    "mkt_cap": 35556021334137.0,
+    "timestamp": 1780888513.145423
+  },
+  "0700.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 30,080,385",
+    "avg_vol": 30080385,
+    "mkt_cap": 4090329364992.224,
+    "timestamp": 1780888513.145423
+  },
+  "0941.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 21,246,807",
+    "avg_vol": 21246807,
+    "mkt_cap": 1780268893837.0,
+    "timestamp": 1780888513.145423
+  },
+  "1299.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 32,462,861",
+    "avg_vol": 32462861,
+    "mkt_cap": 751117541361.7346,
+    "timestamp": 1780888513.145423
+  },
+  "0005.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 17,160,416",
+    "avg_vol": 17160416,
+    "mkt_cap": 2438475339278.818,
+    "timestamp": 1780888513.145423
+  },
+  "2318.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 37,014,931",
+    "avg_vol": 37014931,
+    "mkt_cap": 1030324857145.569,
+    "timestamp": 1780888513.145423
+  },
+  "005930.KS": {
+    "passes": true,
+    "reason": "PASS: avgVol 29,153,406",
+    "avg_vol": 29153406,
+    "mkt_cap": 2058617533731000.0,
+    "timestamp": 1780888513.145423
+  },
+  "000660.KS": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,838,233",
+    "avg_vol": 4838233,
+    "mkt_cap": 1456622236332000.0,
+    "timestamp": 1780888513.145423
+  },
+  "035420.KS": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,348,453",
+    "avg_vol": 1348453,
+    "mkt_cap": 43799052260000.0,
+    "timestamp": 1780888513.145423
+  },
+  "RELIANCE.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 19,217,585",
+    "avg_vol": 19217585,
+    "mkt_cap": 17470422171785.0,
+    "timestamp": 1780888513.145423
+  },
+  "TCS.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,548,009",
+    "avg_vol": 4548009,
+    "mkt_cap": 7955812290001.341,
+    "timestamp": 1780888513.145423
+  },
+  "INFY.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 13,839,815",
+    "avg_vol": 13839815,
+    "mkt_cap": 4848204480315.0,
+    "timestamp": 1780888513.145423
+  },
+  "HDFCBANK.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 45,794,704",
+    "avg_vol": 45794704,
+    "mkt_cap": 11502733256851.229,
+    "timestamp": 1780888513.145423
+  },
+  "ICICIBANK.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 18,250,500",
+    "avg_vol": 18250500,
+    "mkt_cap": 9050327297763.266,
+    "timestamp": 1780888513.145423
+  },
+  "MMM": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,870,281",
+    "avg_vol": 3870281,
+    "mkt_cap": 80196179186.30547,
+    "timestamp": 1780888513.145423
+  },
+  "AOS": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,602,182",
+    "avg_vol": 1602182,
+    "mkt_cap": 7883797397.954895,
+    "timestamp": 1780888513.145423
+  },
+  "ABT": {
+    "passes": true,
+    "reason": "PASS: avgVol 12,748,698",
+    "avg_vol": 12748698,
+    "mkt_cap": 158626923403.22083,
+    "timestamp": 1780888513.145423
+  },
+  "ACN": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,263,189",
+    "avg_vol": 6263189,
+    "mkt_cap": 109701317091.75,
+    "timestamp": 1780888513.145423
+  },
+  "ADBE": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,550,468",
+    "avg_vol": 5550468,
+    "mkt_cap": 101632048986.8164,
+    "timestamp": 1780888513.145423
+  },
+  "AMD": {
+    "passes": true,
+    "reason": "PASS: avgVol 37,506,579",
+    "avg_vol": 37506579,
+    "mkt_cap": 760479533978.7372,
+    "timestamp": 1780888513.145423
+  },
+  "AES": {
+    "passes": true,
+    "reason": "PASS: avgVol 11,304,640",
+    "avg_vol": 11304640,
+    "mkt_cap": 10462023704.119616,
+    "timestamp": 1780888513.145423
+  },
+  "AFL": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,408,182",
+    "avg_vol": 2408182,
+    "mkt_cap": 60182373961.65094,
+    "timestamp": 1780888513.145423
+  },
+  "A": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,249,760",
+    "avg_vol": 2249760,
+    "mkt_cap": 38252583184.89111,
+    "timestamp": 1780888513.145423
+  },
+  "APD": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,198,010",
+    "avg_vol": 1198010,
+    "mkt_cap": 62873893051.23505,
+    "timestamp": 1780888513.145423
+  },
+  "ABNB": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,668,656",
+    "avg_vol": 3668656,
+    "mkt_cap": 79256643432.70677,
+    "timestamp": 1780888513.145423
+  },
+  "AKAM": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,582,829",
+    "avg_vol": 5582829,
+    "mkt_cap": 21708956608.154846,
+    "timestamp": 1780888513.145423
+  },
+  "ALB": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,045,196",
+    "avg_vol": 2045196,
+    "mkt_cap": 18331762439.366394,
+    "timestamp": 1780888513.145423
+  },
+  "ARE": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,293,760",
+    "avg_vol": 2293760,
+    "mkt_cap": 8936538721.668701,
+    "timestamp": 1780888513.145423
+  },
+  "ALGN": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,138,153",
+    "avg_vol": 1138153,
+    "mkt_cap": 12013225016.390121,
+    "timestamp": 1780888513.145423
+  },
+  "ALLE": {
+    "passes": true,
+    "reason": "PASS: avgVol 968,790",
+    "avg_vol": 968790,
+    "mkt_cap": 11185411982.466522,
+    "timestamp": 1780888513.145423
+  },
+  "LNT": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,228,748",
+    "avg_vol": 2228748,
+    "mkt_cap": 18820648395.56907,
+    "timestamp": 1780888513.145423
+  },
+  "ALL": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,506,806",
+    "avg_vol": 1506806,
+    "mkt_cap": 56892598325.2446,
+    "timestamp": 1780888513.145423
+  },
+  "GOOG": {
+    "passes": true,
+    "reason": "PASS: avgVol 20,074,339",
+    "avg_vol": 20074339,
+    "mkt_cap": 4460419626255.645,
+    "timestamp": 1780888513.145423
+  },
+  "MO": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,266,135",
+    "avg_vol": 9266135,
+    "mkt_cap": 120549452331.5329,
+    "timestamp": 1780888513.145423
+  },
+  "AMCR": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,230,520",
+    "avg_vol": 5230520,
+    "mkt_cap": 17629241653.538475,
+    "timestamp": 1780888513.145423
+  },
+  "AEE": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,717,720",
+    "avg_vol": 1717720,
+    "mkt_cap": 30240648151.283203,
+    "timestamp": 1780888513.145423
+  },
+  "AEP": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,796,935",
+    "avg_vol": 3796935,
+    "mkt_cap": 70265723500.38464,
+    "timestamp": 1780888513.145423
+  },
+  "AXP": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,278,945",
+    "avg_vol": 3278945,
+    "mkt_cap": 211971535281.13406,
+    "timestamp": 1780888513.145423
+  },
+  "AIG": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,151,267",
+    "avg_vol": 4151267,
+    "mkt_cap": 40025266490.647316,
+    "timestamp": 1780888513.145423
+  },
+  "AMT": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,162,253",
+    "avg_vol": 3162253,
+    "mkt_cap": 90439160279.4115,
+    "timestamp": 1780888513.145423
+  },
+  "AWK": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,940,537",
+    "avg_vol": 1940537,
+    "mkt_cap": 24306566687.249542,
+    "timestamp": 1780888513.145423
+  },
+  "AMP": {
+    "passes": true,
+    "reason": "PASS: avgVol 672,809",
+    "avg_vol": 672809,
+    "mkt_cap": 40872608540.652954,
+    "timestamp": 1780888513.145423
+  },
+  "AME": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,248,514",
+    "avg_vol": 1248514,
+    "mkt_cap": 51925940802.57205,
+    "timestamp": 1780888513.145423
+  },
+  "AMGN": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,603,681",
+    "avg_vol": 2603681,
+    "mkt_cap": 188671211177.86066,
+    "timestamp": 1780888513.145423
+  },
+  "APH": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,584,360",
+    "avg_vol": 9584360,
+    "mkt_cap": 170768840306.94794,
+    "timestamp": 1780888513.145423
+  },
+  "ADI": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,957,784",
+    "avg_vol": 3957784,
+    "mkt_cap": 195511874120.66406,
+    "timestamp": 1780888513.145423
+  },
+  "AON": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,401,639",
+    "avg_vol": 1401639,
+    "mkt_cap": 70166434794.25595,
+    "timestamp": 1780888513.145423
+  },
+  "APA": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,927,501",
+    "avg_vol": 7927501,
+    "mkt_cap": 12926406093.519447,
+    "timestamp": 1780888513.145423
+  },
+  "APO": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,508,734",
+    "avg_vol": 4508734,
+    "mkt_cap": 73811536485.63327,
+    "timestamp": 1780888513.145423
+  },
+  "AMAT": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,908,817",
+    "avg_vol": 6908817,
+    "mkt_cap": 359671569137.81006,
+    "timestamp": 1780888513.145423
+  },
+  "APP": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,649,645",
+    "avg_vol": 4649645,
+    "mkt_cap": 187185505202.02423,
+    "timestamp": 1780888513.145423
+  },
+  "APTV": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,408,792",
+    "avg_vol": 3408792,
+    "mkt_cap": 14517167829.292702,
+    "timestamp": 1780888513.145423
+  },
+  "ACGL": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,221,835",
+    "avg_vol": 2221835,
+    "mkt_cap": 31860837382.721924,
+    "timestamp": 1780888513.145423
+  },
+  "ADM": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,051,281",
+    "avg_vol": 4051281,
+    "mkt_cap": 38999921282.35124,
+    "timestamp": 1780888513.145423
+  },
+  "ARES": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,502,020",
+    "avg_vol": 3502020,
+    "mkt_cap": 28336378759.913666,
+    "timestamp": 1780888513.145423
+  },
+  "ANET": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,015,953",
+    "avg_vol": 9015953,
+    "mkt_cap": 194252074580.01224,
+    "timestamp": 1780888513.145423
+  },
+  "AJG": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,936,890",
+    "avg_vol": 1936890,
+    "mkt_cap": 55535443723.17505,
+    "timestamp": 1780888513.145423
+  },
+  "AIZ": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 400,628 below minimum 500,000",
+    "avg_vol": 400628,
+    "mkt_cap": 12751084684.364777,
+    "timestamp": 1780888513.145423
+  },
+  "T": {
+    "passes": true,
+    "reason": "PASS: avgVol 40,558,173",
+    "avg_vol": 40558173,
+    "mkt_cap": 158074708496.25,
+    "timestamp": 1780888513.145423
+  },
+  "ATO": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,213,176",
+    "avg_vol": 1213176,
+    "mkt_cap": 28416431414.197968,
+    "timestamp": 1780888513.145423
+  },
+  "ADSK": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,090,646",
+    "avg_vol": 2090646,
+    "mkt_cap": 48554963337.56117,
+    "timestamp": 1780888513.145423
+  },
+  "ADP": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,296,682",
+    "avg_vol": 3296682,
+    "mkt_cap": 92718365490.00778,
+    "timestamp": 1780888513.145423
+  },
+  "AZO": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 235,142 below minimum 500,000",
+    "avg_vol": 235142,
+    "mkt_cap": 51012841551.02539,
+    "timestamp": 1780888513.145423
+  },
+  "AVB": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,047,567",
+    "avg_vol": 1047567,
+    "mkt_cap": 26915969103.863678,
+    "timestamp": 1780888513.145423
+  },
+  "AVY": {
+    "passes": true,
+    "reason": "PASS: avgVol 664,256",
+    "avg_vol": 664256,
+    "mkt_cap": 11869777384.067688,
+    "timestamp": 1780888513.145423
+  },
+  "AXON": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,115,068",
+    "avg_vol": 1115068,
+    "mkt_cap": 39182281277.67517,
+    "timestamp": 1780888513.145423
+  },
+  "BKR": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,043,260",
+    "avg_vol": 9043260,
+    "mkt_cap": 62093579896.607666,
+    "timestamp": 1780888513.145423
+  },
+  "BALL": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,578,892",
+    "avg_vol": 2578892,
+    "mkt_cap": 14089764874.608078,
+    "timestamp": 1780888513.145423
+  },
+  "BAX": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,018,507",
+    "avg_vol": 8018507,
+    "mkt_cap": 10009168941.60196,
+    "timestamp": 1780888513.145423
+  },
+  "BDX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,847,351",
+    "avg_vol": 2847351,
+    "mkt_cap": 41650691954.37918,
+    "timestamp": 1780888513.145423
+  },
+  "BBY": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,345,318",
+    "avg_vol": 4345318,
+    "mkt_cap": 15073133870.877205,
+    "timestamp": 1780888513.145423
+  },
+  "TECH": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,637,984",
+    "avg_vol": 2637984,
+    "mkt_cap": 8140009627.28545,
+    "timestamp": 1780888513.145423
+  },
+  "BIIB": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,149,003",
+    "avg_vol": 1149003,
+    "mkt_cap": 28839433894.11673,
+    "timestamp": 1780888513.145423
+  },
+  "BLK": {
+    "passes": true,
+    "reason": "PASS: avgVol 790,300",
+    "avg_vol": 790300,
+    "mkt_cap": 154550955658.5077,
+    "timestamp": 1780888513.145423
+  },
+  "BX": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,379,479",
+    "avg_vol": 7379479,
+    "mkt_cap": 140987918796.8262,
+    "timestamp": 1780888513.145423
+  },
+  "XYZ": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,057,764",
+    "avg_vol": 6057764,
+    "mkt_cap": 40561586058.17413,
+    "timestamp": 1780888513.145423
+  },
+  "BNY": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,705,129",
+    "avg_vol": 3705129,
+    "mkt_cap": 97733511798.61748,
+    "timestamp": 1780888513.145423
+  },
+  "BA": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,131,025",
+    "avg_vol": 7131025,
+    "mkt_cap": 169839734808.2422,
+    "timestamp": 1780888513.145423
+  },
+  "BKNG": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,638,514",
+    "avg_vol": 7638514,
+    "mkt_cap": 128505836988.55042,
+    "timestamp": 1780888513.145423
+  },
+  "BSX": {
+    "passes": true,
+    "reason": "PASS: avgVol 18,562,659",
+    "avg_vol": 18562659,
+    "mkt_cap": 72162542806.45099,
+    "timestamp": 1780888513.145423
+  },
+  "BMY": {
+    "passes": true,
+    "reason": "PASS: avgVol 11,508,718",
+    "avg_vol": 11508718,
+    "mkt_cap": 116949421250.47603,
+    "timestamp": 1780888513.145423
+  },
+  "AVGO": {
+    "passes": true,
+    "reason": "PASS: avgVol 25,255,423",
+    "avg_vol": 25255423,
+    "mkt_cap": 1826303610630.9382,
+    "timestamp": 1780888513.145423
+  },
+  "BR": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,623,173",
+    "avg_vol": 1623173,
+    "mkt_cap": 17503726244.426666,
+    "timestamp": 1780888513.145423
+  },
+  "BRO": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,260,425",
+    "avg_vol": 3260425,
+    "mkt_cap": 19950470128.137344,
+    "timestamp": 1780888513.145423
+  },
+  "BF.B": {
+    "passes": true,
+    "reason": "PASS: ALLOWLIST \u2014 known liquid, yfinance data gap",
+    "avg_vol": 0,
+    "mkt_cap": 0,
+    "timestamp": 1780889366.0774636
+  },
+  "BLDR": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,611,357",
+    "avg_vol": 2611357,
+    "mkt_cap": 7920709202.990662,
+    "timestamp": 1780888513.145423
+  },
+  "BG": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,803,928",
+    "avg_vol": 1803928,
+    "mkt_cap": 24535530645.27111,
+    "timestamp": 1780888513.145423
+  },
+  "BXP": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,858,800",
+    "avg_vol": 1858800,
+    "mkt_cap": 9940226073.041824,
+    "timestamp": 1780888513.145423
+  },
+  "CHRW": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,793,284",
+    "avg_vol": 1793284,
+    "mkt_cap": 21699247870.116028,
+    "timestamp": 1780888513.145423
+  },
+  "CDNS": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,385,923",
+    "avg_vol": 2385923,
+    "mkt_cap": 103759221713.3789,
+    "timestamp": 1780888513.145423
+  },
+  "CPT": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,176,243",
+    "avg_vol": 1176243,
+    "mkt_cap": 11157600958.39975,
+    "timestamp": 1780888513.145423
+  },
+  "CPB": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,878,464",
+    "avg_vol": 8878464,
+    "mkt_cap": 6463815950.827087,
+    "timestamp": 1780888513.145423
+  },
+  "COF": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,748,306",
+    "avg_vol": 4748306,
+    "mkt_cap": 112429635965.15788,
+    "timestamp": 1780888513.145423
+  },
+  "CAH": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,995,742",
+    "avg_vol": 1995742,
+    "mkt_cap": 48178488004.477005,
+    "timestamp": 1780888513.145423
+  },
+  "CCL": {
+    "passes": true,
+    "reason": "PASS: avgVol 28,765,909",
+    "avg_vol": 28765909,
+    "mkt_cap": 37966675594.21448,
+    "timestamp": 1780888513.145423
+  },
+  "CARR": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,942,250",
+    "avg_vol": 6942250,
+    "mkt_cap": 55781784250.35635,
+    "timestamp": 1780888513.145423
+  },
+  "CVNA": {
+    "passes": true,
+    "reason": "PASS: avgVol 12,834,089",
+    "avg_vol": 12834089,
+    "mkt_cap": 47640342016.50707,
+    "timestamp": 1780888513.145423
+  },
+  "CASY": {
+    "passes": true,
+    "reason": "PASS: avgVol 597,729",
+    "avg_vol": 597729,
+    "mkt_cap": 28241665926.58014,
+    "timestamp": 1780888513.145423
+  },
+  "CAT": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,526,440",
+    "avg_vol": 2526440,
+    "mkt_cap": 416504131881.14575,
+    "timestamp": 1780888513.145423
+  },
+  "CBOE": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,060,035",
+    "avg_vol": 1060035,
+    "mkt_cap": 29502948630.693604,
+    "timestamp": 1780888513.145423
+  },
+  "CBRE": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,301,532",
+    "avg_vol": 2301532,
+    "mkt_cap": 38338472543.81732,
+    "timestamp": 1780888513.145423
+  },
+  "CDW": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,925,295",
+    "avg_vol": 1925295,
+    "mkt_cap": 16996318263.320297,
+    "timestamp": 1780888513.145423
+  },
+  "COR": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,763,618",
+    "avg_vol": 1763618,
+    "mkt_cap": 53512075604.90906,
+    "timestamp": 1780888513.145423
+  },
+  "CNC": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,467,753",
+    "avg_vol": 6467753,
+    "mkt_cap": 30778367914.16931,
+    "timestamp": 1780888513.145423
+  },
+  "CNP": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,885,353",
+    "avg_vol": 4885353,
+    "mkt_cap": 27926494202.83493,
+    "timestamp": 1780888513.145423
+  },
+  "CF": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,520,692",
+    "avg_vol": 4520692,
+    "mkt_cap": 17435385978.072464,
+    "timestamp": 1780888513.145423
+  },
+  "CRL": {
+    "passes": true,
+    "reason": "PASS: avgVol 884,967",
+    "avg_vol": 884967,
+    "mkt_cap": 8734735981.804504,
+    "timestamp": 1780888513.145423
+  },
+  "SCHW": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,669,396",
+    "avg_vol": 10669396,
+    "mkt_cap": 154504792072.97556,
+    "timestamp": 1780888513.145423
+  },
+  "CHTR": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,752,692",
+    "avg_vol": 2752692,
+    "mkt_cap": 18652485555.05249,
+    "timestamp": 1780888513.145423
+  },
+  "CMG": {
+    "passes": true,
+    "reason": "PASS: avgVol 17,511,807",
+    "avg_vol": 17511807,
+    "mkt_cap": 37635415755.729675,
+    "timestamp": 1780888513.145423
+  },
+  "CB": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,674,692",
+    "avg_vol": 1674692,
+    "mkt_cap": 126547112523.46161,
+    "timestamp": 1780888513.145423
+  },
+  "CHD": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,079,471",
+    "avg_vol": 2079471,
+    "mkt_cap": 22921923551.313858,
+    "timestamp": 1780888513.145423
+  },
+  "CIEN": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,708,756",
+    "avg_vol": 2708756,
+    "mkt_cap": 69107550840.06134,
+    "timestamp": 1780888513.145423
+  },
+  "CI": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,677,470",
+    "avg_vol": 1677470,
+    "mkt_cap": 76576843216.15979,
+    "timestamp": 1780888513.145423
+  },
+  "CINF": {
+    "passes": true,
+    "reason": "PASS: avgVol 733,576",
+    "avg_vol": 733576,
+    "mkt_cap": 25568170546.63376,
+    "timestamp": 1780888513.145423
+  },
+  "CTAS": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,307,710",
+    "avg_vol": 2307710,
+    "mkt_cap": 71964620490.0917,
+    "timestamp": 1780888513.145423
+  },
+  "CSCO": {
+    "passes": true,
+    "reason": "PASS: avgVol 23,789,267",
+    "avg_vol": 23789267,
+    "mkt_cap": 479436110244.9392,
+    "timestamp": 1780888513.145423
+  },
+  "C": {
+    "passes": true,
+    "reason": "PASS: avgVol 12,687,600",
+    "avg_vol": 12687600,
+    "mkt_cap": 225937781310.85312,
+    "timestamp": 1780888513.145423
+  },
+  "CFG": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,534,756",
+    "avg_vol": 4534756,
+    "mkt_cap": 27055986455.58001,
+    "timestamp": 1780888513.145423
+  },
+  "CLX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,782,859",
+    "avg_vol": 2782859,
+    "mkt_cap": 11383535909.335464,
+    "timestamp": 1780888513.145423
+  },
+  "CME": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,606,306",
+    "avg_vol": 2606306,
+    "mkt_cap": 93004473902.06094,
+    "timestamp": 1780888513.145423
+  },
+  "CMS": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,874,103",
+    "avg_vol": 2874103,
+    "mkt_cap": 22254568410.904343,
+    "timestamp": 1780888513.145423
+  },
+  "KO": {
+    "passes": true,
+    "reason": "PASS: avgVol 15,016,629",
+    "avg_vol": 15016629,
+    "mkt_cap": 341961317025.7878,
+    "timestamp": 1780888513.145423
+  },
+  "CTSH": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,039,748",
+    "avg_vol": 7039748,
+    "mkt_cap": 25168329566.955566,
+    "timestamp": 1780888513.145423
+  },
+  "COHR": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,174,882",
+    "avg_vol": 7174882,
+    "mkt_cap": 73754065713.24976,
+    "timestamp": 1780888513.145423
+  },
+  "COIN": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,395,770",
+    "avg_vol": 10395770,
+    "mkt_cap": 40151419130.3631,
+    "timestamp": 1780888513.145423
+  },
+  "CL": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,801,360",
+    "avg_vol": 5801360,
+    "mkt_cap": 70880770544.99039,
+    "timestamp": 1780888513.145423
+  },
+  "CMCSA": {
+    "passes": true,
+    "reason": "PASS: avgVol 33,244,540",
+    "avg_vol": 33244540,
+    "mkt_cap": 85090483137.58237,
+    "timestamp": 1780888513.145423
+  },
+  "FIX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 416,234 below minimum 500,000",
+    "avg_vol": 416234,
+    "mkt_cap": 64877122048.41943,
+    "timestamp": 1780888513.145423
+  },
+  "CAG": {
+    "passes": true,
+    "reason": "PASS: avgVol 15,347,353",
+    "avg_vol": 15347353,
+    "mkt_cap": 6224467509.065575,
+    "timestamp": 1780888513.145423
+  },
+  "COP": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,977,954",
+    "avg_vol": 8977954,
+    "mkt_cap": 142710959236.39233,
+    "timestamp": 1780888513.145423
+  },
+  "ED": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,178,828",
+    "avg_vol": 2178828,
+    "mkt_cap": 39159967240.564384,
+    "timestamp": 1780888513.145423
+  },
+  "STZ": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,021,039",
+    "avg_vol": 2021039,
+    "mkt_cap": 24264486615.57962,
+    "timestamp": 1780888513.145423
+  },
+  "CEG": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,317,478",
+    "avg_vol": 3317478,
+    "mkt_cap": 91000307645.98332,
+    "timestamp": 1780888513.145423
+  },
+  "COO": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,488,714",
+    "avg_vol": 2488714,
+    "mkt_cap": 13139002846.789734,
+    "timestamp": 1780888513.145423
+  },
+  "CPRT": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,837,973",
+    "avg_vol": 8837973,
+    "mkt_cap": 28663122635.114273,
+    "timestamp": 1780888513.145423
+  },
+  "GLW": {
+    "passes": true,
+    "reason": "PASS: avgVol 13,051,315",
+    "avg_vol": 13051315,
+    "mkt_cap": 152832066539.37494,
+    "timestamp": 1780888513.145423
+  },
+  "CPAY": {
+    "passes": true,
+    "reason": "PASS: avgVol 585,125",
+    "avg_vol": 585125,
+    "mkt_cap": 22709999554.424988,
+    "timestamp": 1780888513.145423
+  },
+  "CTVA": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,751,082",
+    "avg_vol": 3751082,
+    "mkt_cap": 51519203783.569336,
+    "timestamp": 1780888513.145423
+  },
+  "CSGP": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,087,012",
+    "avg_vol": 7087012,
+    "mkt_cap": 13839174932.109451,
+    "timestamp": 1780888513.145423
+  },
+  "COST": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,991,978",
+    "avg_vol": 1991978,
+    "mkt_cap": 431003743078.05615,
+    "timestamp": 1780888513.145423
+  },
+  "CRH": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,132,867",
+    "avg_vol": 5132867,
+    "mkt_cap": 70201113061.61182,
+    "timestamp": 1780888513.145423
+  },
+  "CRWD": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,545,532",
+    "avg_vol": 3545532,
+    "mkt_cap": 170818090488.36914,
+    "timestamp": 1780888513.145423
+  },
+  "CCI": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,302,384",
+    "avg_vol": 3302384,
+    "mkt_cap": 41240346941.307976,
+    "timestamp": 1780888513.145423
+  },
+  "CSX": {
+    "passes": true,
+    "reason": "PASS: avgVol 12,878,282",
+    "avg_vol": 12878282,
+    "mkt_cap": 87313947962.26437,
+    "timestamp": 1780888513.145423
+  },
+  "CMI": {
+    "passes": true,
+    "reason": "PASS: avgVol 874,703",
+    "avg_vol": 874703,
+    "mkt_cap": 89861236169.09155,
+    "timestamp": 1780888513.145423
+  },
+  "CVS": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,954,314",
+    "avg_vol": 7954314,
+    "mkt_cap": 122399706949.89212,
+    "timestamp": 1780888513.145423
+  },
+  "DHR": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,539,964",
+    "avg_vol": 4539964,
+    "mkt_cap": 130442128716.04454,
+    "timestamp": 1780888513.145423
+  },
+  "DRI": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,289,351",
+    "avg_vol": 1289351,
+    "mkt_cap": 22691674235.107056,
+    "timestamp": 1780888513.145423
+  },
+  "DDOG": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,640,890",
+    "avg_vol": 5640890,
+    "mkt_cap": 83333840064.05086,
+    "timestamp": 1780888513.145423
+  },
+  "DVA": {
+    "passes": true,
+    "reason": "PASS: avgVol 871,826",
+    "avg_vol": 871826,
+    "mkt_cap": 12333789835.05249,
+    "timestamp": 1780888513.145423
+  },
+  "DECK": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,039,828",
+    "avg_vol": 2039828,
+    "mkt_cap": 15017197498.962059,
+    "timestamp": 1780888513.145423
+  },
+  "DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,311,089",
+    "avg_vol": 1311089,
+    "mkt_cap": 157492291901.02692,
+    "timestamp": 1780888513.145423
+  },
+  "DELL": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,925,782",
+    "avg_vol": 8925782,
+    "mkt_cap": 256183246225.09045,
+    "timestamp": 1780888513.145423
+  },
+  "DAL": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,905,628",
+    "avg_vol": 10905628,
+    "mkt_cap": 52178489279.807434,
+    "timestamp": 1780888513.145423
+  },
+  "DVN": {
+    "passes": true,
+    "reason": "PASS: avgVol 15,684,129",
+    "avg_vol": 15684129,
+    "mkt_cap": 51072688169.99722,
+    "timestamp": 1780888513.145423
+  },
+  "DXCM": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,274,192",
+    "avg_vol": 5274192,
+    "mkt_cap": 28114705339.738174,
+    "timestamp": 1780888513.145423
+  },
+  "FANG": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,108,792",
+    "avg_vol": 3108792,
+    "mkt_cap": 54186565894.53992,
+    "timestamp": 1780888513.145423
+  },
+  "DLR": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,015,432",
+    "avg_vol": 2015432,
+    "mkt_cap": 65639137456.00632,
+    "timestamp": 1780888513.145423
+  },
+  "DG": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,688,156",
+    "avg_vol": 3688156,
+    "mkt_cap": 22874834620.722977,
+    "timestamp": 1780888513.145423
+  },
+  "DLTR": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,759,214",
+    "avg_vol": 3759214,
+    "mkt_cap": 20908595760.8703,
+    "timestamp": 1780888513.145423
+  },
+  "D": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,019,401",
+    "avg_vol": 6019401,
+    "mkt_cap": 58839386521.62955,
+    "timestamp": 1780888513.145423
+  },
+  "DPZ": {
+    "passes": true,
+    "reason": "PASS: avgVol 959,495",
+    "avg_vol": 959495,
+    "mkt_cap": 10443894236.47705,
+    "timestamp": 1780888513.145423
+  },
+  "DASH": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,521,131",
+    "avg_vol": 4521131,
+    "mkt_cap": 68320696939.308014,
+    "timestamp": 1780888513.145423
+  },
+  "DOV": {
+    "passes": true,
+    "reason": "PASS: avgVol 982,617",
+    "avg_vol": 982617,
+    "mkt_cap": 28919884530.92276,
+    "timestamp": 1780888513.145423
+  },
+  "DOW": {
+    "passes": true,
+    "reason": "PASS: avgVol 13,828,010",
+    "avg_vol": 13828010,
+    "mkt_cap": 24483587528.671326,
+    "timestamp": 1780888513.145423
+  },
+  "DHI": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,567,607",
+    "avg_vol": 2567607,
+    "mkt_cap": 41289193383.6326,
+    "timestamp": 1780888513.145423
+  },
+  "DTE": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,355,782",
+    "avg_vol": 1355782,
+    "mkt_cap": 30324288074.80284,
+    "timestamp": 1780888513.145423
+  },
+  "DUK": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,684,718",
+    "avg_vol": 3684718,
+    "mkt_cap": 96841443027.39554,
+    "timestamp": 1780888513.145423
+  },
+  "DD": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,764,528",
+    "avg_vol": 3764528,
+    "mkt_cap": 18976976145.630234,
+    "timestamp": 1780888513.145423
+  },
+  "ETN": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,640,460",
+    "avg_vol": 2640460,
+    "mkt_cap": 153743502947.99805,
+    "timestamp": 1780888513.145423
+  },
+  "EBAY": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,627,684",
+    "avg_vol": 5627684,
+    "mkt_cap": 48551399322.509766,
+    "timestamp": 1780888513.145423
+  },
+  "SATS": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,779,403",
+    "avg_vol": 6779403,
+    "mkt_cap": 33699512030.86377,
+    "timestamp": 1780888513.145423
+  },
+  "ECL": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,610,209",
+    "avg_vol": 1610209,
+    "mkt_cap": 72602432734.49164,
+    "timestamp": 1780888513.145423
+  },
+  "EIX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,995,351",
+    "avg_vol": 2995351,
+    "mkt_cap": 28216940398.10875,
+    "timestamp": 1780888513.145423
+  },
+  "EW": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,092,715",
+    "avg_vol": 5092715,
+    "mkt_cap": 49495767472.839355,
+    "timestamp": 1780888513.145423
+  },
+  "EA": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,028,135",
+    "avg_vol": 2028135,
+    "mkt_cap": 50902551252.0,
+    "timestamp": 1780888513.145423
+  },
+  "ELV": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,779,193",
+    "avg_vol": 1779193,
+    "mkt_cap": 90237483496.3092,
+    "timestamp": 1780888513.145423
+  },
+  "EME": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 362,509 below minimum 500,000",
+    "avg_vol": 362509,
+    "mkt_cap": 36402701677.20209,
+    "timestamp": 1780888513.145423
+  },
+  "EMR": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,918,032",
+    "avg_vol": 2918032,
+    "mkt_cap": 77361009265.13672,
+    "timestamp": 1780888513.145423
+  },
+  "ETR": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,450,237",
+    "avg_vol": 3450237,
+    "mkt_cap": 50706388458.62817,
+    "timestamp": 1780888513.145423
+  },
+  "EOG": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,292,090",
+    "avg_vol": 4292090,
+    "mkt_cap": 73385558213.21869,
+    "timestamp": 1780888513.145423
+  },
+  "EQT": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,714,290",
+    "avg_vol": 7714290,
+    "mkt_cap": 33619442500.0,
+    "timestamp": 1780888513.145423
+  },
+  "EFX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,667,054",
+    "avg_vol": 1667054,
+    "mkt_cap": 20764833770.64612,
+    "timestamp": 1780888513.145423
+  },
+  "EQIX": {
+    "passes": true,
+    "reason": "PASS: avgVol 567,784",
+    "avg_vol": 567784,
+    "mkt_cap": 106607876059.96289,
+    "timestamp": 1780888513.145423
+  },
+  "EQR": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,741,103",
+    "avg_vol": 2741103,
+    "mkt_cap": 25551622014.18457,
+    "timestamp": 1780888513.145423
+  },
+  "ERIE": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 227,610 below minimum 500,000",
+    "avg_vol": 227610,
+    "mkt_cap": 11881303870.790405,
+    "timestamp": 1780888513.145423
+  },
+  "ESS": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 484,920 below minimum 500,000",
+    "avg_vol": 484920,
+    "mkt_cap": 18342227692.102966,
+    "timestamp": 1780888513.145423
+  },
+  "EL": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,513,706",
+    "avg_vol": 4513706,
+    "mkt_cap": 30206256680.47268,
+    "timestamp": 1780888513.145423
+  },
+  "EG": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 353,846 below minimum 500,000",
+    "avg_vol": 353846,
+    "mkt_cap": 13233139569.735535,
+    "timestamp": 1780888513.145423
+  },
+  "EVRG": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,924,723",
+    "avg_vol": 1924723,
+    "mkt_cap": 19194818817.933083,
+    "timestamp": 1780888513.145423
+  },
+  "ES": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,465,804",
+    "avg_vol": 2465804,
+    "mkt_cap": 26551249191.147423,
+    "timestamp": 1780888513.145423
+  },
+  "EXC": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,335,820",
+    "avg_vol": 8335820,
+    "mkt_cap": 46811772496.5,
+    "timestamp": 1780888513.145423
+  },
+  "EXE": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,529,692",
+    "avg_vol": 3529692,
+    "mkt_cap": 22025800054.42315,
+    "timestamp": 1780888513.145423
+  },
+  "EXPE": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,757,715",
+    "avg_vol": 1757715,
+    "mkt_cap": 27470653569.805298,
+    "timestamp": 1780888513.145423
+  },
+  "EXPD": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,153,650",
+    "avg_vol": 1153650,
+    "mkt_cap": 20984129697.83429,
+    "timestamp": 1780888513.145423
+  },
+  "EXR": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,163,656",
+    "avg_vol": 1163656,
+    "mkt_cap": 30698326094.38623,
+    "timestamp": 1780888513.145423
+  },
+  "FFIV": {
+    "passes": true,
+    "reason": "PASS: avgVol 752,795",
+    "avg_vol": 752795,
+    "mkt_cap": 22192511151.805756,
+    "timestamp": 1780888513.145423
+  },
+  "FDS": {
+    "passes": true,
+    "reason": "PASS: avgVol 949,207",
+    "avg_vol": 949207,
+    "mkt_cap": 9312524505.853638,
+    "timestamp": 1780888513.145423
+  },
+  "FICO": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 389,546 below minimum 500,000",
+    "avg_vol": 389546,
+    "mkt_cap": 26375712101.84839,
+    "timestamp": 1780888513.145423
+  },
+  "FAST": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,356,990",
+    "avg_vol": 7356990,
+    "mkt_cap": 53716561555.24749,
+    "timestamp": 1780888513.145423
+  },
+  "FRT": {
+    "passes": true,
+    "reason": "PASS: avgVol 875,653",
+    "avg_vol": 875653,
+    "mkt_cap": 10587859773.408875,
+    "timestamp": 1780888513.145423
+  },
+  "FDX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,210,764",
+    "avg_vol": 2210764,
+    "mkt_cap": 78978836236.0,
+    "timestamp": 1780888513.145423
+  },
+  "FDXF": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,798,337",
+    "avg_vol": 2798337,
+    "mkt_cap": 24992409181.24936,
+    "timestamp": 1780888513.145423
+  },
+  "FIS": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,568,942",
+    "avg_vol": 6568942,
+    "mkt_cap": 21166201627.797497,
+    "timestamp": 1780888513.145423
+  },
+  "FITB": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,870,429",
+    "avg_vol": 7870429,
+    "mkt_cap": 47137262090.26616,
+    "timestamp": 1780888513.145423
+  },
+  "FSLR": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,379,042",
+    "avg_vol": 2379042,
+    "mkt_cap": 29980563859.979248,
+    "timestamp": 1780888513.145423
+  },
+  "FE": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,999,848",
+    "avg_vol": 4999848,
+    "mkt_cap": 26850774084.360886,
+    "timestamp": 1780888513.145423
+  },
+  "FISV": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,513,676",
+    "avg_vol": 6513676,
+    "mkt_cap": 29025014620.7162,
+    "timestamp": 1780888513.145423
+  },
+  "F": {
+    "passes": true,
+    "reason": "PASS: avgVol 58,695,281",
+    "avg_vol": 58695281,
+    "mkt_cap": 59371918666.96039,
+    "timestamp": 1780888513.145423
+  },
+  "FTNT": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,182,426",
+    "avg_vol": 6182426,
+    "mkt_cap": 105999563843.80292,
+    "timestamp": 1780888513.145423
+  },
+  "FTV": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,218,867",
+    "avg_vol": 3218867,
+    "mkt_cap": 18681882994.7352,
+    "timestamp": 1780888513.145423
+  },
+  "FOXA": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,291,910",
+    "avg_vol": 3291910,
+    "mkt_cap": 28106262353.888626,
+    "timestamp": 1780888513.145423
+  },
+  "FOX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,399,034",
+    "avg_vol": 1399034,
+    "mkt_cap": 25160756991.007404,
+    "timestamp": 1780888513.145423
+  },
+  "BEN": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,986,790",
+    "avg_vol": 4986790,
+    "mkt_cap": 16280232245.81483,
+    "timestamp": 1780888513.145423
+  },
+  "FCX": {
+    "passes": true,
+    "reason": "PASS: avgVol 16,000,989",
+    "avg_vol": 16000989,
+    "mkt_cap": 91098167109.5704,
+    "timestamp": 1780888513.145423
+  },
+  "GRMN": {
+    "passes": true,
+    "reason": "PASS: avgVol 776,598",
+    "avg_vol": 776598,
+    "mkt_cap": 45623994065.94104,
+    "timestamp": 1780888513.145423
+  },
+  "IT": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,609,773",
+    "avg_vol": 1609773,
+    "mkt_cap": 10981449119.82933,
+    "timestamp": 1780888513.145423
+  },
+  "GE": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,903,123",
+    "avg_vol": 5903123,
+    "mkt_cap": 342704109784.0,
+    "timestamp": 1780888513.145423
+  },
+  "GEHC": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,783,039",
+    "avg_vol": 4783039,
+    "mkt_cap": 29417850967.688263,
+    "timestamp": 1780888513.145423
+  },
+  "GEV": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,512,876",
+    "avg_vol": 2512876,
+    "mkt_cap": 250879670595.62195,
+    "timestamp": 1780888513.145423
+  },
+  "GEN": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,784,510",
+    "avg_vol": 7784510,
+    "mkt_cap": 15831962096.7785,
+    "timestamp": 1780888513.145423
+  },
+  "GNRC": {
+    "passes": true,
+    "reason": "PASS: avgVol 897,450",
+    "avg_vol": 897450,
+    "mkt_cap": 15396515331.76828,
+    "timestamp": 1780888513.145423
+  },
+  "GD": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,318,904",
+    "avg_vol": 1318904,
+    "mkt_cap": 93687834644.50995,
+    "timestamp": 1780888513.145423
+  },
+  "GIS": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,885,315",
+    "avg_vol": 9885315,
+    "mkt_cap": 17691533191.032913,
+    "timestamp": 1780888513.145423
+  },
+  "GM": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,290,868",
+    "avg_vol": 7290868,
+    "mkt_cap": 74035729711.78276,
+    "timestamp": 1780888513.145423
+  },
+  "GPC": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,888,704",
+    "avg_vol": 1888704,
+    "mkt_cap": 13654835112.48349,
+    "timestamp": 1780888513.145423
+  },
+  "GILD": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,367,696",
+    "avg_vol": 6367696,
+    "mkt_cap": 160361169472.60468,
+    "timestamp": 1780888513.145423
+  },
+  "GPN": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,516,690",
+    "avg_vol": 3516690,
+    "mkt_cap": 18141405300.761147,
+    "timestamp": 1780888513.145423
+  },
+  "GL": {
+    "passes": true,
+    "reason": "PASS: avgVol 526,582",
+    "avg_vol": 526582,
+    "mkt_cap": 12359492487.292786,
+    "timestamp": 1780888513.145423
+  },
+  "GDDY": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,384,307",
+    "avg_vol": 2384307,
+    "mkt_cap": 11172742526.185493,
+    "timestamp": 1780888513.145423
+  },
+  "GS": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,114,415",
+    "avg_vol": 2114415,
+    "mkt_cap": 306418323889.40515,
+    "timestamp": 1780888513.145423
+  },
+  "HAL": {
+    "passes": true,
+    "reason": "PASS: avgVol 14,286,568",
+    "avg_vol": 14286568,
+    "mkt_cap": 32730883512.243156,
+    "timestamp": 1780888513.145423
+  },
+  "HIG": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,592,245",
+    "avg_vol": 1592245,
+    "mkt_cap": 36223646387.483826,
+    "timestamp": 1780888513.145423
+  },
+  "HAS": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,888,546",
+    "avg_vol": 1888546,
+    "mkt_cap": 11910686495.739532,
+    "timestamp": 1780888513.145423
+  },
+  "HCA": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,293,940",
+    "avg_vol": 1293940,
+    "mkt_cap": 82553245857.20215,
+    "timestamp": 1780888513.145423
+  },
+  "DOC": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,056,940",
+    "avg_vol": 9056940,
+    "mkt_cap": 13643616533.762589,
+    "timestamp": 1780888513.145423
+  },
+  "HSIC": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,373,996",
+    "avg_vol": 1373996,
+    "mkt_cap": 8822852482.003647,
+    "timestamp": 1780888513.145423
+  },
+  "HSY": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,893,878",
+    "avg_vol": 1893878,
+    "mkt_cap": 37440829975.17731,
+    "timestamp": 1780888513.145423
+  },
+  "HPE": {
+    "passes": true,
+    "reason": "PASS: avgVol 23,738,214",
+    "avg_vol": 23738214,
+    "mkt_cap": 65150814243.48711,
+    "timestamp": 1780888513.145423
+  },
+  "HLT": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,681,100",
+    "avg_vol": 1681100,
+    "mkt_cap": 78106157822.6554,
+    "timestamp": 1780888513.145423
+  },
+  "HON": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,128,754",
+    "avg_vol": 4128754,
+    "mkt_cap": 135582758645.93234,
+    "timestamp": 1780888513.145423
+  },
+  "HRL": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,436,348",
+    "avg_vol": 5436348,
+    "mkt_cap": 12998439793.422693,
+    "timestamp": 1780888513.145423
+  },
+  "HST": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,484,360",
+    "avg_vol": 8484360,
+    "mkt_cap": 16861728472.993567,
+    "timestamp": 1780888513.145423
+  },
+  "HWM": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,382,150",
+    "avg_vol": 2382150,
+    "mkt_cap": 100787072525.63773,
+    "timestamp": 1780888513.145423
+  },
+  "HPQ": {
+    "passes": true,
+    "reason": "PASS: avgVol 20,016,270",
+    "avg_vol": 20016270,
+    "mkt_cap": 23393490340.427456,
+    "timestamp": 1780888513.145423
+  },
+  "HUBB": {
+    "passes": true,
+    "reason": "PASS: avgVol 613,120",
+    "avg_vol": 613120,
+    "mkt_cap": 25196016496.164734,
+    "timestamp": 1780888513.145423
+  },
+  "HUM": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,724,835",
+    "avg_vol": 1724835,
+    "mkt_cap": 42031128307.84607,
+    "timestamp": 1780888513.145423
+  },
+  "HBAN": {
+    "passes": true,
+    "reason": "PASS: avgVol 23,964,385",
+    "avg_vol": 23964385,
+    "mkt_cap": 33488198225.18674,
+    "timestamp": 1780888513.145423
+  },
+  "HII": {
+    "passes": true,
+    "reason": "PASS: avgVol 519,456",
+    "avg_vol": 519456,
+    "mkt_cap": 11546956994.86435,
+    "timestamp": 1780888513.145423
+  },
+  "IBM": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,780,125",
+    "avg_vol": 7780125,
+    "mkt_cap": 267716919713.2373,
+    "timestamp": 1780888513.145423
+  },
+  "IEX": {
+    "passes": true,
+    "reason": "PASS: avgVol 769,795",
+    "avg_vol": 769795,
+    "mkt_cap": 15939141899.952026,
+    "timestamp": 1780888513.145423
+  },
+  "IDXX": {
+    "passes": true,
+    "reason": "PASS: avgVol 580,976",
+    "avg_vol": 580976,
+    "mkt_cap": 44344863475.08014,
+    "timestamp": 1780888513.145423
+  },
+  "ITW": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,314,570",
+    "avg_vol": 1314570,
+    "mkt_cap": 72707544351.19629,
+    "timestamp": 1780888513.145423
+  },
+  "INCY": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,511,126",
+    "avg_vol": 1511126,
+    "mkt_cap": 20453696480.181923,
+    "timestamp": 1780888513.145423
+  },
+  "IR": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,645,904",
+    "avg_vol": 3645904,
+    "mkt_cap": 28274086256.5,
+    "timestamp": 1780888513.145423
+  },
+  "PODD": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,298,203",
+    "avg_vol": 1298203,
+    "mkt_cap": 10612733434.831604,
+    "timestamp": 1780888513.145423
+  },
+  "INTC": {
+    "passes": true,
+    "reason": "PASS: avgVol 122,863,543",
+    "avg_vol": 122863543,
+    "mkt_cap": 498428410797.11914,
+    "timestamp": 1780888513.145423
+  },
+  "IBKR": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,970,725",
+    "avg_vol": 4970725,
+    "mkt_cap": 37598914761.355804,
+    "timestamp": 1780888513.145423
+  },
+  "ICE": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,516,734",
+    "avg_vol": 3516734,
+    "mkt_cap": 80020018042.5,
+    "timestamp": 1780888513.145423
+  },
+  "IFF": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,876,395",
+    "avg_vol": 1876395,
+    "mkt_cap": 18639707109.117058,
+    "timestamp": 1780888513.145423
+  },
+  "IP": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,902,717",
+    "avg_vol": 6902717,
+    "mkt_cap": 17797065819.331512,
+    "timestamp": 1780888513.145423
+  },
+  "INTU": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,192,171",
+    "avg_vol": 4192171,
+    "mkt_cap": 81174842791.25977,
+    "timestamp": 1780888513.145423
+  },
+  "ISRG": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,143,845",
+    "avg_vol": 2143845,
+    "mkt_cap": 149477968229.86462,
+    "timestamp": 1780888513.145423
+  },
+  "IVZ": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,495,565",
+    "avg_vol": 5495565,
+    "mkt_cap": 12124162972.254244,
+    "timestamp": 1780888513.145423
+  },
+  "INVH": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,954,893",
+    "avg_vol": 5954893,
+    "mkt_cap": 17845020902.101654,
+    "timestamp": 1780888513.145423
+  },
+  "IQV": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,634,129",
+    "avg_vol": 1634129,
+    "mkt_cap": 30617804490.66162,
+    "timestamp": 1780888513.145423
+  },
+  "IRM": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,501,168",
+    "avg_vol": 1501168,
+    "mkt_cap": 37089427823.02792,
+    "timestamp": 1780888513.145423
+  },
+  "JBHT": {
+    "passes": true,
+    "reason": "PASS: avgVol 966,853",
+    "avg_vol": 966853,
+    "mkt_cap": 26870559045.963318,
+    "timestamp": 1780888513.145423
+  },
+  "JBL": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,221,162",
+    "avg_vol": 1221162,
+    "mkt_cap": 37267745164.98096,
+    "timestamp": 1780888513.145423
+  },
+  "JKHY": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,218,773",
+    "avg_vol": 1218773,
+    "mkt_cap": 9244417029.165955,
+    "timestamp": 1780888513.145423
+  },
+  "J": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,117,190",
+    "avg_vol": 1117190,
+    "mkt_cap": 14470812081.804245,
+    "timestamp": 1780888513.145423
+  },
+  "JCI": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,594,782",
+    "avg_vol": 3594782,
+    "mkt_cap": 87643102647.09988,
+    "timestamp": 1780888513.145423
+  },
+  "KVUE": {
+    "passes": true,
+    "reason": "PASS: avgVol 20,165,568",
+    "avg_vol": 20165568,
+    "mkt_cap": 34003351752.459564,
+    "timestamp": 1780888513.145423
+  },
+  "KDP": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,934,193",
+    "avg_vol": 10934193,
+    "mkt_cap": 41537881583.85205,
+    "timestamp": 1780888513.145423
+  },
+  "KEY": {
+    "passes": true,
+    "reason": "PASS: avgVol 13,400,279",
+    "avg_vol": 13400279,
+    "mkt_cap": 23592751219.039566,
+    "timestamp": 1780888513.145423
+  },
+  "KEYS": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,463,700",
+    "avg_vol": 1463700,
+    "mkt_cap": 56366416932.70239,
+    "timestamp": 1780888513.145423
+  },
+  "KMB": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,808,590",
+    "avg_vol": 4808590,
+    "mkt_cap": 32873951343.88733,
+    "timestamp": 1780888513.145423
+  },
+  "KIM": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,711,617",
+    "avg_vol": 4711617,
+    "mkt_cap": 16340464351.448853,
+    "timestamp": 1780888513.145423
+  },
+  "KMI": {
+    "passes": true,
+    "reason": "PASS: avgVol 12,032,453",
+    "avg_vol": 12032453,
+    "mkt_cap": 70482480660.72293,
+    "timestamp": 1780888513.145423
+  },
+  "KKR": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,608,873",
+    "avg_vol": 5608873,
+    "mkt_cap": 83861334059.44537,
+    "timestamp": 1780888513.145423
+  },
+  "KLAC": {
+    "passes": true,
+    "reason": "PASS: avgVol 998,425",
+    "avg_vol": 998425,
+    "mkt_cap": 252006607134.90308,
+    "timestamp": 1780888513.145423
+  },
+  "KHC": {
+    "passes": true,
+    "reason": "PASS: avgVol 15,265,896",
+    "avg_vol": 15265896,
+    "mkt_cap": 26774858975.572346,
+    "timestamp": 1780888513.145423
+  },
+  "KR": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,108,306",
+    "avg_vol": 6108306,
+    "mkt_cap": 39194762048.73061,
+    "timestamp": 1780888513.145423
+  },
+  "LHX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,360,979",
+    "avg_vol": 1360979,
+    "mkt_cap": 57347172264.81088,
+    "timestamp": 1780888513.145423
+  },
+  "LH": {
+    "passes": true,
+    "reason": "PASS: avgVol 625,168",
+    "avg_vol": 625168,
+    "mkt_cap": 21742299499.51172,
+    "timestamp": 1780888513.145423
+  },
+  "LRCX": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,752,443",
+    "avg_vol": 9752443,
+    "mkt_cap": 379263466393.46313,
+    "timestamp": 1780888513.145423
+  },
+  "LVS": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,157,426",
+    "avg_vol": 4157426,
+    "mkt_cap": 33297525581.25,
+    "timestamp": 1780888513.145423
+  },
+  "LDOS": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,172,159",
+    "avg_vol": 1172159,
+    "mkt_cap": 15651485572.766678,
+    "timestamp": 1780888513.145423
+  },
+  "LEN": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,973,404",
+    "avg_vol": 2973404,
+    "mkt_cap": 22287532278.890076,
+    "timestamp": 1780888513.145423
+  },
+  "LII": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 449,462 below minimum 500,000",
+    "avg_vol": 449462,
+    "mkt_cap": 17693347475.35742,
+    "timestamp": 1780888513.145423
+  },
+  "LLY": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,122,931",
+    "avg_vol": 3122931,
+    "mkt_cap": 1008934100764.3748,
+    "timestamp": 1780888513.145423
+  },
+  "LIN": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,274,671",
+    "avg_vol": 2274671,
+    "mkt_cap": 234826195927.05597,
+    "timestamp": 1780888513.145423
+  },
+  "LYV": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,836,310",
+    "avg_vol": 2836310,
+    "mkt_cap": 37250339440.369446,
+    "timestamp": 1780888513.145423
+  },
+  "LMT": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,457,126",
+    "avg_vol": 1457126,
+    "mkt_cap": 120759997577.67773,
+    "timestamp": 1780888513.145423
+  },
+  "L": {
+    "passes": true,
+    "reason": "PASS: avgVol 763,187",
+    "avg_vol": 763187,
+    "mkt_cap": 22134557605.814323,
+    "timestamp": 1780888513.145423
+  },
+  "LOW": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,773,500",
+    "avg_vol": 2773500,
+    "mkt_cap": 118163404900.39577,
+    "timestamp": 1780888513.145423
+  },
+  "LULU": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,416,054",
+    "avg_vol": 3416054,
+    "mkt_cap": 12971264434.332962,
+    "timestamp": 1780888513.145423
+  },
+  "LITE": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,495,329",
+    "avg_vol": 6495329,
+    "mkt_cap": 67192745910.64453,
+    "timestamp": 1780888513.145423
+  },
+  "LYB": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,335,443",
+    "avg_vol": 7335443,
+    "mkt_cap": 20819617858.5,
+    "timestamp": 1780888513.145423
+  },
+  "MTB": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,068,565",
+    "avg_vol": 1068565,
+    "mkt_cap": 32575239503.931885,
+    "timestamp": 1780888513.145423
+  },
+  "MPC": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,516,468",
+    "avg_vol": 2516468,
+    "mkt_cap": 76490320587.2937,
+    "timestamp": 1780888513.145423
+  },
+  "MAR": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,452,829",
+    "avg_vol": 1452829,
+    "mkt_cap": 103500423988.81421,
+    "timestamp": 1780888513.145423
+  },
+  "MRSH": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,046,925",
+    "avg_vol": 3046925,
+    "mkt_cap": 79708083421.6961,
+    "timestamp": 1780888513.145423
+  },
+  "MLM": {
+    "passes": true,
+    "reason": "PASS: avgVol 526,484",
+    "avg_vol": 526484,
+    "mkt_cap": 34576231623.17505,
+    "timestamp": 1780888513.145423
+  },
+  "MAS": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,874,029",
+    "avg_vol": 2874029,
+    "mkt_cap": 14132368515.481415,
+    "timestamp": 1780888513.145423
+  },
+  "MKC": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,281,228",
+    "avg_vol": 4281228,
+    "mkt_cap": 12700152983.044376,
+    "timestamp": 1780888513.145423
+  },
+  "MCD": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,634,978",
+    "avg_vol": 3634978,
+    "mkt_cap": 198827956980.60983,
+    "timestamp": 1780888513.145423
+  },
+  "MCK": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,010,215",
+    "avg_vol": 1010215,
+    "mkt_cap": 93237470970.52386,
+    "timestamp": 1780888513.145423
+  },
+  "MDT": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,875,764",
+    "avg_vol": 9875764,
+    "mkt_cap": 104854882659.01642,
+    "timestamp": 1780888513.145423
+  },
+  "MET": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,528,718",
+    "avg_vol": 3528718,
+    "mkt_cap": 54363972083.18075,
+    "timestamp": 1780888513.145423
+  },
+  "MTD": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 183,025 below minimum 500,000",
+    "avg_vol": 183025,
+    "mkt_cap": 23326239174.30066,
+    "timestamp": 1780888513.145423
+  },
+  "MGM": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,209,834",
+    "avg_vol": 5209834,
+    "mkt_cap": 12155491745.412197,
+    "timestamp": 1780888513.145423
+  },
+  "MCHP": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,282,307",
+    "avg_vol": 10282307,
+    "mkt_cap": 47887281698.38638,
+    "timestamp": 1780888513.145423
+  },
+  "MU": {
+    "passes": true,
+    "reason": "PASS: avgVol 49,160,093",
+    "avg_vol": 49160093,
+    "mkt_cap": 974373508417.5378,
+    "timestamp": 1780888513.145423
+  },
+  "MAA": {
+    "passes": true,
+    "reason": "PASS: avgVol 951,525",
+    "avg_vol": 951525,
+    "mkt_cap": 16007564885.687897,
+    "timestamp": 1780888513.145423
+  },
+  "MRNA": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,888,464",
+    "avg_vol": 6888464,
+    "mkt_cap": 18823539582.056995,
+    "timestamp": 1780888513.145423
+  },
+  "TAP": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,100,175",
+    "avg_vol": 3100175,
+    "mkt_cap": 7325756379.162598,
+    "timestamp": 1780888513.145423
+  },
+  "MDLZ": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,585,485",
+    "avg_vol": 8585485,
+    "mkt_cap": 79637632657.85646,
+    "timestamp": 1780888513.145423
+  },
+  "MPWR": {
+    "passes": true,
+    "reason": "PASS: avgVol 619,612",
+    "avg_vol": 619612,
+    "mkt_cap": 72762903289.23999,
+    "timestamp": 1780888513.145423
+  },
+  "MNST": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,291,720",
+    "avg_vol": 5291720,
+    "mkt_cap": 87580629235.14389,
+    "timestamp": 1780888513.145423
+  },
+  "MCO": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,118,056",
+    "avg_vol": 1118056,
+    "mkt_cap": 78840211357.44037,
+    "timestamp": 1780888513.145423
+  },
+  "MS": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,229,951",
+    "avg_vol": 6229951,
+    "mkt_cap": 334273959714.43097,
+    "timestamp": 1780888513.145423
+  },
+  "MOS": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,896,360",
+    "avg_vol": 9896360,
+    "mkt_cap": 7068909289.810677,
+    "timestamp": 1780888513.145423
+  },
+  "MSI": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,092,170",
+    "avg_vol": 1092170,
+    "mkt_cap": 68114626509.98602,
+    "timestamp": 1780888513.145423
+  },
+  "MSCI": {
+    "passes": true,
+    "reason": "PASS: avgVol 607,537",
+    "avg_vol": 607537,
+    "mkt_cap": 44760925370.33838,
+    "timestamp": 1780888513.145423
+  },
+  "NDAQ": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,277,782",
+    "avg_vol": 3277782,
+    "mkt_cap": 49360400159.08258,
+    "timestamp": 1780888513.145423
+  },
+  "NTAP": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,810,829",
+    "avg_vol": 2810829,
+    "mkt_cap": 33083999200.16913,
+    "timestamp": 1780888513.145423
+  },
+  "NFLX": {
+    "passes": true,
+    "reason": "PASS: avgVol 38,113,120",
+    "avg_vol": 38113120,
+    "mkt_cap": 346043424316.0737,
+    "timestamp": 1780888513.145423
+  },
+  "NEM": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,936,839",
+    "avg_vol": 8936839,
+    "mkt_cap": 106445685121.06625,
+    "timestamp": 1780888513.145423
+  },
+  "NWSA": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,478,915",
+    "avg_vol": 4478915,
+    "mkt_cap": 14858426200.695093,
+    "timestamp": 1780888513.145423
+  },
+  "NWS": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,459,403",
+    "avg_vol": 1459403,
+    "mkt_cap": 17000525210.705217,
+    "timestamp": 1780888513.145423
+  },
+  "NEE": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,363,554",
+    "avg_vol": 10363554,
+    "mkt_cap": 179028356293.00507,
+    "timestamp": 1780888513.145423
+  },
+  "NKE": {
+    "passes": true,
+    "reason": "PASS: avgVol 22,637,456",
+    "avg_vol": 22637456,
+    "mkt_cap": 63648524000.44371,
+    "timestamp": 1780888513.145423
+  },
+  "NI": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,178,701",
+    "avg_vol": 4178701,
+    "mkt_cap": 22346663502.076492,
+    "timestamp": 1780888513.145423
+  },
+  "NDSN": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 359,106 below minimum 500,000",
+    "avg_vol": 359106,
+    "mkt_cap": 15753136050.17566,
+    "timestamp": 1780888513.145423
+  },
+  "NSC": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,284,231",
+    "avg_vol": 1284231,
+    "mkt_cap": 70398992355.07599,
+    "timestamp": 1780888513.145423
+  },
+  "NTRS": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,089,781",
+    "avg_vol": 1089781,
+    "mkt_cap": 31545006297.147766,
+    "timestamp": 1780888513.145423
+  },
+  "NOC": {
+    "passes": true,
+    "reason": "PASS: avgVol 833,578",
+    "avg_vol": 833578,
+    "mkt_cap": 77323027802.01416,
+    "timestamp": 1780888513.145423
+  },
+  "NCLH": {
+    "passes": true,
+    "reason": "PASS: avgVol 22,620,481",
+    "avg_vol": 22620481,
+    "mkt_cap": 8608315125.0,
+    "timestamp": 1780888513.145423
+  },
+  "NRG": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,674,765",
+    "avg_vol": 2674765,
+    "mkt_cap": 27259451280.12039,
+    "timestamp": 1780888513.145423
+  },
+  "NUE": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,477,762",
+    "avg_vol": 1477762,
+    "mkt_cap": 57935020131.497955,
+    "timestamp": 1780888513.145423
+  },
+  "NVR": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 26,323 below minimum 500,000",
+    "avg_vol": 26323,
+    "mkt_cap": 16688507227.394531,
+    "timestamp": 1780888513.145423
+  },
+  "NXPI": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,484,640",
+    "avg_vol": 3484640,
+    "mkt_cap": 74721338383.49435,
+    "timestamp": 1780888513.145423
+  },
+  "ORLY": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,860,534",
+    "avg_vol": 5860534,
+    "mkt_cap": 74857834603.49263,
+    "timestamp": 1780888513.145423
+  },
+  "OXY": {
+    "passes": true,
+    "reason": "PASS: avgVol 15,832,835",
+    "avg_vol": 15832835,
+    "mkt_cap": 56624553831.46842,
+    "timestamp": 1780888513.145423
+  },
+  "ODFL": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,076,757",
+    "avg_vol": 2076757,
+    "mkt_cap": 50446867930.5152,
+    "timestamp": 1780888513.145423
+  },
+  "OMC": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,397,181",
+    "avg_vol": 4397181,
+    "mkt_cap": 21463815924.94409,
+    "timestamp": 1780888513.145423
+  },
+  "ON": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,541,756",
+    "avg_vol": 10541756,
+    "mkt_cap": 45591063007.23322,
+    "timestamp": 1780888513.145423
+  },
+  "OKE": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,546,596",
+    "avg_vol": 4546596,
+    "mkt_cap": 55600399189.0,
+    "timestamp": 1780888513.145423
+  },
+  "ORCL": {
+    "passes": true,
+    "reason": "PASS: avgVol 27,553,412",
+    "avg_vol": 27553412,
+    "mkt_cap": 614553488215.21,
+    "timestamp": 1780888513.145423
+  },
+  "OTIS": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,758,598",
+    "avg_vol": 3758598,
+    "mkt_cap": 26990587380.62976,
+    "timestamp": 1780888513.145423
+  },
+  "PCAR": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,785,270",
+    "avg_vol": 2785270,
+    "mkt_cap": 61407077360.32981,
+    "timestamp": 1780888513.145423
+  },
+  "PKG": {
+    "passes": true,
+    "reason": "PASS: avgVol 903,220",
+    "avg_vol": 903220,
+    "mkt_cap": 19852961177.11798,
+    "timestamp": 1780888513.145423
+  },
+  "PLTR": {
+    "passes": true,
+    "reason": "PASS: avgVol 45,637,009",
+    "avg_vol": 45637009,
+    "mkt_cap": 324907689316.4038,
+    "timestamp": 1780888513.145423
+  },
+  "PANW": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,326,018",
+    "avg_vol": 8326018,
+    "mkt_cap": 221720740051.26953,
+    "timestamp": 1780888513.145423
+  },
+  "PSKY": {
+    "passes": true,
+    "reason": "PASS: avgVol 11,053,890",
+    "avg_vol": 11053890,
+    "mkt_cap": 11437948951.611448,
+    "timestamp": 1780888513.145423
+  },
+  "PH": {
+    "passes": true,
+    "reason": "PASS: avgVol 795,603",
+    "avg_vol": 795603,
+    "mkt_cap": 111251067856.36908,
+    "timestamp": 1780888513.145423
+  },
+  "PAYX": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,642,059",
+    "avg_vol": 3642059,
+    "mkt_cap": 36018981829.5632,
+    "timestamp": 1780888513.145423
+  },
+  "PYPL": {
+    "passes": true,
+    "reason": "PASS: avgVol 15,431,073",
+    "avg_vol": 15431073,
+    "mkt_cap": 36422136613.5617,
+    "timestamp": 1780888513.145423
+  },
+  "PNR": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,928,467",
+    "avg_vol": 1928467,
+    "mkt_cap": 11821445570.740486,
+    "timestamp": 1780888513.145423
+  },
+  "PEP": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,583,701",
+    "avg_vol": 6583701,
+    "mkt_cap": 193996259391.77634,
+    "timestamp": 1780888513.145423
+  },
+  "PFE": {
+    "passes": true,
+    "reason": "PASS: avgVol 36,946,418",
+    "avg_vol": 36946418,
+    "mkt_cap": 148413531378.757,
+    "timestamp": 1780888513.145423
+  },
+  "PCG": {
+    "passes": true,
+    "reason": "PASS: avgVol 21,704,934",
+    "avg_vol": 21704934,
+    "mkt_cap": 37680066440.2113,
+    "timestamp": 1780888513.145423
+  },
+  "PM": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,831,014",
+    "avg_vol": 4831014,
+    "mkt_cap": 277875446189.38293,
+    "timestamp": 1780888513.145423
+  },
+  "PSX": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,007,914",
+    "avg_vol": 3007914,
+    "mkt_cap": 73403184195.73395,
+    "timestamp": 1780888513.145423
+  },
+  "PNW": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,176,607",
+    "avg_vol": 1176607,
+    "mkt_cap": 12489549032.092896,
+    "timestamp": 1780888513.145423
+  },
+  "PNC": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,139,901",
+    "avg_vol": 2139901,
+    "mkt_cap": 91705313049.0752,
+    "timestamp": 1780888513.145423
+  },
+  "POOL": {
+    "passes": true,
+    "reason": "PASS: avgVol 811,895",
+    "avg_vol": 811895,
+    "mkt_cap": 6760906072.261307,
+    "timestamp": 1780888513.145423
+  },
+  "PPG": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,089,079",
+    "avg_vol": 2089079,
+    "mkt_cap": 25366020680.236816,
+    "timestamp": 1780888513.145423
+  },
+  "PPL": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,016,260",
+    "avg_vol": 8016260,
+    "mkt_cap": 26889003200.675102,
+    "timestamp": 1780888513.145423
+  },
+  "PFG": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,391,232",
+    "avg_vol": 1391232,
+    "mkt_cap": 22728823308.166992,
+    "timestamp": 1780888513.145423
+  },
+  "PGR": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,968,964",
+    "avg_vol": 2968964,
+    "mkt_cap": 119045672492.98096,
+    "timestamp": 1780888513.145423
+  },
+  "PLD": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,510,253",
+    "avg_vol": 3510253,
+    "mkt_cap": 134760128260.4065,
+    "timestamp": 1780888513.145423
+  },
+  "PRU": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,215,746",
+    "avg_vol": 2215746,
+    "mkt_cap": 36337153648.2969,
+    "timestamp": 1780888513.145423
+  },
+  "PEG": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,798,106",
+    "avg_vol": 2798106,
+    "mkt_cap": 39606586703.791855,
+    "timestamp": 1780888513.145423
+  },
+  "PTC": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,307,359",
+    "avg_vol": 1307359,
+    "mkt_cap": 15824293367.0,
+    "timestamp": 1780888513.145423
+  },
+  "PSA": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,081,190",
+    "avg_vol": 1081190,
+    "mkt_cap": 54363005954.90454,
+    "timestamp": 1780888513.145423
+  },
+  "PHM": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,881,095",
+    "avg_vol": 1881095,
+    "mkt_cap": 22553584485.859108,
+    "timestamp": 1780888513.145423
+  },
+  "PWR": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,141,640",
+    "avg_vol": 1141640,
+    "mkt_cap": 104308307973.24329,
+    "timestamp": 1780888513.145423
+  },
+  "QCOM": {
+    "passes": true,
+    "reason": "PASS: avgVol 19,835,820",
+    "avg_vol": 19835820,
+    "mkt_cap": 227600762573.2422,
+    "timestamp": 1780888513.145423
+  },
+  "DGX": {
+    "passes": true,
+    "reason": "PASS: avgVol 891,914",
+    "avg_vol": 891914,
+    "mkt_cap": 22171387021.208878,
+    "timestamp": 1780888513.145423
+  },
+  "Q": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,848,392",
+    "avg_vol": 1848392,
+    "mkt_cap": 29736634993.20256,
+    "timestamp": 1780888513.145423
+  },
+  "RL": {
+    "passes": true,
+    "reason": "PASS: avgVol 652,467",
+    "avg_vol": 652467,
+    "mkt_cap": 21815715899.782104,
+    "timestamp": 1780888513.145423
+  },
+  "RJF": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,388,881",
+    "avg_vol": 1388881,
+    "mkt_cap": 29515034904.56418,
+    "timestamp": 1780888513.145423
+  },
+  "RTX": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,359,231",
+    "avg_vol": 5359231,
+    "mkt_cap": 243736241031.273,
+    "timestamp": 1780888513.145423
+  },
+  "O": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,804,965",
+    "avg_vol": 5804965,
+    "mkt_cap": 56732845667.48707,
+    "timestamp": 1780888513.145423
+  },
+  "REG": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,415,056",
+    "avg_vol": 1415056,
+    "mkt_cap": 14230282742.306824,
+    "timestamp": 1780888513.145423
+  },
+  "REGN": {
+    "passes": true,
+    "reason": "PASS: avgVol 838,317",
+    "avg_vol": 838317,
+    "mkt_cap": 66619964164.17334,
+    "timestamp": 1780888513.145423
+  },
+  "RF": {
+    "passes": true,
+    "reason": "PASS: avgVol 12,095,843",
+    "avg_vol": 12095843,
+    "mkt_cap": 24355452795.8123,
+    "timestamp": 1780888513.145423
+  },
+  "RSG": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,654,978",
+    "avg_vol": 1654978,
+    "mkt_cap": 64621762767.86418,
+    "timestamp": 1780888513.145423
+  },
+  "RMD": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,298,217",
+    "avg_vol": 1298217,
+    "mkt_cap": 28436852545.470703,
+    "timestamp": 1780888513.145423
+  },
+  "RVTY": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,274,778",
+    "avg_vol": 1274778,
+    "mkt_cap": 10974135176.418068,
+    "timestamp": 1780888513.145423
+  },
+  "HOOD": {
+    "passes": true,
+    "reason": "PASS: avgVol 29,188,657",
+    "avg_vol": 29188657,
+    "mkt_cap": 74264653150.03934,
+    "timestamp": 1780888513.145423
+  },
+  "ROK": {
+    "passes": true,
+    "reason": "PASS: avgVol 807,901",
+    "avg_vol": 807901,
+    "mkt_cap": 49707186593.802765,
+    "timestamp": 1780888513.145423
+  },
+  "ROL": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,321,660",
+    "avg_vol": 3321660,
+    "mkt_cap": 22676859465.34729,
+    "timestamp": 1780888513.145423
+  },
+  "ROP": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,202,290",
+    "avg_vol": 1202290,
+    "mkt_cap": 33522727573.479187,
+    "timestamp": 1780888513.145423
+  },
+  "ROST": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,759,029",
+    "avg_vol": 2759029,
+    "mkt_cap": 73898334911.80615,
+    "timestamp": 1780888513.145423
+  },
+  "RCL": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,789,334",
+    "avg_vol": 2789334,
+    "mkt_cap": 75094593840.0,
+    "timestamp": 1780888513.145423
+  },
+  "SPGI": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,987,434",
+    "avg_vol": 1987434,
+    "mkt_cap": 125634240722.65625,
+    "timestamp": 1780888513.145423
+  },
+  "CRM": {
+    "passes": true,
+    "reason": "PASS: avgVol 14,015,342",
+    "avg_vol": 14015342,
+    "mkt_cap": 152055542999.26758,
+    "timestamp": 1780888513.145423
+  },
+  "SNDK": {
+    "passes": true,
+    "reason": "PASS: avgVol 15,796,473",
+    "avg_vol": 15796473,
+    "mkt_cap": 230919313490.52026,
+    "timestamp": 1780888513.145423
+  },
+  "SBAC": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,140,590",
+    "avg_vol": 1140590,
+    "mkt_cap": 22063229249.490097,
+    "timestamp": 1780888513.145423
+  },
+  "SLB": {
+    "passes": true,
+    "reason": "PASS: avgVol 16,010,557",
+    "avg_vol": 16010557,
+    "mkt_cap": 82033812262.17613,
+    "timestamp": 1780888513.145423
+  },
+  "STX": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,899,089",
+    "avg_vol": 3899089,
+    "mkt_cap": 191741874118.04004,
+    "timestamp": 1780888513.145423
+  },
+  "SRE": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,476,709",
+    "avg_vol": 3476709,
+    "mkt_cap": 59761929402.446,
+    "timestamp": 1780888513.145423
+  },
+  "NOW": {
+    "passes": true,
+    "reason": "PASS: avgVol 26,607,114",
+    "avg_vol": 26607114,
+    "mkt_cap": 115970581452.69775,
+    "timestamp": 1780888513.145423
+  },
+  "SHW": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,909,017",
+    "avg_vol": 1909017,
+    "mkt_cap": 75297852080.61127,
+    "timestamp": 1780888513.145423
+  },
+  "SPG": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,583,103",
+    "avg_vol": 1583103,
+    "mkt_cap": 68201410600.99658,
+    "timestamp": 1780888513.145423
+  },
+  "SWKS": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,101,085",
+    "avg_vol": 4101085,
+    "mkt_cap": 11065366652.009743,
+    "timestamp": 1780888513.145423
+  },
+  "SJM": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,858,929",
+    "avg_vol": 1858929,
+    "mkt_cap": 11042367046.899452,
+    "timestamp": 1780888513.145423
+  },
+  "SW": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,313,873",
+    "avg_vol": 5313873,
+    "mkt_cap": 21649876499.62506,
+    "timestamp": 1780888513.145423
+  },
+  "SNA": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 386,834 below minimum 500,000",
+    "avg_vol": 386834,
+    "mkt_cap": 19672813070.207153,
+    "timestamp": 1780888513.145423
+  },
+  "SOLV": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,698,082",
+    "avg_vol": 1698082,
+    "mkt_cap": 14028883789.061096,
+    "timestamp": 1780888513.145423
+  },
+  "SO": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,215,396",
+    "avg_vol": 5215396,
+    "mkt_cap": 104388079954.67503,
+    "timestamp": 1780888513.145423
+  },
+  "LUV": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,675,487",
+    "avg_vol": 7675487,
+    "mkt_cap": 20303660485.5057,
+    "timestamp": 1780888513.145423
+  },
+  "SWK": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,900,320",
+    "avg_vol": 1900320,
+    "mkt_cap": 12200153184.574005,
+    "timestamp": 1780888513.145423
+  },
+  "SBUX": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,855,943",
+    "avg_vol": 7855943,
+    "mkt_cap": 108602014043.42651,
+    "timestamp": 1780888513.145423
+  },
+  "STT": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,083,793",
+    "avg_vol": 2083793,
+    "mkt_cap": 44767067587.75,
+    "timestamp": 1780888513.145423
+  },
+  "STLD": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,152,800",
+    "avg_vol": 1152800,
+    "mkt_cap": 38721131698.5,
+    "timestamp": 1780888513.145423
+  },
+  "STE": {
+    "passes": true,
+    "reason": "PASS: avgVol 806,442",
+    "avg_vol": 806442,
+    "mkt_cap": 20725888285.468292,
+    "timestamp": 1780888513.145423
+  },
+  "SYK": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,514,939",
+    "avg_vol": 2514939,
+    "mkt_cap": 117178051916.82904,
+    "timestamp": 1780888513.145423
+  },
+  "SMCI": {
+    "passes": true,
+    "reason": "PASS: avgVol 41,499,715",
+    "avg_vol": 41499715,
+    "mkt_cap": 25043065223.40329,
+    "timestamp": 1780888513.145423
+  },
+  "SYF": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,857,793",
+    "avg_vol": 3857793,
+    "mkt_cap": 23828466711.455383,
+    "timestamp": 1780888513.145423
+  },
+  "SNPS": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,834,143",
+    "avg_vol": 1834143,
+    "mkt_cap": 89009165394.94705,
+    "timestamp": 1780888513.145423
+  },
+  "SYY": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,653,004",
+    "avg_vol": 4653004,
+    "mkt_cap": 36480551602.10925,
+    "timestamp": 1780888513.145423
+  },
+  "TMUS": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,547,525",
+    "avg_vol": 5547525,
+    "mkt_cap": 192740666702.9534,
+    "timestamp": 1780888513.145423
+  },
+  "TROW": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,297,940",
+    "avg_vol": 2297940,
+    "mkt_cap": 22710117112.217148,
+    "timestamp": 1780888513.145423
+  },
+  "TTWO": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,036,729",
+    "avg_vol": 2036729,
+    "mkt_cap": 39805075767.24806,
+    "timestamp": 1780888513.145423
+  },
+  "TPR": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,157,103",
+    "avg_vol": 2157103,
+    "mkt_cap": 28306465664.58307,
+    "timestamp": 1780888513.145423
+  },
+  "TRGP": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,330,867",
+    "avg_vol": 1330867,
+    "mkt_cap": 56685307557.22055,
+    "timestamp": 1780888513.145423
+  },
+  "TGT": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,475,159",
+    "avg_vol": 5475159,
+    "mkt_cap": 55670204459.23187,
+    "timestamp": 1780888513.145423
+  },
+  "TEL": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,490,843",
+    "avg_vol": 2490843,
+    "mkt_cap": 62071639875.75943,
+    "timestamp": 1780888513.145423
+  },
+  "TDY": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 323,298 below minimum 500,000",
+    "avg_vol": 323298,
+    "mkt_cap": 27902650848.125977,
+    "timestamp": 1780888513.145423
+  },
+  "TER": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,580,954",
+    "avg_vol": 3580954,
+    "mkt_cap": 56031134898.11096,
+    "timestamp": 1780888513.145423
+  },
+  "TXN": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,489,276",
+    "avg_vol": 7489276,
+    "mkt_cap": 259431048780.55377,
+    "timestamp": 1780888513.145423
+  },
+  "TPL": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 465,832 below minimum 500,000",
+    "avg_vol": 465832,
+    "mkt_cap": 26885543269.291107,
+    "timestamp": 1780888513.145423
+  },
+  "TXT": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,392,053",
+    "avg_vol": 1392053,
+    "mkt_cap": 15837808707.880234,
+    "timestamp": 1780888513.145423
+  },
+  "TMO": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,247,212",
+    "avg_vol": 2247212,
+    "mkt_cap": 175702624115.60516,
+    "timestamp": 1780888513.145423
+  },
+  "TJX": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,030,104",
+    "avg_vol": 5030104,
+    "mkt_cap": 177537058933.49893,
+    "timestamp": 1780888513.145423
+  },
+  "TKO": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,427,412",
+    "avg_vol": 1427412,
+    "mkt_cap": 15255172190.579727,
+    "timestamp": 1780888513.145423
+  },
+  "TTD": {
+    "passes": true,
+    "reason": "PASS: avgVol 19,606,310",
+    "avg_vol": 19606310,
+    "mkt_cap": 9378662160.614216,
+    "timestamp": 1780888513.145423
+  },
+  "TSCO": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,166,696",
+    "avg_vol": 10166696,
+    "mkt_cap": 15618109924.590973,
+    "timestamp": 1780888513.145423
+  },
+  "TT": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,352,076",
+    "avg_vol": 1352076,
+    "mkt_cap": 100986983303.15067,
+    "timestamp": 1780888513.145423
+  },
+  "TDG": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 404,790 below minimum 500,000",
+    "avg_vol": 404790,
+    "mkt_cap": 69287166059.1936,
+    "timestamp": 1780888513.145423
+  },
+  "TRV": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,420,814",
+    "avg_vol": 1420814,
+    "mkt_cap": 64484503152.25,
+    "timestamp": 1780888513.145423
+  },
+  "TRMB": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,138,800",
+    "avg_vol": 2138800,
+    "mkt_cap": 12632312894.480045,
+    "timestamp": 1780888513.145423
+  },
+  "TFC": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,030,684",
+    "avg_vol": 9030684,
+    "mkt_cap": 61297261280.53046,
+    "timestamp": 1780888513.145423
+  },
+  "TYL": {
+    "passes": true,
+    "reason": "PASS: avgVol 598,575",
+    "avg_vol": 598575,
+    "mkt_cap": 12838733300.172424,
+    "timestamp": 1780888513.145423
+  },
+  "TSN": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,043,539",
+    "avg_vol": 3043539,
+    "mkt_cap": 20680559618.267952,
+    "timestamp": 1780888513.145423
+  },
+  "USB": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,291,914",
+    "avg_vol": 9291914,
+    "mkt_cap": 86382494008.01547,
+    "timestamp": 1780888513.145423
+  },
+  "UBER": {
+    "passes": true,
+    "reason": "PASS: avgVol 17,247,450",
+    "avg_vol": 17247450,
+    "mkt_cap": 143937204345.58344,
+    "timestamp": 1780888513.145423
+  },
+  "UDR": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,185,428",
+    "avg_vol": 4185428,
+    "mkt_cap": 12736693845.49097,
+    "timestamp": 1780888513.145423
+  },
+  "ULTA": {
+    "passes": true,
+    "reason": "PASS: avgVol 837,846",
+    "avg_vol": 837846,
+    "mkt_cap": 20079017803.633118,
+    "timestamp": 1780888513.145423
+  },
+  "UNP": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,009,415",
+    "avg_vol": 3009415,
+    "mkt_cap": 161679986512.64545,
+    "timestamp": 1780888513.145423
+  },
+  "UAL": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,499,735",
+    "avg_vol": 7499735,
+    "mkt_cap": 34316758430.999023,
+    "timestamp": 1780888513.145423
+  },
+  "UPS": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,210,256",
+    "avg_vol": 6210256,
+    "mkt_cap": 92259682300.86398,
+    "timestamp": 1780888513.145423
+  },
+  "URI": {
+    "passes": true,
+    "reason": "PASS: avgVol 568,020",
+    "avg_vol": 568020,
+    "mkt_cap": 66892115391.45557,
+    "timestamp": 1780888513.145423
+  },
+  "UNH": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,243,678",
+    "avg_vol": 8243678,
+    "mkt_cap": 362776446174.4547,
+    "timestamp": 1780888513.145423
+  },
+  "UHS": {
+    "passes": true,
+    "reason": "PASS: avgVol 931,796",
+    "avg_vol": 931796,
+    "mkt_cap": 8788061963.82463,
+    "timestamp": 1780888513.145423
+  },
+  "VLO": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,575,221",
+    "avg_vol": 3575221,
+    "mkt_cap": 75961346466.04065,
+    "timestamp": 1780888513.145423
+  },
+  "VEEV": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,977,567",
+    "avg_vol": 2977567,
+    "mkt_cap": 28169727361.38858,
+    "timestamp": 1780888513.145423
+  },
+  "VTR": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,024,795",
+    "avg_vol": 4024795,
+    "mkt_cap": 39875639048.420525,
+    "timestamp": 1780888513.145423
+  },
+  "VLTO": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,122,770",
+    "avg_vol": 2122770,
+    "mkt_cap": 21133817588.80948,
+    "timestamp": 1780888513.145423
+  },
+  "VRSN": {
+    "passes": true,
+    "reason": "PASS: avgVol 828,953",
+    "avg_vol": 828953,
+    "mkt_cap": 26837721221.92383,
+    "timestamp": 1780888513.145423
+  },
+  "VRSK": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,900,910",
+    "avg_vol": 1900910,
+    "mkt_cap": 23810598423.414307,
+    "timestamp": 1780888513.145423
+  },
+  "VZ": {
+    "passes": true,
+    "reason": "PASS: avgVol 24,516,271",
+    "avg_vol": 24516271,
+    "mkt_cap": 189445103286.72192,
+    "timestamp": 1780888513.145423
+  },
+  "VRTX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,316,371",
+    "avg_vol": 1316371,
+    "mkt_cap": 113407871070.07828,
+    "timestamp": 1780888513.145423
+  },
+  "VRT": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,522,953",
+    "avg_vol": 7522953,
+    "mkt_cap": 115428544047.22266,
+    "timestamp": 1780888513.145423
+  },
+  "VTRS": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,852,334",
+    "avg_vol": 10852334,
+    "mkt_cap": 18493096278.792473,
+    "timestamp": 1780888513.145423
+  },
+  "VICI": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,387,507",
+    "avg_vol": 8387507,
+    "mkt_cap": 29999096667.03447,
+    "timestamp": 1780888513.145423
+  },
+  "VST": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,614,829",
+    "avg_vol": 4614829,
+    "mkt_cap": 50159262087.481384,
+    "timestamp": 1780888513.145423
+  },
+  "VMC": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,223,325",
+    "avg_vol": 1223325,
+    "mkt_cap": 36510430174.868774,
+    "timestamp": 1780888513.145423
+  },
+  "WRB": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,183,190",
+    "avg_vol": 2183190,
+    "mkt_cap": 25527015399.630157,
+    "timestamp": 1780888513.145423
+  },
+  "GWW": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 254,515 below minimum 500,000",
+    "avg_vol": 254515,
+    "mkt_cap": 61377527292.255615,
+    "timestamp": 1780888513.145423
+  },
+  "WAB": {
+    "passes": true,
+    "reason": "PASS: avgVol 965,046",
+    "avg_vol": 965046,
+    "mkt_cap": 44183979862.77167,
+    "timestamp": 1780888513.145423
+  },
+  "DIS": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,343,615",
+    "avg_vol": 9343615,
+    "mkt_cap": 173147552497.2163,
+    "timestamp": 1780888513.145423
+  },
+  "WBD": {
+    "passes": true,
+    "reason": "PASS: avgVol 21,576,912",
+    "avg_vol": 21576912,
+    "mkt_cap": 65787266486.64195,
+    "timestamp": 1780888513.145423
+  },
+  "WM": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,086,131",
+    "avg_vol": 2086131,
+    "mkt_cap": 88507293289.77612,
+    "timestamp": 1780888513.145423
+  },
+  "WAT": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,049,235",
+    "avg_vol": 1049235,
+    "mkt_cap": 35873182544.53064,
+    "timestamp": 1780888513.145423
+  },
+  "WEC": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,968,001",
+    "avg_vol": 1968001,
+    "mkt_cap": 36790714336.06412,
+    "timestamp": 1780888513.145423
+  },
+  "WFC": {
+    "passes": true,
+    "reason": "PASS: avgVol 17,357,207",
+    "avg_vol": 17357207,
+    "mkt_cap": 250751934609.52576,
+    "timestamp": 1780888513.145423
+  },
+  "WELL": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,211,815",
+    "avg_vol": 3211815,
+    "mkt_cap": 146074871968.22815,
+    "timestamp": 1780888513.145423
+  },
+  "WST": {
+    "passes": true,
+    "reason": "PASS: avgVol 875,509",
+    "avg_vol": 875509,
+    "mkt_cap": 22218668627.5,
+    "timestamp": 1780888513.145423
+  },
+  "WDC": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,852,356",
+    "avg_vol": 7852356,
+    "mkt_cap": 176380740496.07455,
+    "timestamp": 1780888513.145423
+  },
+  "WY": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,176,000",
+    "avg_vol": 5176000,
+    "mkt_cap": 17651122738.252888,
+    "timestamp": 1780888513.145423
+  },
+  "WSM": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,264,545",
+    "avg_vol": 1264545,
+    "mkt_cap": 24135699819.712204,
+    "timestamp": 1780888513.145423
+  },
+  "WMB": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,387,600",
+    "avg_vol": 6387600,
+    "mkt_cap": 88006954029.71164,
+    "timestamp": 1780888513.145423
+  },
+  "WTW": {
+    "passes": true,
+    "reason": "PASS: avgVol 707,145",
+    "avg_vol": 707145,
+    "mkt_cap": 24890820402.090576,
+    "timestamp": 1780888513.145423
+  },
+  "WDAY": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,141,376",
+    "avg_vol": 5141376,
+    "mkt_cap": 35633333248.6387,
+    "timestamp": 1780888513.145423
+  },
+  "WYNN": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,571,117",
+    "avg_vol": 1571117,
+    "mkt_cap": 10843637794.325157,
+    "timestamp": 1780888513.145423
+  },
+  "XEL": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,934,198",
+    "avg_vol": 4934198,
+    "mkt_cap": 49342266593.93585,
+    "timestamp": 1780888513.145423
+  },
+  "XYL": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,167,403",
+    "avg_vol": 2167403,
+    "mkt_cap": 26132023200.72638,
+    "timestamp": 1780888513.145423
+  },
+  "YUM": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,777,350",
+    "avg_vol": 1777350,
+    "mkt_cap": 41582969399.93335,
+    "timestamp": 1780888513.145423
+  },
+  "ZBRA": {
+    "passes": true,
+    "reason": "PASS: avgVol 929,862",
+    "avg_vol": 929862,
+    "mkt_cap": 11056186646.193115,
+    "timestamp": 1780888513.145423
+  },
+  "ZBH": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,314,907",
+    "avg_vol": 2314907,
+    "mkt_cap": 16895078907.300385,
+    "timestamp": 1780888513.145423
+  },
+  "ZTS": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,852,093",
+    "avg_vol": 5852093,
+    "mkt_cap": 33303482717.426147,
+    "timestamp": 1780888513.145423
+  },
+  "ALNY": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,097,440",
+    "avg_vol": 1097440,
+    "mkt_cap": 40460983617.85785,
+    "timestamp": 1780888513.145423
+  },
+  "ARM": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,032,985",
+    "avg_vol": 10032985,
+    "mkt_cap": 364895969042.16705,
+    "timestamp": 1780888513.145423
+  },
+  "CCEP": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,864,609",
+    "avg_vol": 1864609,
+    "mkt_cap": 41948696676.38618,
+    "timestamp": 1780888513.145423
+  },
+  "FER": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,414,814",
+    "avg_vol": 1414814,
+    "mkt_cap": 47852285746.82648,
+    "timestamp": 1780888513.145423
+  },
+  "INSM": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,972,675",
+    "avg_vol": 2972675,
+    "mkt_cap": 20422416197.810394,
+    "timestamp": 1780888513.145423
+  },
+  "MRVL": {
+    "passes": true,
+    "reason": "PASS: avgVol 32,376,428",
+    "avg_vol": 32376428,
+    "mkt_cap": 230483557067.8711,
+    "timestamp": 1780888513.145423
+  },
+  "MELI": {
+    "passes": true,
+    "reason": "PASS: avgVol 544,220",
+    "avg_vol": 544220,
+    "mkt_cap": 81510931695.04834,
+    "timestamp": 1780888513.145423
+  },
+  "MSTR": {
+    "passes": true,
+    "reason": "PASS: avgVol 18,553,018",
+    "avg_vol": 18553018,
+    "mkt_cap": 42384226014.11902,
+    "timestamp": 1780888513.145423
+  },
+  "PDD": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,706,179",
+    "avg_vol": 8706179,
+    "mkt_cap": 121088336587.95387,
+    "timestamp": 1780888513.145423
+  },
+  "SHOP": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,046,220",
+    "avg_vol": 10046220,
+    "mkt_cap": 142145087167.4383,
+    "timestamp": 1780888513.145423
+  },
+  "TRI": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,097,537",
+    "avg_vol": 2097537,
+    "mkt_cap": 37559801935.14324,
+    "timestamp": 1780888513.145423
+  },
+  "ZS": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,153,092",
+    "avg_vol": 4153092,
+    "mkt_cap": 21148371482.100677,
+    "timestamp": 1780888513.145423
+  },
+  "III.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,116,764",
+    "avg_vol": 3116764,
+    "mkt_cap": 2240527859722.0,
+    "timestamp": 1780888513.145423
+  },
+  "ADM.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 945,617",
+    "avg_vol": 945617,
+    "mkt_cap": 984583237410.0,
+    "timestamp": 1780888513.145423
+  },
+  "AAF.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,229,896",
+    "avg_vol": 6229896,
+    "mkt_cap": 1238929804196.0647,
+    "timestamp": 1780888513.145423
+  },
+  "ALW.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 747,123",
+    "avg_vol": 747123,
+    "mkt_cap": 493701688276.0,
+    "timestamp": 1780888513.145423
+  },
+  "AAL.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,469,147",
+    "avg_vol": 6469147,
+    "mkt_cap": 4131657523632.0,
+    "timestamp": 1780888513.145423
+  },
+  "ANTO.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,498,351",
+    "avg_vol": 1498351,
+    "mkt_cap": 3913851079150.0,
+    "timestamp": 1780888513.145423
+  },
+  "ABF.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,047,556",
+    "avg_vol": 1047556,
+    "mkt_cap": 1304475874632.0,
+    "timestamp": 1780888513.145423
+  },
+  "AUTO.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,437,190",
+    "avg_vol": 7437190,
+    "mkt_cap": 377519730516.2915,
+    "timestamp": 1780888513.145423
+  },
+  "AV.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,367,581",
+    "avg_vol": 10367581,
+    "mkt_cap": 1805677106642.505,
+    "timestamp": 1780888513.145423
+  },
+  "BAB.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,911,312",
+    "avg_vol": 2911312,
+    "mkt_cap": 506372637375.0,
+    "timestamp": 1780888513.145423
+  },
+  "BA.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,778,568",
+    "avg_vol": 6778568,
+    "mkt_cap": 5665204778805.0,
+    "timestamp": 1780888513.145423
+  },
+  "BTRW.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,055,308",
+    "avg_vol": 10055308,
+    "mkt_cap": 363575581532.90936,
+    "timestamp": 1780888513.145423
+  },
+  "BEZ.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,601,885",
+    "avg_vol": 4601885,
+    "mkt_cap": 758279951981.0,
+    "timestamp": 1780888513.145423
+  },
+  "BKG.L": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 419,494 below minimum 500,000",
+    "avg_vol": 419494,
+    "mkt_cap": 322811029530.0,
+    "timestamp": 1780888513.145423
+  },
+  "BLND.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,623,166",
+    "avg_vol": 4623166,
+    "mkt_cap": 408739921968.0,
+    "timestamp": 1780888513.145423
+  },
+  "BNZL.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,243,141",
+    "avg_vol": 1243141,
+    "mkt_cap": 793050228490.0,
+    "timestamp": 1780888513.145423
+  },
+  "BRBY.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,790,617",
+    "avg_vol": 1790617,
+    "mkt_cap": 397284841002.0,
+    "timestamp": 1780888513.145423
+  },
+  "CNA.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 19,592,425",
+    "avg_vol": 19592425,
+    "mkt_cap": 856205982425.5872,
+    "timestamp": 1780888513.145423
+  },
+  "CCEP.L": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 201,507 below minimum 500,000",
+    "avg_vol": 201507,
+    "mkt_cap": 3117150424960.0,
+    "timestamp": 1780888513.145423
+  },
+  "CCH.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 688,742",
+    "avg_vol": 688742,
+    "mkt_cap": 1565010777700.0,
+    "timestamp": 1780888513.145423
+  },
+  "CTEC.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 11,401,520",
+    "avg_vol": 11401520,
+    "mkt_cap": 399099619067.27795,
+    "timestamp": 1780888513.145423
+  },
+  "CRDA.L": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 432,667 below minimum 500,000",
+    "avg_vol": 432667,
+    "mkt_cap": 404266357239.0,
+    "timestamp": 1780888513.145423
+  },
+  "DCC.L": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 345,155 below minimum 500,000",
+    "avg_vol": 345155,
+    "mkt_cap": 513826172025.0,
+    "timestamp": 1780888513.145423
+  },
+  "DPLM.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 541,970",
+    "avg_vol": 541970,
+    "mkt_cap": 941345769780.0,
+    "timestamp": 1780888513.145423
+  },
+  "EDV.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,058,187",
+    "avg_vol": 1058187,
+    "mkt_cap": 958889297700.0,
+    "timestamp": 1780888513.145423
+  },
+  "ENT.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,431,143",
+    "avg_vol": 4431143,
+    "mkt_cap": 355404889386.5526,
+    "timestamp": 1780888513.145423
+  },
+  "EXPN.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,371,924",
+    "avg_vol": 3371924,
+    "mkt_cap": 2339487852900.0,
+    "timestamp": 1780888513.145423
+  },
+  "FCIT.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,046,724",
+    "avg_vol": 2046724,
+    "mkt_cap": 639479520671.0027,
+    "timestamp": 1780888513.145423
+  },
+  "FRES.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,215,302",
+    "avg_vol": 1215302,
+    "mkt_cap": 2200364256754.0,
+    "timestamp": 1780888513.145423
+  },
+  "GAW.L": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 92,019 below minimum 500,000",
+    "avg_vol": 92019,
+    "mkt_cap": 627181573200.0,
+    "timestamp": 1780888513.145423
+  },
+  "GLEN.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 41,654,391",
+    "avg_vol": 41654391,
+    "mkt_cap": 6914430048700.071,
+    "timestamp": 1780888513.145423
+  },
+  "HLN.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 22,941,249",
+    "avg_vol": 22941249,
+    "mkt_cap": 2981526899710.0,
+    "timestamp": 1780888513.145423
+  },
+  "HLMA.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,091,128",
+    "avg_vol": 1091128,
+    "mkt_cap": 1761600602872.0,
+    "timestamp": 1780888513.145423
+  },
+  "HSX.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,573,310",
+    "avg_vol": 1573310,
+    "mkt_cap": 550473125768.0,
+    "timestamp": 1780888513.145423
+  },
+  "HWDN.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,254,062",
+    "avg_vol": 2254062,
+    "mkt_cap": 421212461280.0,
+    "timestamp": 1780888513.145423
+  },
+  "ICG.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,578,801",
+    "avg_vol": 1578801,
+    "mkt_cap": 521096819490.0,
+    "timestamp": 1780888513.145423
+  },
+  "IGG.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,665,317",
+    "avg_vol": 1665317,
+    "mkt_cap": 607903341456.0,
+    "timestamp": 1780888513.145423
+  },
+  "IHG.L": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 472,620 below minimum 500,000",
+    "avg_vol": 472620,
+    "mkt_cap": 24013482409.32541,
+    "timestamp": 1780888513.145423
+  },
+  "IMI.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,501,642",
+    "avg_vol": 1501642,
+    "mkt_cap": 673797630144.0,
+    "timestamp": 1780888513.145423
+  },
+  "IMB.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,688,756",
+    "avg_vol": 2688756,
+    "mkt_cap": 2125170591104.0,
+    "timestamp": 1780888513.145423
+  },
+  "INF.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,809,916",
+    "avg_vol": 4809916,
+    "mkt_cap": 1023272546634.0522,
+    "timestamp": 1780888513.145423
+  },
+  "IAG.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 23,562,610",
+    "avg_vol": 23562610,
+    "mkt_cap": 1873152405130.3242,
+    "timestamp": 1780888513.145423
+  },
+  "ITRK.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,144,274",
+    "avg_vol": 1144274,
+    "mkt_cap": 837321787365.0,
+    "timestamp": 1780888513.145423
+  },
+  "JD.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 21,969,343",
+    "avg_vol": 21969343,
+    "mkt_cap": 404197922145.22174,
+    "timestamp": 1780888513.145423
+  },
+  "BGEO.L": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 114,911 below minimum 500,000",
+    "avg_vol": 114911,
+    "mkt_cap": 455473715200.0,
+    "timestamp": 1780888513.145423
+  },
+  "KGF.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,545,754",
+    "avg_vol": 7545754,
+    "mkt_cap": 476515391764.30756,
+    "timestamp": 1780888513.145423
+  },
+  "LAND.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,157,692",
+    "avg_vol": 3157692,
+    "mkt_cap": 467515519757.5,
+    "timestamp": 1780888513.145423
+  },
+  "LGEN.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 32,277,315",
+    "avg_vol": 32277315,
+    "mkt_cap": 1477353863067.0708,
+    "timestamp": 1780888513.145423
+  },
+  "LMP.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,006,075",
+    "avg_vol": 7006075,
+    "mkt_cap": 420785707544.82855,
+    "timestamp": 1780888513.145423
+  },
+  "LSEG.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,853,000",
+    "avg_vol": 1853000,
+    "mkt_cap": 4583220887832.0,
+    "timestamp": 1780888513.145423
+  },
+  "MNG.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,610,229",
+    "avg_vol": 6610229,
+    "mkt_cap": 743046967067.0458,
+    "timestamp": 1780888513.145423
+  },
+  "MKS.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,075,115",
+    "avg_vol": 8075115,
+    "mkt_cap": 750234611439.7573,
+    "timestamp": 1780888513.145423
+  },
+  "MRO.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,162,434",
+    "avg_vol": 5162434,
+    "mkt_cap": 582578380695.4341,
+    "timestamp": 1780888513.145423
+  },
+  "MTLN.L": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 253,046 below minimum 500,000",
+    "avg_vol": 253046,
+    "mkt_cap": 5660849810.282898,
+    "timestamp": 1780888513.145423
+  },
+  "MNDI.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,252,493",
+    "avg_vol": 1252493,
+    "mkt_cap": 330069420955.16693,
+    "timestamp": 1780888513.145423
+  },
+  "NG.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 14,322,371",
+    "avg_vol": 14322371,
+    "mkt_cap": 6057927672545.0,
+    "timestamp": 1780888513.145423
+  },
+  "NXT.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 551,742",
+    "avg_vol": 551742,
+    "mkt_cap": 1555321694875.0,
+    "timestamp": 1780888513.145423
+  },
+  "PSON.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,308,568",
+    "avg_vol": 2308568,
+    "mkt_cap": 696181736305.5,
+    "timestamp": 1780888513.145423
+  },
+  "PSH.L": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 164,663 below minimum 500,000",
+    "avg_vol": 164663,
+    "mkt_cap": 699150055466.0,
+    "timestamp": 1780888513.145423
+  },
+  "PSN.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,794,169",
+    "avg_vol": 2794169,
+    "mkt_cap": 343014831045.5,
+    "timestamp": 1780888513.145423
+  },
+  "PCT.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,233,806",
+    "avg_vol": 4233806,
+    "mkt_cap": 761494448268.0,
+    "timestamp": 1780888513.145423
+  },
+  "PRU.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,178,227",
+    "avg_vol": 8178227,
+    "mkt_cap": 2378816612894.345,
+    "timestamp": 1780888513.145423
+  },
+  "RKT.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,203,169",
+    "avg_vol": 2203169,
+    "mkt_cap": 2894373055965.0,
+    "timestamp": 1780888513.145423
+  },
+  "RTO.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,361,543",
+    "avg_vol": 8361543,
+    "mkt_cap": 1113184509766.0906,
+    "timestamp": 1780888513.145423
+  },
+  "RMV.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,418,025",
+    "avg_vol": 4418025,
+    "mkt_cap": 326896459731.22687,
+    "timestamp": 1780888513.145423
+  },
+  "RR.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 34,958,969",
+    "avg_vol": 34958969,
+    "mkt_cap": 10452769480440.0,
+    "timestamp": 1780888513.145423
+  },
+  "SGE.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,852,173",
+    "avg_vol": 4852173,
+    "mkt_cap": 783842920380.0,
+    "timestamp": 1780888513.145423
+  },
+  "SBRY.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,626,486",
+    "avg_vol": 8626486,
+    "mkt_cap": 664842684228.0,
+    "timestamp": 1780888513.145423
+  },
+  "SDR.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,247,897",
+    "avg_vol": 4247897,
+    "mkt_cap": 911423105211.5,
+    "timestamp": 1780888513.145423
+  },
+  "SMT.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,326,055",
+    "avg_vol": 3326055,
+    "mkt_cap": 1656292872880.0,
+    "timestamp": 1780888513.145423
+  },
+  "SGRO.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,513,311",
+    "avg_vol": 3513311,
+    "mkt_cap": 964284426269.3809,
+    "timestamp": 1780888513.145423
+  },
+  "SVT.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 804,249",
+    "avg_vol": 804249,
+    "mkt_cap": 894388713192.0,
+    "timestamp": 1780888513.145423
+  },
+  "SMIN.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,306,081",
+    "avg_vol": 1306081,
+    "mkt_cap": 753101052550.0,
+    "timestamp": 1780888513.145423
+  },
+  "SN.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,956,666",
+    "avg_vol": 2956666,
+    "mkt_cap": 973101551003.0,
+    "timestamp": 1780888513.145423
+  },
+  "SPX.L": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 234,321 below minimum 500,000",
+    "avg_vol": 234321,
+    "mkt_cap": 503287908420.0,
+    "timestamp": 1780888513.145423
+  },
+  "SSE.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,166,238",
+    "avg_vol": 4166238,
+    "mkt_cap": 2894625103200.0,
+    "timestamp": 1780888513.145423
+  },
+  "STAN.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,198,472",
+    "avg_vol": 9198472,
+    "mkt_cap": 4221030879957.0,
+    "timestamp": 1780888513.145423
+  },
+  "SDLF.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,985,149",
+    "avg_vol": 2985149,
+    "mkt_cap": 760502931573.0,
+    "timestamp": 1780888513.145423
+  },
+  "STJ.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,731,713",
+    "avg_vol": 2731713,
+    "mkt_cap": 608781023466.0,
+    "timestamp": 1780888513.145423
+  },
+  "TSCO.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 18,440,824",
+    "avg_vol": 18440824,
+    "mkt_cap": 2858451853358.058,
+    "timestamp": 1780888513.145423
+  },
+  "BBOX.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,071,578",
+    "avg_vol": 10071578,
+    "mkt_cap": 392787780110.71106,
+    "timestamp": 1780888513.145423
+  },
+  "UU.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,473,270",
+    "avg_vol": 2473270,
+    "mkt_cap": 983551973072.0,
+    "timestamp": 1780888513.145423
+  },
+  "WEIR.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,243,907",
+    "avg_vol": 1243907,
+    "mkt_cap": 615799789716.0,
+    "timestamp": 1780888513.145423
+  },
+  "WTB.L": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,088,273",
+    "avg_vol": 1088273,
+    "mkt_cap": 393284031855.0,
+    "timestamp": 1780888513.145423
+  },
+  "ADS.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 703,455",
+    "avg_vol": 703455,
+    "mkt_cap": 28632985175.974,
+    "timestamp": 1780888513.145423
+  },
+  "BEI.DE": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 498,433 below minimum 500,000",
+    "avg_vol": 498433,
+    "mkt_cap": 15296663130.0,
+    "timestamp": 1780888513.145423
+  },
+  "BNR.DE": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 439,165 below minimum 500,000",
+    "avg_vol": 439165,
+    "mkt_cap": 8201089019.442703,
+    "timestamp": 1780888513.145423
+  },
+  "CBK.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,320,079",
+    "avg_vol": 3320079,
+    "mkt_cap": 40681020362.33791,
+    "timestamp": 1780888513.145423
+  },
+  "CON.DE": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 449,513 below minimum 500,000",
+    "avg_vol": 449513,
+    "mkt_cap": 13736410973.476982,
+    "timestamp": 1780888513.145423
+  },
+  "DTG.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,116,660",
+    "avg_vol": 1116660,
+    "mkt_cap": 31437179323.119934,
+    "timestamp": 1780888513.145423
+  },
+  "DBK.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,366,045",
+    "avg_vol": 6366045,
+    "mkt_cap": 52669396350.39522,
+    "timestamp": 1780888513.145423
+  },
+  "DB1.DE": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 495,544 below minimum 500,000",
+    "avg_vol": 495544,
+    "mkt_cap": 44779848305.01358,
+    "timestamp": 1780888513.145423
+  },
+  "DHL.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,276,417",
+    "avg_vol": 2276417,
+    "mkt_cap": 58379727175.45703,
+    "timestamp": 1780888513.145423
+  },
+  "EOAN.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,276,916",
+    "avg_vol": 4276916,
+    "mkt_cap": 47753998685.63986,
+    "timestamp": 1780888513.145423
+  },
+  "FRE.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,249,515",
+    "avg_vol": 1249515,
+    "mkt_cap": 20986219995.64493,
+    "timestamp": 1780888513.145423
+  },
+  "FME.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 819,188",
+    "avg_vol": 819188,
+    "mkt_cap": 10253797655.35942,
+    "timestamp": 1780888513.145423
+  },
+  "G1A.DE": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 375,217 below minimum 500,000",
+    "avg_vol": 375217,
+    "mkt_cap": 8888970605.984375,
+    "timestamp": 1780888513.145423
+  },
+  "HNR1.DE": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 182,047 below minimum 500,000",
+    "avg_vol": 182047,
+    "mkt_cap": 27399668476.766754,
+    "timestamp": 1780888513.145423
+  },
+  "HEI.DE": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 458,162 below minimum 500,000",
+    "avg_vol": 458162,
+    "mkt_cap": 31613437901.25,
+    "timestamp": 1780888513.145423
+  },
+  "HEN3.DE": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 490,546 below minimum 500,000",
+    "avg_vol": 490546,
+    "mkt_cap": 27314675514.854126,
+    "timestamp": 1780888513.145423
+  },
+  "IFX.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,686,531",
+    "avg_vol": 5686531,
+    "mkt_cap": 100451327606.45824,
+    "timestamp": 1780888513.145423
+  },
+  "MBG.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,894,092",
+    "avg_vol": 2894092,
+    "mkt_cap": 45947061974.456024,
+    "timestamp": 1780888513.145423
+  },
+  "MTX.DE": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 202,276 below minimum 500,000",
+    "avg_vol": 202276,
+    "mkt_cap": 16246307110.678772,
+    "timestamp": 1780888513.145423
+  },
+  "PAH3.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 632,117",
+    "avg_vol": 632117,
+    "mkt_cap": 9362062406.539917,
+    "timestamp": 1780888513.145423
+  },
+  "QIA.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 662,434",
+    "avg_vol": 662434,
+    "mkt_cap": 6583500015.735626,
+    "timestamp": 1780888513.145423
+  },
+  "RHM.DE": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 262,487 below minimum 500,000",
+    "avg_vol": 262487,
+    "mkt_cap": 56306534439.159424,
+    "timestamp": 1780888513.145423
+  },
+  "G24.DE": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 352,076 below minimum 500,000",
+    "avg_vol": 352076,
+    "mkt_cap": 5367305191.703262,
+    "timestamp": 1780888513.145423
+  },
+  "ENR.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,732,559",
+    "avg_vol": 2732559,
+    "mkt_cap": 134451094192.55727,
+    "timestamp": 1780888513.145423
+  },
+  "SHL.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,197,219",
+    "avg_vol": 1197219,
+    "mkt_cap": 38992892494.61621,
+    "timestamp": 1780888513.145423
+  },
+  "SY1.DE": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 421,850 below minimum 500,000",
+    "avg_vol": 421850,
+    "mkt_cap": 10675789100.624588,
+    "timestamp": 1780888513.145423
+  },
+  "VOW3.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 889,605",
+    "avg_vol": 889605,
+    "mkt_cap": 44033774066.12192,
+    "timestamp": 1780888513.145423
+  },
+  "VNA.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,987,762",
+    "avg_vol": 3987762,
+    "mkt_cap": 17129706028.517962,
+    "timestamp": 1780888513.145423
+  },
+  "ZAL.DE": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,800,123",
+    "avg_vol": 1800123,
+    "mkt_cap": 6360930048.834915,
+    "timestamp": 1780888513.145423
+  },
+  "360.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,416,027",
+    "avg_vol": 1416027,
+    "mkt_cap": 5348091606.0,
+    "timestamp": 1780888513.145423
+  },
+  "4DX.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,321,973",
+    "avg_vol": 8321973,
+    "mkt_cap": 2362537814.5658813,
+    "timestamp": 1780888513.145423
+  },
+  "A2M.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,672,064",
+    "avg_vol": 2672064,
+    "mkt_cap": 3764961988.36922,
+    "timestamp": 1780888513.145423
+  },
+  "AAI.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 208,530 below minimum 500,000",
+    "avg_vol": 208530,
+    "mkt_cap": 28845801591.98761,
+    "timestamp": 1780888513.145423
+  },
+  "AFI.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 733,386",
+    "avg_vol": 733386,
+    "mkt_cap": 7947080972.55241,
+    "timestamp": 1780888513.145423
+  },
+  "AGL.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,549,569",
+    "avg_vol": 2549569,
+    "mkt_cap": 5738533717.847108,
+    "timestamp": 1780888513.145423
+  },
+  "AIA.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 623,527",
+    "avg_vol": 623527,
+    "mkt_cap": 11577735059.161875,
+    "timestamp": 1780888513.145423
+  },
+  "ALD.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,290,505",
+    "avg_vol": 1290505,
+    "mkt_cap": 8583641715.066044,
+    "timestamp": 1780888513.145423
+  },
+  "ALK.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,356,297",
+    "avg_vol": 6356297,
+    "mkt_cap": 1974166038.0052948,
+    "timestamp": 1780888513.145423
+  },
+  "ALQ.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,711,067",
+    "avg_vol": 1711067,
+    "mkt_cap": 12023683351.626966,
+    "timestamp": 1780888513.145423
+  },
+  "ALX.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,299,918",
+    "avg_vol": 3299918,
+    "mkt_cap": 7356719028.235695,
+    "timestamp": 1780888513.145423
+  },
+  "AMC.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 662,324",
+    "avg_vol": 662324,
+    "mkt_cap": 24444216136.461525,
+    "timestamp": 1780888513.145423
+  },
+  "AMP.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,602,088",
+    "avg_vol": 10602088,
+    "mkt_cap": 3758724416.674224,
+    "timestamp": 1780888513.145423
+  },
+  "ANN.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 473,777 below minimum 500,000",
+    "avg_vol": 473777,
+    "mkt_cap": 3914315468.2325745,
+    "timestamp": 1780888513.145423
+  },
+  "APA.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,210,782",
+    "avg_vol": 3210782,
+    "mkt_cap": 13753777635.54398,
+    "timestamp": 1780888513.145423
+  },
+  "APE.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 585,340",
+    "avg_vol": 585340,
+    "mkt_cap": 5878825430.989243,
+    "timestamp": 1780888513.145423
+  },
+  "ARB.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 368,450 below minimum 500,000",
+    "avg_vol": 368450,
+    "mkt_cap": 1539345384.8862133,
+    "timestamp": 1780888513.145423
+  },
+  "ARG.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 441,868 below minimum 500,000",
+    "avg_vol": 441868,
+    "mkt_cap": 6556129569.866379,
+    "timestamp": 1780888513.145423
+  },
+  "ASB.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,787,697",
+    "avg_vol": 1787697,
+    "mkt_cap": 1679759887.6299691,
+    "timestamp": 1780888513.145423
+  },
+  "ASK.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 794,616",
+    "avg_vol": 794616,
+    "mkt_cap": 1806891574.125,
+    "timestamp": 1780888513.145423
+  },
+  "ASX.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 944,089",
+    "avg_vol": 944089,
+    "mkt_cap": 9317141659.954353,
+    "timestamp": 1780888513.145423
+  },
+  "AUB.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 480,329 below minimum 500,000",
+    "avg_vol": 480329,
+    "mkt_cap": 3324801257.3208046,
+    "timestamp": 1780888513.145423
+  },
+  "AZJ.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,821,228",
+    "avg_vol": 6821228,
+    "mkt_cap": 7238221637.9653845,
+    "timestamp": 1780888513.145423
+  },
+  "BEN.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,652,803",
+    "avg_vol": 1652803,
+    "mkt_cap": 5706332518.190559,
+    "timestamp": 1780888513.145423
+  },
+  "BFL.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 6,944 below minimum 500,000",
+    "avg_vol": 6944,
+    "mkt_cap": 3922799821.8536377,
+    "timestamp": 1780888513.145423
+  },
+  "BGA.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 765,308",
+    "avg_vol": 765308,
+    "mkt_cap": 1665372312.1165924,
+    "timestamp": 1780888513.145423
+  },
+  "BGL.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,710,221",
+    "avg_vol": 7710221,
+    "mkt_cap": 2064558016.7140002,
+    "timestamp": 1780888513.145423
+  },
+  "BOQ.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,315,033",
+    "avg_vol": 2315033,
+    "mkt_cap": 3958077145.4594135,
+    "timestamp": 1780888513.145423
+  },
+  "BPT.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 12,284,926",
+    "avg_vol": 12284926,
+    "mkt_cap": 2486653761.187726,
+    "timestamp": 1780888513.145423
+  },
+  "BRG.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 394,876 below minimum 500,000",
+    "avg_vol": 394876,
+    "mkt_cap": 4178592540.1015263,
+    "timestamp": 1780888513.145423
+  },
+  "BSL.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,216,991",
+    "avg_vol": 1216991,
+    "mkt_cap": 14539789333.2822,
+    "timestamp": 1780888513.145423
+  },
+  "BWP.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,162,950",
+    "avg_vol": 1162950,
+    "mkt_cap": 2936413318.747652,
+    "timestamp": 1780888513.145423
+  },
+  "BXB.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,903,866",
+    "avg_vol": 3903866,
+    "mkt_cap": 22702017947.525635,
+    "timestamp": 1780888513.145423
+  },
+  "CAR.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,976,248",
+    "avg_vol": 1976248,
+    "mkt_cap": 10024599452.76455,
+    "timestamp": 1780888513.145423
+  },
+  "CDA.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 484,984 below minimum 500,000",
+    "avg_vol": 484984,
+    "mkt_cap": 7947951622.759857,
+    "timestamp": 1780888513.145423
+  },
+  "CEN.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 19,589 below minimum 500,000",
+    "avg_vol": 19589,
+    "mkt_cap": 8005114057.8213415,
+    "timestamp": 1780888513.145423
+  },
+  "CGF.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,784,279",
+    "avg_vol": 1784279,
+    "mkt_cap": 6288803491.485915,
+    "timestamp": 1780888513.145423
+  },
+  "CHC.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,323,643",
+    "avg_vol": 1323643,
+    "mkt_cap": 9641573026.43042,
+    "timestamp": 1780888513.145423
+  },
+  "CIA.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,846,166",
+    "avg_vol": 1846166,
+    "mkt_cap": 2380199418.5,
+    "timestamp": 1780888513.145423
+  },
+  "CIP.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,318,021",
+    "avg_vol": 1318021,
+    "mkt_cap": 1810725465.4462867,
+    "timestamp": 1780888513.145423
+  },
+  "CLW.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,538,286",
+    "avg_vol": 1538286,
+    "mkt_cap": 2440527581.628785,
+    "timestamp": 1780888513.145423
+  },
+  "CMM.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,257,945",
+    "avg_vol": 2257945,
+    "mkt_cap": 5828612292.190428,
+    "timestamp": 1780888513.145423
+  },
+  "CNU.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,021,838",
+    "avg_vol": 1021838,
+    "mkt_cap": 3353948790.8957434,
+    "timestamp": 1780888513.145423
+  },
+  "COH.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 585,643",
+    "avg_vol": 585643,
+    "mkt_cap": 6569321013.068344,
+    "timestamp": 1780888513.145423
+  },
+  "COL.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,323,173",
+    "avg_vol": 3323173,
+    "mkt_cap": 29831215039.125435,
+    "timestamp": 1780888513.145423
+  },
+  "CPU.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,419,970",
+    "avg_vol": 1419970,
+    "mkt_cap": 20203060531.609726,
+    "timestamp": 1780888513.145423
+  },
+  "CQR.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,474,602",
+    "avg_vol": 1474602,
+    "mkt_cap": 2144737290.468225,
+    "timestamp": 1780888513.145423
+  },
+  "CSC.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,910,347",
+    "avg_vol": 1910347,
+    "mkt_cap": 11357578060.33101,
+    "timestamp": 1780888513.145423
+  },
+  "CTD.AX": {
+    "passes": true,
+    "reason": "PASS: marketCap $2.4B",
+    "avg_vol": 0,
+    "mkt_cap": 2351454693.564926,
+    "timestamp": 1780888513.145423
+  },
+  "CWY.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,140,605",
+    "avg_vol": 9140605,
+    "mkt_cap": 5311666888.933897,
+    "timestamp": 1780888513.145423
+  },
+  "CYL.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,191,836",
+    "avg_vol": 1191836,
+    "mkt_cap": 1354304606.4513931,
+    "timestamp": 1780888513.145423
+  },
+  "DBI.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,499,638",
+    "avg_vol": 1499638,
+    "mkt_cap": 2835756631.225063,
+    "timestamp": 1780888513.145423
+  },
+  "DNL.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,716,245",
+    "avg_vol": 5716245,
+    "mkt_cap": 6753192251.768282,
+    "timestamp": 1780888513.145423
+  },
+  "DOW.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,242,339",
+    "avg_vol": 1242339,
+    "mkt_cap": 5204767350.305041,
+    "timestamp": 1780888513.145423
+  },
+  "DRO.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 14,425,931",
+    "avg_vol": 14425931,
+    "mkt_cap": 2640502530.766941,
+    "timestamp": 1780888513.145423
+  },
+  "DRR.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,683,860",
+    "avg_vol": 1683860,
+    "mkt_cap": 2329608676.892907,
+    "timestamp": 1780888513.145423
+  },
+  "DXS.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,911,334",
+    "avg_vol": 2911334,
+    "mkt_cap": 5877793023.17803,
+    "timestamp": 1780888513.145423
+  },
+  "DYL.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,391,818",
+    "avg_vol": 6391818,
+    "mkt_cap": 1536467222.6421201,
+    "timestamp": 1780888513.145423
+  },
+  "EBO.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 150,103 below minimum 500,000",
+    "avg_vol": 150103,
+    "mkt_cap": 3428247274.3310833,
+    "timestamp": 1780888513.145423
+  },
+  "EDV.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,541,749",
+    "avg_vol": 4541749,
+    "mkt_cap": 5333305300.186124,
+    "timestamp": 1780888513.145423
+  },
+  "EMR.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,830,188",
+    "avg_vol": 1830188,
+    "mkt_cap": 3878754128.660206,
+    "timestamp": 1780888513.145423
+  },
+  "EOS.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,261,192",
+    "avg_vol": 3261192,
+    "mkt_cap": 2322372082.5605593,
+    "timestamp": 1780888513.145423
+  },
+  "EVN.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,252,875",
+    "avg_vol": 9252875,
+    "mkt_cap": 23824691127.900536,
+    "timestamp": 1780888513.145423
+  },
+  "EVT.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 194,626 below minimum 500,000",
+    "avg_vol": 194626,
+    "mkt_cap": 1950269064.0,
+    "timestamp": 1780888513.145423
+  },
+  "FBU.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 893,146",
+    "avg_vol": 893146,
+    "mkt_cap": 2773235137.7518387,
+    "timestamp": 1780888513.145423
+  },
+  "FLT.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,513,316",
+    "avg_vol": 1513316,
+    "mkt_cap": 2273903459.6603403,
+    "timestamp": 1780888513.145423
+  },
+  "FPH.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 459,981 below minimum 500,000",
+    "avg_vol": 459981,
+    "mkt_cap": 18018026975.346382,
+    "timestamp": 1780888513.145423
+  },
+  "FRW.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 187 below minimum 500,000",
+    "avg_vol": 187,
+    "mkt_cap": 1970733482.5986729,
+    "timestamp": 1780888513.145423
+  },
+  "GDG.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,378,065",
+    "avg_vol": 2378065,
+    "mkt_cap": 1579674195.419553,
+    "timestamp": 1780888513.145423
+  },
+  "GGP.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,971,710",
+    "avg_vol": 2971710,
+    "mkt_cap": 8855449503.122616,
+    "timestamp": 1780888513.145423
+  },
+  "GMD.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,173,203",
+    "avg_vol": 5173203,
+    "mkt_cap": 6122879266.997269,
+    "timestamp": 1780888513.145423
+  },
+  "GMG.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,182,773",
+    "avg_vol": 4182773,
+    "mkt_cap": 63593064199.62664,
+    "timestamp": 1780888513.145423
+  },
+  "GNE.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 27,968 below minimum 500,000",
+    "avg_vol": 27968,
+    "mkt_cap": 2455057500.760167,
+    "timestamp": 1780888513.145423
+  },
+  "GPT.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,023,693",
+    "avg_vol": 5023693,
+    "mkt_cap": 9079836579.75912,
+    "timestamp": 1780888513.145423
+  },
+  "GQG.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,303,824",
+    "avg_vol": 4303824,
+    "mkt_cap": 4148394540.957007,
+    "timestamp": 1780888513.145423
+  },
+  "HDN.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,034,355",
+    "avg_vol": 3034355,
+    "mkt_cap": 2538498553.9978833,
+    "timestamp": 1780888513.145423
+  },
+  "HUB.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 283,046 below minimum 500,000",
+    "avg_vol": 283046,
+    "mkt_cap": 6856731160.523117,
+    "timestamp": 1780888513.145423
+  },
+  "HVN.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,858,850",
+    "avg_vol": 2858850,
+    "mkt_cap": 5532269615.057073,
+    "timestamp": 1780888513.145423
+  },
+  "IAG.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,741,287",
+    "avg_vol": 6741287,
+    "mkt_cap": 17674923767.541264,
+    "timestamp": 1780888513.145423
+  },
+  "IFL.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,714,643",
+    "avg_vol": 1714643,
+    "mkt_cap": 3212778224.97,
+    "timestamp": 1780888513.145423
+  },
+  "IFT.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 439,699 below minimum 500,000",
+    "avg_vol": 439699,
+    "mkt_cap": 12631309963.88671,
+    "timestamp": 1780888513.145423
+  },
+  "IGO.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,785,004",
+    "avg_vol": 3785004,
+    "mkt_cap": 6800264614.090305,
+    "timestamp": 1780888513.145423
+  },
+  "ILU.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,596,966",
+    "avg_vol": 2596966,
+    "mkt_cap": 3341761250.0,
+    "timestamp": 1780888513.145423
+  },
+  "IMD.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,202,229",
+    "avg_vol": 1202229,
+    "mkt_cap": 2037130457.342608,
+    "timestamp": 1780888513.145423
+  },
+  "JBH.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 512,521",
+    "avg_vol": 512521,
+    "mkt_cap": 7880793550.676498,
+    "timestamp": 1780888513.145423
+  },
+  "JHX.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,989,980",
+    "avg_vol": 1989980,
+    "mkt_cap": 18622294928.658978,
+    "timestamp": 1780888513.145423
+  },
+  "L1G.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,531,573",
+    "avg_vol": 3531573,
+    "mkt_cap": 2630715209.908644,
+    "timestamp": 1780888513.145423
+  },
+  "LLC.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,333,870",
+    "avg_vol": 3333870,
+    "mkt_cap": 1699592341.4554071,
+    "timestamp": 1780888513.145423
+  },
+  "LNW.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 302,054 below minimum 500,000",
+    "avg_vol": 302054,
+    "mkt_cap": 9116898219.928322,
+    "timestamp": 1780888513.145423
+  },
+  "LOV.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 388,815 below minimum 500,000",
+    "avg_vol": 388815,
+    "mkt_cap": 2262387486.6447067,
+    "timestamp": 1780888513.145423
+  },
+  "LSF.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 467,740 below minimum 500,000",
+    "avg_vol": 467740,
+    "mkt_cap": 2915620239.553213,
+    "timestamp": 1780888513.145423
+  },
+  "LTR.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 21,241,196",
+    "avg_vol": 21241196,
+    "mkt_cap": 6803297757.942011,
+    "timestamp": 1780888513.145423
+  },
+  "LYC.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,338,551",
+    "avg_vol": 4338551,
+    "mkt_cap": 18278094326.41983,
+    "timestamp": 1780888513.145423
+  },
+  "MCY.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 8,701 below minimum 500,000",
+    "avg_vol": 8701,
+    "mkt_cap": 8107487799.899109,
+    "timestamp": 1780888513.145423
+  },
+  "MEZ.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 30,580 below minimum 500,000",
+    "avg_vol": 30580,
+    "mkt_cap": 12999366297.637648,
+    "timestamp": 1780888513.145423
+  },
+  "MFF.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 281,227 below minimum 500,000",
+    "avg_vol": 281227,
+    "mkt_cap": 2969497518.324337,
+    "timestamp": 1780888513.145423
+  },
+  "MFG.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 819,633",
+    "avg_vol": 819633,
+    "mkt_cap": 1610620512.7630787,
+    "timestamp": 1780888513.145423
+  },
+  "MGR.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 13,981,850",
+    "avg_vol": 13981850,
+    "mkt_cap": 6589586393.052051,
+    "timestamp": 1780888513.145423
+  },
+  "MIN.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,141,283",
+    "avg_vol": 1141283,
+    "mkt_cap": 13353981746.807556,
+    "timestamp": 1780888513.145423
+  },
+  "MND.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 233,197 below minimum 500,000",
+    "avg_vol": 233197,
+    "mkt_cap": 3054837429.1789246,
+    "timestamp": 1780888513.145423
+  },
+  "MPL.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,256,181",
+    "avg_vol": 7256181,
+    "mkt_cap": 13164136065.012875,
+    "timestamp": 1780888513.145423
+  },
+  "MSB.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,222,764",
+    "avg_vol": 3222764,
+    "mkt_cap": 2650292289.2032747,
+    "timestamp": 1780888513.145423
+  },
+  "MTS.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,309,920",
+    "avg_vol": 5309920,
+    "mkt_cap": 3343167475.3287764,
+    "timestamp": 1780888513.145423
+  },
+  "MXT.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,582,666",
+    "avg_vol": 1582666,
+    "mkt_cap": 2364733890.95304,
+    "timestamp": 1780888513.145423
+  },
+  "NEM.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 433,986 below minimum 500,000",
+    "avg_vol": 433986,
+    "mkt_cap": 158809143308.39752,
+    "timestamp": 1780888513.145423
+  },
+  "NHC.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,352,284",
+    "avg_vol": 4352284,
+    "mkt_cap": 5130140103.945225,
+    "timestamp": 1780888513.145423
+  },
+  "NHF.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 942,457",
+    "avg_vol": 942457,
+    "mkt_cap": 3221935367.2921715,
+    "timestamp": 1780888513.145423
+  },
+  "NIC.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,027,251",
+    "avg_vol": 10027251,
+    "mkt_cap": 4407064851.013109,
+    "timestamp": 1780888513.145423
+  },
+  "NSR.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,523,606",
+    "avg_vol": 6523606,
+    "mkt_cap": 4261746460.68,
+    "timestamp": 1780888513.145423
+  },
+  "NST.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,176,447",
+    "avg_vol": 8176447,
+    "mkt_cap": 28373925852.755814,
+    "timestamp": 1780888513.145423
+  },
+  "NWH.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,240,531",
+    "avg_vol": 1240531,
+    "mkt_cap": 3289783277.5709076,
+    "timestamp": 1780888513.145423
+  },
+  "NWL.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 716,288",
+    "avg_vol": 716288,
+    "mkt_cap": 5217133961.946848,
+    "timestamp": 1780888513.145423
+  },
+  "NWS.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 187,441 below minimum 500,000",
+    "avg_vol": 187441,
+    "mkt_cap": 23563087030.859814,
+    "timestamp": 1780888513.145423
+  },
+  "NXG.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 761,940",
+    "avg_vol": 761940,
+    "mkt_cap": 10550835892.991753,
+    "timestamp": 1780888513.145423
+  },
+  "NXT.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,608,591",
+    "avg_vol": 2608591,
+    "mkt_cap": 11460489644.193811,
+    "timestamp": 1780888513.145423
+  },
+  "OBM.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,532,013",
+    "avg_vol": 7532013,
+    "mkt_cap": 2467127094.935411,
+    "timestamp": 1780888513.145423
+  },
+  "ORA.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,183,494",
+    "avg_vol": 5183494,
+    "mkt_cap": 1531678498.75,
+    "timestamp": 1780888513.145423
+  },
+  "ORG.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,172,829",
+    "avg_vol": 4172829,
+    "mkt_cap": 18760722728.648476,
+    "timestamp": 1780888513.145423
+  },
+  "ORI.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,984,251",
+    "avg_vol": 1984251,
+    "mkt_cap": 10634117517.265797,
+    "timestamp": 1780888513.145423
+  },
+  "PDI.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 24,187,380",
+    "avg_vol": 24187380,
+    "mkt_cap": 3823797480.7408853,
+    "timestamp": 1780888513.145423
+  },
+  "PDN.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,823,443",
+    "avg_vol": 2823443,
+    "mkt_cap": 4965410648.808317,
+    "timestamp": 1780888513.145423
+  },
+  "PLS.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 29,980,779",
+    "avg_vol": 29980779,
+    "mkt_cap": 19036106701.264477,
+    "timestamp": 1780888513.145423
+  },
+  "PME.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 356,659 below minimum 500,000",
+    "avg_vol": 356659,
+    "mkt_cap": 17304404773.196594,
+    "timestamp": 1780888513.145423
+  },
+  "PMV.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 318,444 below minimum 500,000",
+    "avg_vol": 318444,
+    "mkt_cap": 2057629416.0532284,
+    "timestamp": 1780888513.145423
+  },
+  "PNI.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,032,106",
+    "avg_vol": 1032106,
+    "mkt_cap": 3585874975.2416725,
+    "timestamp": 1780888513.145423
+  },
+  "PPT.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 254,037 below minimum 500,000",
+    "avg_vol": 254037,
+    "mkt_cap": 1819193653.3890724,
+    "timestamp": 1780888513.145423
+  },
+  "PRN.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,509,640",
+    "avg_vol": 2509640,
+    "mkt_cap": 2013200061.2994003,
+    "timestamp": 1780888513.145423
+  },
+  "PRU.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,351,832",
+    "avg_vol": 4351832,
+    "mkt_cap": 6745349363.731253,
+    "timestamp": 1780888513.145423
+  },
+  "PXA.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 508,714",
+    "avg_vol": 508714,
+    "mkt_cap": 1893073573.788601,
+    "timestamp": 1780888513.145423
+  },
+  "QAN.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,975,904",
+    "avg_vol": 7975904,
+    "mkt_cap": 13906300739.046314,
+    "timestamp": 1780888513.145423
+  },
+  "QBE.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,234,223",
+    "avg_vol": 3234223,
+    "mkt_cap": 33869534803.54502,
+    "timestamp": 1780888513.145423
+  },
+  "QUB.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,328,593",
+    "avg_vol": 5328593,
+    "mkt_cap": 8852060065.0,
+    "timestamp": 1780888513.145423
+  },
+  "RDX.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 529,324",
+    "avg_vol": 529324,
+    "mkt_cap": 1837784998.0,
+    "timestamp": 1780888513.145423
+  },
+  "REA.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 309,321 below minimum 500,000",
+    "avg_vol": 309321,
+    "mkt_cap": 20823316478.900513,
+    "timestamp": 1780888513.145423
+  },
+  "REG.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 725,087",
+    "avg_vol": 725087,
+    "mkt_cap": 1874641273.3291197,
+    "timestamp": 1780888513.145423
+  },
+  "REH.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 568,909",
+    "avg_vol": 568909,
+    "mkt_cap": 8543627493.905065,
+    "timestamp": 1780888513.145423
+  },
+  "RGN.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,412,617",
+    "avg_vol": 3412617,
+    "mkt_cap": 2573182812.2352605,
+    "timestamp": 1780888513.145423
+  },
+  "RHC.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 762,694",
+    "avg_vol": 762694,
+    "mkt_cap": 8452987432.267162,
+    "timestamp": 1780888513.145423
+  },
+  "RMD.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,453,393",
+    "avg_vol": 1453393,
+    "mkt_cap": 40093583652.24609,
+    "timestamp": 1780888513.145423
+  },
+  "RMS.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,049,072",
+    "avg_vol": 10049072,
+    "mkt_cap": 5784215716.51954,
+    "timestamp": 1780888513.145423
+  },
+  "RRL.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,478,150",
+    "avg_vol": 4478150,
+    "mkt_cap": 4520795469.152166,
+    "timestamp": 1780888513.145423
+  },
+  "RSG.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,864,668",
+    "avg_vol": 7864668,
+    "mkt_cap": 2425968971.505997,
+    "timestamp": 1780888513.145423
+  },
+  "RWC.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,353,403",
+    "avg_vol": 3353403,
+    "mkt_cap": 2371283049.900831,
+    "timestamp": 1780888513.145423
+  },
+  "RYM.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 11,873 below minimum 500,000",
+    "avg_vol": 11873,
+    "mkt_cap": 1874020183.505242,
+    "timestamp": 1780888513.145423
+  },
+  "SCG.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 12,790,270",
+    "avg_vol": 12790270,
+    "mkt_cap": 19116096601.35172,
+    "timestamp": 1780888513.145423
+  },
+  "SDF.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,741,386",
+    "avg_vol": 2741386,
+    "mkt_cap": 4403486889.299114,
+    "timestamp": 1780888513.145423
+  },
+  "SEK.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,692,638",
+    "avg_vol": 1692638,
+    "mkt_cap": 4626001405.315656,
+    "timestamp": 1780888513.145423
+  },
+  "SFR.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,011,751",
+    "avg_vol": 2011751,
+    "mkt_cap": 9002822888.470066,
+    "timestamp": 1780888513.145423
+  },
+  "SGH.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 555,912",
+    "avg_vol": 555912,
+    "mkt_cap": 17061362457.324097,
+    "timestamp": 1780888513.145423
+  },
+  "SGM.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 953,259",
+    "avg_vol": 953259,
+    "mkt_cap": 5313907280.0,
+    "timestamp": 1780888513.145423
+  },
+  "SGP.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,709,876",
+    "avg_vol": 9709876,
+    "mkt_cap": 9313196801.740276,
+    "timestamp": 1780888513.145423
+  },
+  "SHL.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,731,281",
+    "avg_vol": 1731281,
+    "mkt_cap": 9558562086.434727,
+    "timestamp": 1780888513.145423
+  },
+  "SIG.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 15,145,752",
+    "avg_vol": 15145752,
+    "mkt_cap": 33707613161.834633,
+    "timestamp": 1780888513.145423
+  },
+  "SMR.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,961,195",
+    "avg_vol": 1961195,
+    "mkt_cap": 2631247935.276395,
+    "timestamp": 1780888513.145423
+  },
+  "SNZ.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 5,846 below minimum 500,000",
+    "avg_vol": 5846,
+    "mkt_cap": 1659531261.1811066,
+    "timestamp": 1780888513.145423
+  },
+  "SOL.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 683,365",
+    "avg_vol": 683365,
+    "mkt_cap": 16302353496.648857,
+    "timestamp": 1780888513.145423
+  },
+  "SPK.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,427,681",
+    "avg_vol": 1427681,
+    "mkt_cap": 2891867145.8535395,
+    "timestamp": 1780888513.145423
+  },
+  "STO.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 16,010,549",
+    "avg_vol": 16010549,
+    "mkt_cap": 25397585112.537178,
+    "timestamp": 1780888513.145423
+  },
+  "SUL.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 559,959",
+    "avg_vol": 559959,
+    "mkt_cap": 2556355911.0832214,
+    "timestamp": 1780888513.145423
+  },
+  "SUN.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,167,156",
+    "avg_vol": 4167156,
+    "mkt_cap": 19016909704.992928,
+    "timestamp": 1780888513.145423
+  },
+  "TAH.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,536,571",
+    "avg_vol": 10536571,
+    "mkt_cap": 1811188990.8948083,
+    "timestamp": 1780888513.145423
+  },
+  "TCL.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,894,106",
+    "avg_vol": 5894106,
+    "mkt_cap": 47052370998.46887,
+    "timestamp": 1780888513.145423
+  },
+  "TLC.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,959,812",
+    "avg_vol": 4959812,
+    "mkt_cap": 11618527822.674513,
+    "timestamp": 1780888513.145423
+  },
+  "TLX.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,524,741",
+    "avg_vol": 2524741,
+    "mkt_cap": 4509122664.346507,
+    "timestamp": 1780888513.145423
+  },
+  "TNE.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,273,629",
+    "avg_vol": 1273629,
+    "mkt_cap": 10583825562.289703,
+    "timestamp": 1780888513.145423
+  },
+  "TPG.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,994,601",
+    "avg_vol": 5994601,
+    "mkt_cap": 7125796946.650887,
+    "timestamp": 1780888513.145423
+  },
+  "TUA.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,425,312",
+    "avg_vol": 2425312,
+    "mkt_cap": 1365506471.0199134,
+    "timestamp": 1780888513.145423
+  },
+  "TWE.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,064,434",
+    "avg_vol": 6064434,
+    "mkt_cap": 3786880795.6019306,
+    "timestamp": 1780888513.145423
+  },
+  "VAU.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,764,446",
+    "avg_vol": 5764446,
+    "mkt_cap": 4283102667.170551,
+    "timestamp": 1780888513.145423
+  },
+  "VCX.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 12,001,988",
+    "avg_vol": 12001988,
+    "mkt_cap": 11276017438.585867,
+    "timestamp": 1780888513.145423
+  },
+  "VEA.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,981,532",
+    "avg_vol": 8981532,
+    "mkt_cap": 3679246912.3043003,
+    "timestamp": 1780888513.145423
+  },
+  "VGN.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,883,768",
+    "avg_vol": 1883768,
+    "mkt_cap": 2046845035.7908053,
+    "timestamp": 1780888513.145423
+  },
+  "VNT.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,540,757",
+    "avg_vol": 2540757,
+    "mkt_cap": 5115855386.4424715,
+    "timestamp": 1780888513.145423
+  },
+  "WAF.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,342,860",
+    "avg_vol": 6342860,
+    "mkt_cap": 3531901580.574643,
+    "timestamp": 1780888513.145423
+  },
+  "WAM.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,199,557",
+    "avg_vol": 1199557,
+    "mkt_cap": 1707301128.0,
+    "timestamp": 1780888513.145423
+  },
+  "WDS.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,412,821",
+    "avg_vol": 7412821,
+    "mkt_cap": 58763005160.95514,
+    "timestamp": 1780888513.145423
+  },
+  "WGX.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,870,511",
+    "avg_vol": 4870511,
+    "mkt_cap": 4620226221.811377,
+    "timestamp": 1780888513.145423
+  },
+  "WHC.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,780,562",
+    "avg_vol": 5780562,
+    "mkt_cap": 7714765577.865361,
+    "timestamp": 1780888513.145423
+  },
+  "WLE.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,121,357",
+    "avg_vol": 1121357,
+    "mkt_cap": 1814877819.6319675,
+    "timestamp": 1780888513.145423
+  },
+  "WOR.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,493,638",
+    "avg_vol": 2493638,
+    "mkt_cap": 6577137654.571827,
+    "timestamp": 1780888513.145423
+  },
+  "WTC.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,659,141",
+    "avg_vol": 1659141,
+    "mkt_cap": 13380499871.005474,
+    "timestamp": 1780888513.145423
+  },
+  "XRO.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 894,854",
+    "avg_vol": 894854,
+    "mkt_cap": 13746560015.639328,
+    "timestamp": 1780888513.145423
+  },
+  "XYX.AX": {
+    "passes": false,
+    "reason": "FAIL: no vol data, mktCap $0M < $500M",
+    "avg_vol": 0,
+    "mkt_cap": 0,
+    "timestamp": 1780888513.145423
+  },
+  "YAL.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,994,876",
+    "avg_vol": 4994876,
+    "mkt_cap": 9203462598.85078,
+    "timestamp": 1780888513.145423
+  },
+  "ZIM.AX": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 19,920 below minimum 500,000",
+    "avg_vol": 19920,
+    "mkt_cap": 1685605566.9157982,
+    "timestamp": 1780888513.145423
+  },
+  "ZIP.AX": {
+    "passes": true,
+    "reason": "PASS: avgVol 22,130,112",
+    "avg_vol": 22130112,
+    "mkt_cap": 2991414456.44042,
+    "timestamp": 1780888513.145423
+  },
+  "1965.HK": {
+    "passes": false,
+    "reason": "FAIL: avgVol 191,131 < 500,000",
+    "avg_vol": 191131,
+    "mkt_cap": 52213500.49977802,
+    "timestamp": 1780888513.145423
+  },
+  "1966.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,483,541",
+    "avg_vol": 1483541,
+    "mkt_cap": 228041256.7191753,
+    "timestamp": 1780888513.145423
+  },
+  "1967.HK": {
+    "passes": false,
+    "reason": "FAIL: avgVol 447,413 < 500,000",
+    "avg_vol": 447413,
+    "mkt_cap": 108000004.29153442,
+    "timestamp": 1780888513.145423
+  },
+  "1968.HK": {
+    "passes": false,
+    "reason": "FAIL: avgVol 328,196 < 500,000",
+    "avg_vol": 328196,
+    "mkt_cap": 104960002.89916992,
+    "timestamp": 1780888513.145423
+  },
+  "1969.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,480,516",
+    "avg_vol": 1480516,
+    "mkt_cap": 1247999954.2236328,
+    "timestamp": 1780888513.145423
+  },
+  "1970.HK": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 125,937 below minimum 500,000",
+    "avg_vol": 125937,
+    "mkt_cap": 2724268055.6000004,
+    "timestamp": 1780888513.145423
+  },
+  "1971.HK": {
+    "passes": false,
+    "reason": "FAIL: avgVol 34,377 < 500,000",
+    "avg_vol": 34377,
+    "mkt_cap": 141100000.0,
+    "timestamp": 1780888513.145423
+  },
+  "1972.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,449,719",
+    "avg_vol": 3449719,
+    "mkt_cap": 124591967557.91016,
+    "timestamp": 1780888513.145423
+  },
+  "1973.HK": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 36,386 below minimum 500,000",
+    "avg_vol": 36386,
+    "mkt_cap": 1360058959.4178557,
+    "timestamp": 1780888513.145423
+  },
+  "1974.HK": {
+    "passes": false,
+    "reason": "FAIL: no vol data, mktCap $0M < $500M",
+    "avg_vol": 0,
+    "mkt_cap": 0,
+    "timestamp": 1780888513.145423
+  },
+  "1975.HK": {
+    "passes": false,
+    "reason": "FAIL: avgVol 111,737 < 500,000",
+    "avg_vol": 111737,
+    "mkt_cap": 211200000.0,
+    "timestamp": 1780888513.145423
+  },
+  "1976.HK": {
+    "passes": false,
+    "reason": "FAIL: no vol data, mktCap $0M < $500M",
+    "avg_vol": 0,
+    "mkt_cap": 0,
+    "timestamp": 1780888513.145423
+  },
+  "1977.HK": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 71,081 below minimum 500,000",
+    "avg_vol": 71081,
+    "mkt_cap": 1400000000.0,
+    "timestamp": 1780888513.145423
+  },
+  "1978.HK": {
+    "passes": false,
+    "reason": "FAIL: avgVol 92,180 < 500,000",
+    "avg_vol": 92180,
+    "mkt_cap": 231999993.3242798,
+    "timestamp": 1780888513.145423
+  },
+  "1979.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,388,746",
+    "avg_vol": 2388746,
+    "mkt_cap": 2720226975.6921043,
+    "timestamp": 1780888513.145423
+  },
+  "1980.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 737,524",
+    "avg_vol": 737524,
+    "mkt_cap": 721103578.8500774,
+    "timestamp": 1780888513.145423
+  },
+  "1981.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 763,540",
+    "avg_vol": 763540,
+    "mkt_cap": 1103597171.60815,
+    "timestamp": 1780888513.145423
+  },
+  "1982.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 780,688",
+    "avg_vol": 780688,
+    "mkt_cap": 1983071050.868988,
+    "timestamp": 1780888513.145423
+  },
+  "1983.HK": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 24,738 below minimum 500,000",
+    "avg_vol": 24738,
+    "mkt_cap": 6604137510.660001,
+    "timestamp": 1780888513.145423
+  },
+  "1984.HK": {
+    "passes": false,
+    "reason": "FAIL: no vol data, mktCap $0M < $500M",
+    "avg_vol": 0,
+    "mkt_cap": 0,
+    "timestamp": 1780888513.145423
+  },
+  "1985.HK": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 316,704 below minimum 500,000",
+    "avg_vol": 316704,
+    "mkt_cap": 525000000.0,
+    "timestamp": 1780888513.145423
+  },
+  "1986.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,585,026",
+    "avg_vol": 1585026,
+    "mkt_cap": 929169099.2314517,
+    "timestamp": 1780888513.145423
+  },
+  "1987.HK": {
+    "passes": false,
+    "reason": "FAIL: avgVol 294,000 < 500,000",
+    "avg_vol": 294000,
+    "mkt_cap": 230000000.0,
+    "timestamp": 1780888513.145423
+  },
+  "1988.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 25,157,347",
+    "avg_vol": 25157347,
+    "mkt_cap": 150611522152.1301,
+    "timestamp": 1780888513.145423
+  },
+  "1989.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,971,267",
+    "avg_vol": 2971267,
+    "mkt_cap": 76744514789.29358,
+    "timestamp": 1780888513.145423
+  },
+  "1990.HK": {
+    "passes": false,
+    "reason": "FAIL: no vol data, mktCap $0M < $500M",
+    "avg_vol": 0,
+    "mkt_cap": 0,
+    "timestamp": 1780888513.145423
+  },
+  "1991.HK": {
+    "passes": false,
+    "reason": "FAIL: avgVol 329,911 < 500,000",
+    "avg_vol": 329911,
+    "mkt_cap": 108364220.17980814,
+    "timestamp": 1780888513.145423
+  },
+  "1992.HK": {
+    "passes": false,
+    "reason": "FAIL: no vol data, mktCap $0M < $500M",
+    "avg_vol": 0,
+    "mkt_cap": 0,
+    "timestamp": 1780888513.145423
+  },
+  "1993.HK": {
+    "passes": false,
+    "reason": "FAIL: avgVol 16,647 < 500,000",
+    "avg_vol": 16647,
+    "mkt_cap": 329221588.7724269,
+    "timestamp": 1780888513.145423
+  },
+  "1994.HK": {
+    "passes": false,
+    "reason": "FAIL: no vol data, mktCap $0M < $500M",
+    "avg_vol": 0,
+    "mkt_cap": 0,
+    "timestamp": 1780888513.145423
+  },
+  "1995.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,674,827",
+    "avg_vol": 2674827,
+    "mkt_cap": 2967645492.7186966,
+    "timestamp": 1780888513.145423
+  },
+  "1996.HK": {
+    "passes": false,
+    "reason": "FAIL: avgVol 140,000 < 500,000",
+    "avg_vol": 140000,
+    "mkt_cap": 86803964.0,
+    "timestamp": 1780888513.145423
+  },
+  "1997.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,156,977",
+    "avg_vol": 5156977,
+    "mkt_cap": 68497286875.59967,
+    "timestamp": 1780888513.145423
+  },
+  "1998.HK": {
+    "passes": false,
+    "reason": "FAIL: no vol data, mktCap $0M < $500M",
+    "avg_vol": 0,
+    "mkt_cap": 0,
+    "timestamp": 1780888513.145423
+  },
+  "1999.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,869,676",
+    "avg_vol": 9869676,
+    "mkt_cap": 14255653223.719597,
+    "timestamp": 1780888513.145423
+  },
+  "2000.HK": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 202,483 below minimum 500,000",
+    "avg_vol": 202483,
+    "mkt_cap": 635714215.2610123,
+    "timestamp": 1780888513.145423
+  },
+  "2001.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,431,365",
+    "avg_vol": 2431365,
+    "mkt_cap": 1202884515.8388534,
+    "timestamp": 1780888513.145423
+  },
+  "2002.HK": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 70,721 below minimum 500,000",
+    "avg_vol": 70721,
+    "mkt_cap": 1075795792.4319918,
+    "timestamp": 1780888513.145423
+  },
+  "2003.HK": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 150,708 below minimum 500,000",
+    "avg_vol": 150708,
+    "mkt_cap": 524339664.12,
+    "timestamp": 1780888513.145423
+  },
+  "2004.HK": {
+    "passes": false,
+    "reason": "FAIL: no vol data, mktCap $0M < $500M",
+    "avg_vol": 0,
+    "mkt_cap": 0,
+    "timestamp": 1780888513.145423
+  },
+  "2005.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,739,897",
+    "avg_vol": 7739897,
+    "mkt_cap": 6679234053.900282,
+    "timestamp": 1780888513.145423
+  },
+  "2006.HK": {
+    "passes": false,
+    "reason": "FAIL: no vol data, mktCap $0M < $500M",
+    "avg_vol": 0,
+    "mkt_cap": 0,
+    "timestamp": 1780888513.145423
+  },
+  "2007.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 362,039,490",
+    "avg_vol": 362039490,
+    "mkt_cap": 10132910264.594254,
+    "timestamp": 1780888513.145423
+  },
+  "2008.HK": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 446,270 below minimum 500,000",
+    "avg_vol": 446270,
+    "mkt_cap": 709099627.5695384,
+    "timestamp": 1780888513.145423
+  },
+  "2009.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 12,762,587",
+    "avg_vol": 12762587,
+    "mkt_cap": 7474439666.511049,
+    "timestamp": 1780888513.145423
+  },
+  "2010.HK": {
+    "passes": false,
+    "reason": "FAIL: no vol data, mktCap $0M < $500M",
+    "avg_vol": 0,
+    "mkt_cap": 0,
+    "timestamp": 1780888513.145423
+  },
+  "2011.HK": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 20,131 below minimum 500,000",
+    "avg_vol": 20131,
+    "mkt_cap": 775572030.0,
+    "timestamp": 1780888513.145423
+  },
+  "2012.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,875,018",
+    "avg_vol": 3875018,
+    "mkt_cap": 209849551.65199363,
+    "timestamp": 1780888513.145423
+  },
+  "2013.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 56,952,542",
+    "avg_vol": 56952542,
+    "mkt_cap": 5413258016.030289,
+    "timestamp": 1780888513.145423
+  },
+  "2014.HK": {
+    "passes": false,
+    "reason": "FAIL: no vol data, mktCap $0M < $500M",
+    "avg_vol": 0,
+    "mkt_cap": 0,
+    "timestamp": 1780888513.145423
+  },
+  "2015.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 13,824,975",
+    "avg_vol": 13824975,
+    "mkt_cap": 113454032109.90715,
+    "timestamp": 1780888513.145423
+  },
+  "2016.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,291,360",
+    "avg_vol": 8291360,
+    "mkt_cap": 69485528200.62047,
+    "timestamp": 1780888513.145423
+  },
+  "2017.HK": {
+    "passes": false,
+    "reason": "FAIL: avgVol 67,016 < 500,000",
+    "avg_vol": 67016,
+    "mkt_cap": 148440480.0,
+    "timestamp": 1780888513.145423
+  },
+  "2018.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 6,660,021",
+    "avg_vol": 6660021,
+    "mkt_cap": 51145459484.75718,
+    "timestamp": 1780888513.145423
+  },
+  "2019.HK": {
+    "passes": false,
+    "reason": "FAIL: no vol data, mktCap $252M < $500M",
+    "avg_vol": 0,
+    "mkt_cap": 252393985.00000003,
+    "timestamp": 1780888513.145423
+  },
+  "2020.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 8,305,719",
+    "avg_vol": 8305719,
+    "mkt_cap": 205709594334.75,
+    "timestamp": 1780888513.145423
+  },
+  "2021.HK": {
+    "passes": false,
+    "reason": "FAIL: no vol data, mktCap $0M < $500M",
+    "avg_vol": 0,
+    "mkt_cap": 0,
+    "timestamp": 1780888513.145423
+  },
+  "2022.HK": {
+    "passes": true,
+    "reason": "PASS: avgVol 778,229",
+    "avg_vol": 778229,
+    "mkt_cap": 120966422.00500001,
+    "timestamp": 1780888513.145423
+  },
+  "2023.HK": {
+    "passes": false,
+    "reason": "FAIL: avgVol 80,983 < 500,000",
+    "avg_vol": 80983,
+    "mkt_cap": 378686000.0,
+    "timestamp": 1780888513.145423
+  },
+  "2024.HK": {
+    "passes": false,
+    "reason": "FAIL: no vol data, mktCap $0M < $500M",
+    "avg_vol": 0,
+    "mkt_cap": 0,
+    "timestamp": 1780888513.145423
+  },
+  "2025.HK": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 389,604 below minimum 500,000",
+    "avg_vol": 389604,
+    "mkt_cap": 8351999664.306641,
+    "timestamp": 1780888513.145423
+  },
+  "ADANIENT.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,633,201",
+    "avg_vol": 2633201,
+    "mkt_cap": 3971002018486.6084,
+    "timestamp": 1780888513.145423
+  },
+  "ADANIPORTS.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,102,221",
+    "avg_vol": 3102221,
+    "mkt_cap": 4202882074073.597,
+    "timestamp": 1780888513.145423
+  },
+  "APOLLOHOSP.NS": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 429,427 below minimum 500,000",
+    "avg_vol": 429427,
+    "mkt_cap": 1194059684056.5,
+    "timestamp": 1780888513.145423
+  },
+  "ASIANPAINT.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,286,615",
+    "avg_vol": 1286615,
+    "mkt_cap": 2575589580567.6963,
+    "timestamp": 1780888513.145423
+  },
+  "AXISBANK.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,487,505",
+    "avg_vol": 7487505,
+    "mkt_cap": 3956924718733.2153,
+    "timestamp": 1780888513.145423
+  },
+  "BAJFINANCE.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,029,049",
+    "avg_vol": 10029049,
+    "mkt_cap": 5530179365042.021,
+    "timestamp": 1780888513.145423
+  },
+  "BAJAJFINSV.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,264,533",
+    "avg_vol": 1264533,
+    "mkt_cap": 2722579280649.4365,
+    "timestamp": 1780888513.145423
+  },
+  "BEL.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 14,354,043",
+    "avg_vol": 14354043,
+    "mkt_cap": 2983851807228.4985,
+    "timestamp": 1780888513.145423
+  },
+  "BHARTIARTL.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 9,986,792",
+    "avg_vol": 9986792,
+    "mkt_cap": 10953683967850.662,
+    "timestamp": 1780888513.145423
+  },
+  "CIPLA.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,897,409",
+    "avg_vol": 1897409,
+    "mkt_cap": 1132033680756.372,
+    "timestamp": 1780888513.145423
+  },
+  "COALINDIA.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 16,180,068",
+    "avg_vol": 16180068,
+    "mkt_cap": 2910656513613.483,
+    "timestamp": 1780888513.145423
+  },
+  "DRREDDY.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,435,753",
+    "avg_vol": 2435753,
+    "mkt_cap": 1064039127929.967,
+    "timestamp": 1780888513.145423
+  },
+  "EICHERMOT.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 588,566",
+    "avg_vol": 588566,
+    "mkt_cap": 1940697537100.0,
+    "timestamp": 1780888513.145423
+  },
+  "ETERNAL.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 43,096,041",
+    "avg_vol": 43096041,
+    "mkt_cap": 2358233343913.5,
+    "timestamp": 1780888513.145423
+  },
+  "GRASIM.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,033,606",
+    "avg_vol": 1033606,
+    "mkt_cap": 2093994155410.7932,
+    "timestamp": 1780888513.145423
+  },
+  "HCLTECH.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,234,252",
+    "avg_vol": 4234252,
+    "mkt_cap": 3124216744974.8643,
+    "timestamp": 1780888513.145423
+  },
+  "HDFCLIFE.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 4,648,998",
+    "avg_vol": 4648998,
+    "mkt_cap": 1241158660611.7136,
+    "timestamp": 1780888513.145423
+  },
+  "HINDALCO.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 5,988,538",
+    "avg_vol": 5988538,
+    "mkt_cap": 2443220940467.216,
+    "timestamp": 1780888513.145423
+  },
+  "HINDUNILVR.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,150,804",
+    "avg_vol": 2150804,
+    "mkt_cap": 4984657862333.0,
+    "timestamp": 1780888513.145423
+  },
+  "INDIGO.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,549,177",
+    "avg_vol": 1549177,
+    "mkt_cap": 1732728170268.3574,
+    "timestamp": 1780888513.145423
+  },
+  "ITC.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 20,861,495",
+    "avg_vol": 20861495,
+    "mkt_cap": 3517021885389.31,
+    "timestamp": 1780888513.145423
+  },
+  "JIOFIN.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 18,738,084",
+    "avg_vol": 18738084,
+    "mkt_cap": 1564218215042.2322,
+    "timestamp": 1780888513.145423
+  },
+  "JSWSTEEL.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,954,508",
+    "avg_vol": 1954508,
+    "mkt_cap": 3133773231672.0,
+    "timestamp": 1780888513.145423
+  },
+  "KOTAKBANK.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 19,743,222",
+    "avg_vol": 19743222,
+    "mkt_cap": 3754293316794.3086,
+    "timestamp": 1780888513.145423
+  },
+  "LT.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,310,838",
+    "avg_vol": 3310838,
+    "mkt_cap": 5438291346425.902,
+    "timestamp": 1780888513.145423
+  },
+  "M&M.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,340,849",
+    "avg_vol": 3340849,
+    "mkt_cap": 3650917663692.0,
+    "timestamp": 1780888513.145423
+  },
+  "MARUTI.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 519,536",
+    "avg_vol": 519536,
+    "mkt_cap": 4102953590700.0,
+    "timestamp": 1780888513.145423
+  },
+  "MAXHEALTH.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,819,316",
+    "avg_vol": 2819316,
+    "mkt_cap": 951102492800.25,
+    "timestamp": 1780888513.145423
+  },
+  "NESTLEIND.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,009,073",
+    "avg_vol": 2009073,
+    "mkt_cap": 2673029216228.0273,
+    "timestamp": 1780888513.145423
+  },
+  "NTPC.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 11,867,239",
+    "avg_vol": 11867239,
+    "mkt_cap": 3506799248177.3467,
+    "timestamp": 1780888513.145423
+  },
+  "ONGC.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 20,293,291",
+    "avg_vol": 20293291,
+    "mkt_cap": 3330628919788.5,
+    "timestamp": 1780888513.145423
+  },
+  "POWERGRID.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 14,240,013",
+    "avg_vol": 14240013,
+    "mkt_cap": 2656717424130.969,
+    "timestamp": 1780888513.145423
+  },
+  "SBILIFE.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,280,981",
+    "avg_vol": 1280981,
+    "mkt_cap": 1788454272277.7854,
+    "timestamp": 1780888513.145423
+  },
+  "SHRIRAMFIN.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 7,725,378",
+    "avg_vol": 7725378,
+    "mkt_cap": 2172368434713.3237,
+    "timestamp": 1780888513.145423
+  },
+  "SBIN.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 17,546,506",
+    "avg_vol": 17546506,
+    "mkt_cap": 9024774926510.637,
+    "timestamp": 1780888513.145423
+  },
+  "SUNPHARMA.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 3,873,850",
+    "avg_vol": 3873850,
+    "mkt_cap": 4276094666378.972,
+    "timestamp": 1780888513.145423
+  },
+  "TATACONSUM.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,082,322",
+    "avg_vol": 2082322,
+    "mkt_cap": 1119182548735.6035,
+    "timestamp": 1780888513.145423
+  },
+  "TMPV.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 10,968,536",
+    "avg_vol": 10968536,
+    "mkt_cap": 1464872852640.393,
+    "timestamp": 1780888513.145423
+  },
+  "TATASTEEL.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 30,640,193",
+    "avg_vol": 30640193,
+    "mkt_cap": 2578803984018.7217,
+    "timestamp": 1780888513.145423
+  },
+  "TECHM.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 2,450,718",
+    "avg_vol": 2450718,
+    "mkt_cap": 1313963439255.0,
+    "timestamp": 1780888513.145423
+  },
+  "TITAN.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,212,409",
+    "avg_vol": 1212409,
+    "mkt_cap": 3778990389903.0273,
+    "timestamp": 1780888513.145423
+  },
+  "TRENT.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 1,602,961",
+    "avg_vol": 1602961,
+    "mkt_cap": 1479289944035.5208,
+    "timestamp": 1780888513.145423
+  },
+  "ULTRACEMCO.NS": {
+    "passes": false,
+    "reason": "REJECTED: LIQUIDITY \u2014 avgVol 386,480 below minimum 500,000",
+    "avg_vol": 386480,
+    "mkt_cap": 3209979057120.0,
+    "timestamp": 1780888513.145423
+  },
+  "WIPRO.NS": {
+    "passes": true,
+    "reason": "PASS: avgVol 25,494,935",
+    "avg_vol": 25494935,
+    "mkt_cap": 2080973635379.105,
+    "timestamp": 1780888513.145423
+  }
+}
