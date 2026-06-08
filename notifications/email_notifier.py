@@ -198,6 +198,7 @@ def send_daily_summary(
     snapshot: dict | None,
     instruments_scanned: int = 0,
     open_trades: list | None = None,
+    api_costs: dict | None = None,
 ) -> bool:
     subject = f"[TRADING AGENT] Daily Summary — {datetime.now(timezone.utc).strftime('%Y-%m-%d')}"
 
@@ -267,7 +268,15 @@ def send_daily_summary(
     # ── Open positions block ──────────────────────────────────────────────
     open_block = ""
     if open_trades:
-        from execution.position_monitor import _fetch_price
+        from execution.position_monitor import _fetch_price, _fetch_oanda_prices
+
+        # Pre-fetch all OANDA prices in one batch call
+        oanda_instruments = [
+            t["instrument"] for t in open_trades
+            if t.get("broker") == "oanda_practice"
+        ]
+        oanda_prices = _fetch_oanda_prices(oanda_instruments) if oanda_instruments else {}
+
         lines = []
         total_unrealised = 0.0
         for t in open_trades:
@@ -275,10 +284,13 @@ def send_daily_summary(
             direction = t.get("direction", "?")
             entry     = float(t.get("entry_price") or 0)
             broker    = t.get("broker", "")
-            # Use stored unrealised_pnl if fresh, else try to fetch live
             unrealised_pct = float(t.get("unrealised_pnl") or 0)
             if entry:
-                price, _ = _fetch_price(sym)
+                # Use OANDA pricing API for forex positions, yfinance for others
+                if broker == "oanda_practice":
+                    price = oanda_prices.get(sym)
+                else:
+                    price, _ = _fetch_price(sym)
                 if price:
                     if direction == "LONG":
                         unrealised_pct = (price - entry) / entry * 100
@@ -298,6 +310,21 @@ def send_daily_summary(
             + "\n".join(lines)
             + f"\n\n  Total unrealised P&L (avg): {avg_unrealised:+.1f}%"
         )
+
+    # ── API cost block ────────────────────────────────────────────────────
+    if api_costs:
+        claude_calls  = api_costs.get("claude_calls", 0)
+        newsapi_calls = api_costs.get("newsapi_calls", 0)
+        claude_cost   = api_costs.get("claude_cost_usd", 0.0)
+        newsapi_limit = 100
+        cost_block = (
+            f"\n── API COSTS TODAY ──────────────────────────────\n"
+            f"  Claude API  : {claude_calls} calls  ~${claude_cost:.3f}\n"
+            f"  NewsAPI     : {newsapi_calls} calls  "
+            f"({newsapi_calls}/{newsapi_limit} free-tier limit)"
+        )
+    else:
+        cost_block = ""
 
     body = f"""
 TRADING AGENT — DAILY SUMMARY
@@ -325,6 +352,7 @@ Signals Generated   : {total_signals}
 ── TRADES CLOSED ────────────────────────────────
 {trade_lines}
 {open_block}
+{cost_block}
 {'='*50}
 """.strip()
 

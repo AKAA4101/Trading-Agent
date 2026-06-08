@@ -2,6 +2,9 @@
 Lightweight position monitor — runs every 30 minutes.
 Checks open paper_sim, Alpaca, and OANDA trades for stop-loss / take-profit hits.
 Does NOT run a full analysis cycle or touch the watchlist.
+
+When a position closes, immediately checks next_entry_queue and attempts to fill
+the freed slot without waiting for the next 4-hour cycle.
 """
 import logging
 from datetime import datetime, timezone
@@ -132,6 +135,7 @@ def _check_paper_sim(db: DBManager) -> dict:
                 "paper_sim CLOSED | %s %s exit=%.5f pnl=%.2f (%.2f%%) reason=%s",
                 direction, symbol, exit_price, pnl, pnl_pct, exit_reason,
             )
+            _try_instant_replacement(db)
             if hit_tp:
                 closed_tp += 1
             else:
@@ -231,6 +235,7 @@ def _check_alpaca(db: DBManager) -> dict:
                 "Alpaca RECONCILED | %s %s closed=%s exit=%.5f pnl=%.2f%%",
                 direction, raw_symbol, exit_reason, price, pnl_pct,
             )
+            _try_instant_replacement(db)
             reconciled += 1
         else:
             # Still open — update current price and unrealised P&L
@@ -402,10 +407,80 @@ def _check_oanda(db: DBManager) -> dict:
                 "OANDA RECONCILED | %s %s exit=%.5f pnl=%.2f (%.2f%%) reason=%s",
                 direction, instrument, close_price, pnl, pnl_pct, exit_reason,
             )
+            _try_instant_replacement(db)
             reconciled += 1
 
     return {"checked": len(db_trades), "updated": updated,
             "reconciled": reconciled, "errors": errors}
+
+
+# ── Instant queue replacement ──────────────────────────────────────────────────
+
+def _try_instant_replacement(db: DBManager) -> None:
+    """
+    Called immediately after any position close.
+    Checks next_entry_queue; if a slot is available and a candidate exists,
+    runs full analysis on the best candidate and executes if confidence >= 70%.
+    """
+    open_count = db.count_open_trades()
+    if open_count >= 5:
+        logger.info("Instant replacement: still at max positions (%d) — skipping", open_count)
+        return
+
+    entry = db.pop_best_next_entry()
+    if not entry:
+        logger.info("Instant replacement: next_entry_queue is empty")
+        return
+
+    instrument   = entry["instrument"]
+    market_type  = entry["market_type"]
+    tech_score   = entry.get("technical_score", 0)
+    logger.info(
+        "Position closed — instant replacement candidate: %s (tech=%.1f, market=%s)",
+        instrument, tech_score, market_type,
+    )
+
+    try:
+        _run_full_analysis_single(db, instrument, market_type)
+        db.update_next_entry_status(instrument, "ANALYSED")
+    except Exception as exc:
+        logger.error("Instant replacement analysis failed for %s: %s", instrument, exc)
+        db.update_next_entry_status(instrument, "FAILED")
+
+
+def _run_full_analysis_single(db: DBManager, symbol: str, market_type: str) -> None:
+    """Run the full analysis pipeline on a single instrument and execute if qualified."""
+    from data.watchlist import get_active
+    from risk.risk_manager import RiskManager
+    from execution.alpaca_executor import get_account as alpaca_account
+    from execution.oanda_executor import get_account as oanda_account
+    from execution.paper_broker import PAPER_SIM_STARTING_VALUE
+    from notifications.email_notifier import send_signal_alert, send_red_alert
+    from scheduler import _analyse_instrument
+
+    # Find the Instrument object for this symbol
+    inst = next((i for i in get_active() if i.symbol == symbol), None)
+    if inst is None:
+        logger.warning("Instant replacement: %s not found in active watchlist", symbol)
+        return
+
+    risk_mgr = RiskManager(db)
+
+    alpaca_acct        = alpaca_account()
+    oanda_acct         = oanda_account()
+    paper_sim_realized = db.get_paper_sim_realized_pnl()
+    paper_sim_value    = PAPER_SIM_STARTING_VALUE + paper_sim_realized
+    portfolio_value    = (
+        alpaca_acct.get("portfolio_value", 100_000)
+        + oanda_acct.get("nav", 0)
+        + paper_sim_value
+    ) or 100_000
+
+    logger.info("Instant replacement: running full analysis on %s", symbol)
+    _analyse_instrument(
+        inst, db, risk_mgr, portfolio_value,
+        send_signal_alert, send_red_alert,
+    )
 
 
 # ── Public entry point ────────────────────────────────────────────────────────

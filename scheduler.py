@@ -25,19 +25,27 @@ logger = logging.getLogger(__name__)
 BRISBANE = pytz.timezone(config.BRISBANE_TZ)
 
 MARKET_AMBER_THRESHOLD = 0.30  # 30% of a market returning RED triggers AMBER alert
+MAX_OPEN_POSITIONS     = 5     # hard cap — mirrors risk_manager.MAX_OPEN_POSITIONS
+LIGHTWEIGHT_TECH_THRESHOLD = 65.0  # technical score above this goes into next_entry_queue
 
 
 def run_analysis_cycle(db: DBManager) -> None:
-    """Full 4-hourly analysis cycle across all active instruments."""
+    """
+    4-hourly analysis cycle — position-aware.
+
+    FULL cycle (open positions < MAX_OPEN_POSITIONS):
+      technical + news filter + confidence score + execution + signal emails
+
+    LIGHTWEIGHT cycle (at MAX_OPEN_POSITIONS):
+      technical only — no news/Claude/NewsAPI calls, no execution, no emails.
+      Instruments scoring above LIGHTWEIGHT_TECH_THRESHOLD are queued in
+      next_entry_queue as candidates for instant entry when a slot opens.
+    """
     from data.watchlist import get_active
-    from analysis.technical import compute as tech_compute
-    from analysis.news_filter import analyse as news_analyse
-    from analysis.confidence_scorer import score as conf_score
     from risk.risk_manager import RiskManager
     from execution.alpaca_executor import get_account as alpaca_account
     from execution.oanda_executor import get_account as oanda_account, execute_queued_signals
     from execution.paper_broker import manage_positions as paper_manage
-    from notifications.email_notifier import send_signal_alert, send_red_alert
 
     logger.info("──── Analysis cycle started ────")
     risk_mgr = RiskManager(db)
@@ -46,17 +54,29 @@ def run_analysis_cycle(db: DBManager) -> None:
         logger.warning("Drawdown halt active — skipping analysis cycle")
         return
 
-    # ── Pre-cycle tasks ───────────────────────────────────────────────────
-    # Execute any queued forex signals if market is now open
+    # ── Check scan mode ───────────────────────────────────────────────────
+    open_count = db.count_open_trades()
+    lightweight = open_count >= MAX_OPEN_POSITIONS
+    mode_label = "LIGHTWEIGHT (at max positions)" if lightweight else "FULL"
+    logger.info("Scan mode: %s — open positions: %d/%d", mode_label, open_count, MAX_OPEN_POSITIONS)
+
+    if lightweight:
+        # Clear stale queue entries before rebuilding it
+        removed = db.clear_stale_next_entry_queue()
+        if removed:
+            logger.info("Cleared %d stale next_entry_queue entries", removed)
+        _run_lightweight_cycle(db, risk_mgr)
+        return
+
+    # ── Pre-cycle tasks (full cycle only) ────────────────────────────────
     queued_exec = execute_queued_signals(db)
     if queued_exec:
         logger.info("Executed %d queued OANDA signals", queued_exec)
 
-    # Check open paper_sim positions for SL/TP hits
     paper_summary = paper_manage(db)
     logger.info("paper_sim position check: %s", paper_summary)
 
-    # Portfolio value for position sizing (all three sources)
+    # Portfolio value for position sizing
     alpaca_acct = alpaca_account()
     oanda_acct  = oanda_account()
     from execution.paper_broker import PAPER_SIM_STARTING_VALUE
@@ -84,12 +104,11 @@ def run_analysis_cycle(db: DBManager) -> None:
     )
 
     from concurrent.futures import ThreadPoolExecutor, as_completed
-    from notifications.email_notifier import send_market_amber_alert
+    from notifications.email_notifier import send_signal_alert, send_red_alert, send_market_amber_alert
 
     BATCH_SIZE  = 50
     MAX_WORKERS = 4
 
-    # Track RED verdicts per market for the AMBER alert check
     market_verdicts: dict[str, list[str]] = defaultdict(list)
     mv_lock = Lock()
 
@@ -109,7 +128,7 @@ def run_analysis_cycle(db: DBManager) -> None:
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
         for i in range(0, total, BATCH_SIZE):
             batch = active[i : i + BATCH_SIZE]
-            batch_num   = i // BATCH_SIZE + 1
+            batch_num     = i // BATCH_SIZE + 1
             total_batches = (total + BATCH_SIZE - 1) // BATCH_SIZE
             logger.info("Batch %d/%d — %d instruments", batch_num, total_batches, len(batch))
             futures = [pool.submit(_safe_analyse, inst) for inst in batch]
@@ -118,7 +137,6 @@ def run_analysis_cycle(db: DBManager) -> None:
 
     logger.info("──── Analysis cycle complete — %d instruments ────", total)
 
-    # ── Market-wide AMBER alert check ────────────────────────────────────
     for market, verdicts in market_verdicts.items():
         if not verdicts:
             continue
@@ -130,6 +148,126 @@ def run_analysis_cycle(db: DBManager) -> None:
                 market, red_count, len(verdicts), red_pct * 100,
             )
             send_market_amber_alert(market, red_count, len(verdicts), red_pct * 100)
+
+
+def _run_lightweight_cycle(db: DBManager, risk_mgr) -> None:
+    """
+    Technical-only scan when at maximum open positions.
+    No news/Claude/NewsAPI calls. Queues strong setups for instant entry
+    when a position closes.
+    """
+    from data.watchlist import get_active
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
+    active = get_active()
+    logger.info("Lightweight scan: %d instruments (tech-only, no API calls)", len(active))
+
+    queued_count = 0
+    queued_lock  = Lock()
+
+    def _safe_lightweight(inst):
+        nonlocal queued_count
+        try:
+            result = _analyse_instrument_lightweight(inst, db, risk_mgr)
+            if result:
+                with queued_lock:
+                    queued_count += 1
+        except Exception as exc:
+            logger.error("Lightweight error for %s: %s", inst.symbol, exc)
+
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        futures = [pool.submit(_safe_lightweight, inst) for inst in active]
+        for f in as_completed(futures):
+            f.result()
+
+    queue = db.get_next_entry_queue()
+    logger.info(
+        "──── Lightweight cycle complete — %d queued for next slot, queue size=%d ────",
+        queued_count, len(queue),
+    )
+
+
+def _analyse_instrument_lightweight(inst, db: DBManager, risk_mgr) -> bool:
+    """
+    Technical-only analysis for use when at max positions.
+    Returns True if instrument was added to next_entry_queue.
+    """
+    from data.collectors.alpaca_collector import get_equity_bars, get_crypto_bars
+    from data.collectors.oanda_collector import get_forex_bars
+    from data.collectors.yfinance_collector import get_yfinance_bars
+    from analysis.technical import compute as tech_compute
+
+    symbol = inst.symbol
+
+    # Market session gate — yfinance EOD instruments only
+    if inst.market_type == "yfinance":
+        from analysis.market_sessions import has_market_recently_closed
+        if not has_market_recently_closed(symbol):
+            return False
+
+    # Liquidity filter
+    liq_ok, _ = risk_mgr.check_liquidity(symbol, inst.market_type)
+    if not liq_ok:
+        return False
+
+    # Fetch price data
+    if inst.market_type == "forex":
+        df = get_forex_bars(symbol)
+    elif inst.market_type == "crypto":
+        df = get_crypto_bars(symbol)
+    elif inst.market_type == "us_equity":
+        df = get_equity_bars(symbol)
+    elif inst.market_type == "yfinance":
+        df = get_yfinance_bars(symbol)
+    else:
+        from data.collectors.massive_collector import get_global_equity_bars
+        df = get_global_equity_bars(symbol)
+
+    if df is None or df.empty:
+        return False
+
+    # Higher timeframe (best-effort, non-fatal)
+    df_higher = None
+    try:
+        if inst.market_type == "forex":
+            from data.collectors.oanda_collector import get_forex_bars_weekly
+            df_higher = get_forex_bars_weekly(symbol)
+        elif inst.market_type == "crypto":
+            from data.collectors.alpaca_collector import get_crypto_bars_weekly
+            df_higher = get_crypto_bars_weekly(symbol)
+        elif inst.market_type == "us_equity":
+            from data.collectors.alpaca_collector import get_equity_bars_weekly
+            df_higher = get_equity_bars_weekly(symbol)
+        elif inst.market_type == "yfinance":
+            from data.collectors.yfinance_collector import get_yfinance_bars_weekly
+            df_higher = get_yfinance_bars_weekly(symbol)
+        else:
+            from data.collectors.massive_collector import get_global_equity_bars_weekly
+            df_higher = get_global_equity_bars_weekly(symbol)
+    except Exception:
+        pass
+
+    tech = tech_compute(df, df_higher)
+    if tech is None:
+        return False
+
+    if tech.direction == "NEUTRAL" or tech.score < LIGHTWEIGHT_TECH_THRESHOLD:
+        logger.debug("Lightweight skip %s: dir=%s score=%.1f", symbol, tech.direction, tech.score)
+        return False
+
+    current_price = float(df["Close"].iloc[-1])
+    db.upsert_next_entry_queue(
+        instrument=symbol,
+        market_type=inst.market_type,
+        technical_score=tech.score,
+        direction=tech.direction,
+        entry_price=current_price,
+    )
+    logger.info(
+        "WATCHING %s | dir=%s tech=%.1f — added to next_entry_queue",
+        symbol, tech.direction, tech.score,
+    )
+    return True
 
 
 def _analyse_instrument(inst, db, risk_mgr, portfolio_value,
@@ -406,12 +544,17 @@ def run_position_monitor(db: DBManager) -> None:
 def run_daily_summary(db: DBManager) -> None:
     from data.watchlist import get_active
     from notifications.email_notifier import send_daily_summary
+    from analysis.cost_tracker import get_stats as get_cost_stats
     signals             = db.get_signals_today()
     closed              = db.get_closed_trades_today()
     snap                = db.latest_portfolio_snapshot()
     open_trades         = db.get_open_trades()
     instruments_scanned = len(get_active())
-    send_daily_summary(signals, closed, snap, instruments_scanned, open_trades=open_trades)
+    api_costs           = get_cost_stats()
+    send_daily_summary(
+        signals, closed, snap, instruments_scanned,
+        open_trades=open_trades, api_costs=api_costs,
+    )
     logger.info("Daily summary email sent")
 
 

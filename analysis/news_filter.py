@@ -18,6 +18,7 @@ from bs4 import BeautifulSoup
 import anthropic
 
 from config import config
+from analysis import cost_tracker
 
 logger = logging.getLogger(__name__)
 
@@ -282,6 +283,7 @@ def _fetch_headlines(query: str) -> list[str]:
             headlines = [f"{a['title']} — {a.get('description', '')}" for a in articles if a.get("title")]
             cache[query] = {"timestamp": time.time(), "headlines": headlines}
             _save_news_cache(cache)
+            cost_tracker.record_call("newsapi")
             logger.debug("NewsAPI fetched %d headlines for %r", len(headlines), query)
             return headlines
         except Exception as exc:
@@ -479,6 +481,7 @@ def analyse(symbol: str, technical_score: float = 0.0) -> NewsResult:
             system=SYSTEM_PROMPT,
             messages=[{"role": "user", "content": user_content}],
         )
+        cost_tracker.record_call("claude")
         raw = message.content[0].text.strip()
 
         # Extract JSON even if model wraps it in ```

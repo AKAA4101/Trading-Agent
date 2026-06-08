@@ -85,6 +85,18 @@ CREATE TABLE IF NOT EXISTS queued_signals (
     scheduled_execution_time TEXT,
     status                   TEXT    DEFAULT 'PENDING'
 );
+
+CREATE TABLE IF NOT EXISTS next_entry_queue (
+    id                   INTEGER PRIMARY KEY AUTOINCREMENT,
+    instrument           TEXT    NOT NULL,
+    market_type          TEXT    NOT NULL,
+    technical_score      REAL    NOT NULL,
+    direction            TEXT    NOT NULL,
+    estimated_confidence REAL,
+    entry_price          REAL,
+    timestamp            TEXT    NOT NULL,
+    status               TEXT    DEFAULT 'WAITING'
+);
 """
 
 
@@ -653,3 +665,139 @@ class DBManager:
                 (target,),
             ).fetchone()
             return dict(row) if row else None
+
+    # ── Next entry queue ───────────────────────────────────────────────────
+
+    def upsert_next_entry_queue(
+        self,
+        instrument: str,
+        market_type: str,
+        technical_score: float,
+        direction: str,
+        entry_price: float,
+        estimated_confidence: float | None = None,
+    ) -> int:
+        """Insert or replace an instrument in the next_entry_queue."""
+        ts = datetime.now(timezone.utc).isoformat()
+        with self._conn() as conn:
+            # Remove any existing WAITING entry for this instrument first
+            conn.execute(
+                "DELETE FROM next_entry_queue WHERE instrument=? AND status='WAITING'",
+                (instrument,),
+            )
+            cur = conn.execute(
+                "INSERT INTO next_entry_queue "
+                "(instrument, market_type, technical_score, direction, "
+                " estimated_confidence, entry_price, timestamp, status) "
+                "VALUES (?,?,?,?,?,?,?,'WAITING')",
+                (instrument, market_type, technical_score, direction,
+                 estimated_confidence, entry_price, ts),
+            )
+            local_id = cur.lastrowid
+        data = {
+            "instrument": instrument, "market_type": market_type,
+            "technical_score": technical_score, "direction": direction,
+            "estimated_confidence": estimated_confidence, "entry_price": entry_price,
+            "timestamp": ts, "status": "WAITING", "local_id": local_id,
+        }
+        self._sb_insert("next_entry_queue", data)
+        return local_id
+
+    def get_next_entry_queue(self) -> list[dict]:
+        """Return all WAITING entries sorted by technical_score descending."""
+        if self._sb:
+            try:
+                resp = (
+                    self._sb.table("next_entry_queue")
+                    .select("*")
+                    .eq("status", "WAITING")
+                    .order("technical_score", desc=True)
+                    .execute()
+                )
+                if resp.data is not None:
+                    return resp.data
+            except Exception as exc:
+                logger.warning("Supabase get_next_entry_queue fallback to SQLite: %s", exc)
+        with self._conn() as conn:
+            rows = conn.execute(
+                "SELECT * FROM next_entry_queue WHERE status='WAITING' "
+                "ORDER BY technical_score DESC"
+            ).fetchall()
+            return [dict(r) for r in rows]
+
+    def pop_best_next_entry(self) -> dict | None:
+        """
+        Return the highest-scoring WAITING entry and mark it PROCESSING.
+        Returns None if queue is empty.
+        """
+        if self._sb:
+            try:
+                resp = (
+                    self._sb.table("next_entry_queue")
+                    .select("*")
+                    .eq("status", "WAITING")
+                    .order("technical_score", desc=True)
+                    .limit(1)
+                    .execute()
+                )
+                if resp.data:
+                    entry = resp.data[0]
+                    entry_id = entry.get("local_id") or entry.get("id")
+                    self._sb.table("next_entry_queue").update(
+                        {"status": "PROCESSING"}
+                    ).eq("local_id", entry_id).execute()
+                    # Mirror in SQLite
+                    with self._conn() as conn:
+                        conn.execute(
+                            "UPDATE next_entry_queue SET status='PROCESSING' WHERE instrument=?",
+                            (entry["instrument"],),
+                        )
+                    return entry
+            except Exception as exc:
+                logger.warning("Supabase pop_best_next_entry fallback to SQLite: %s", exc)
+        with self._conn() as conn:
+            row = conn.execute(
+                "SELECT * FROM next_entry_queue WHERE status='WAITING' "
+                "ORDER BY technical_score DESC LIMIT 1"
+            ).fetchone()
+            if not row:
+                return None
+            entry = dict(row)
+            conn.execute(
+                "UPDATE next_entry_queue SET status='PROCESSING' WHERE id=?",
+                (entry["id"],),
+            )
+        return entry
+
+    def update_next_entry_status(self, instrument: str, status: str) -> None:
+        """Mark a next_entry_queue row by instrument as the given status."""
+        with self._conn() as conn:
+            conn.execute(
+                "UPDATE next_entry_queue SET status=? WHERE instrument=?",
+                (status, instrument),
+            )
+        if self._sb:
+            try:
+                self._sb.table("next_entry_queue").update(
+                    {"status": status}
+                ).eq("instrument", instrument).execute()
+            except Exception as exc:
+                logger.error("Supabase update_next_entry_status failed: %s", exc)
+
+    def clear_stale_next_entry_queue(self) -> int:
+        """Remove WAITING entries older than 24 hours. Returns count removed."""
+        cutoff = (datetime.now(timezone.utc) - timedelta(hours=24)).isoformat()
+        with self._conn() as conn:
+            cur = conn.execute(
+                "DELETE FROM next_entry_queue WHERE status='WAITING' AND timestamp < ?",
+                (cutoff,),
+            )
+            removed = cur.rowcount
+        if self._sb and removed > 0:
+            try:
+                self._sb.table("next_entry_queue").delete().eq(
+                    "status", "WAITING"
+                ).lt("timestamp", cutoff).execute()
+            except Exception as exc:
+                logger.error("Supabase clear_stale_next_entry_queue failed: %s", exc)
+        return removed
