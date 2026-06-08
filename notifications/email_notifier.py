@@ -207,7 +207,7 @@ def send_daily_summary(
 
     executed_signals = [
         s for s in directional
-        if s.get("action_taken", "") in ("EXECUTED", "PAPER_SIGNAL")
+        if s.get("action_taken", "") in ("EXECUTED", "PAPER_SIGNAL", "PAPER_SIM_OPEN", "QUEUED_GTC", "QUEUED")
     ]
     rejected_signals = [
         s for s in directional
@@ -399,6 +399,7 @@ def send_weekly_summary(
     snapshot: dict | None,
     week_start_snapshot: dict | None,
     liquidity_stats: dict | None = None,
+    inception_stats: dict | None = None,
 ) -> bool:
     subject = (
         f"[TRADING AGENT] Weekly Performance — "
@@ -410,7 +411,7 @@ def send_weekly_summary(
     total_signals = len(directional)
     executed_signals = [
         s for s in directional
-        if s.get("action_taken", "") in ("EXECUTED", "PAPER_SIGNAL")
+        if s.get("action_taken", "") in ("EXECUTED", "PAPER_SIGNAL", "PAPER_SIM_OPEN", "QUEUED_GTC", "QUEUED")
     ]
     rejected_signals = [
         s for s in directional
@@ -446,23 +447,54 @@ def send_weekly_summary(
         best_line = worst_line = "N/A"
 
     # ── Portfolio performance ─────────────────────────────────────────────
-    current_value    = snapshot.get("total_value", 0) if snapshot else 0
-    week_start_value = week_start_snapshot.get("total_value", 0) if week_start_snapshot else 0
+    current_value = snapshot.get("total_value", 0) if snapshot else 0
 
-    if week_start_value and week_start_value > 0:
+    # Prefer agent_config baselines (accurate) over snapshot-derived (stale)
+    if inception_stats and inception_stats.get("week_start_value", 0) > 0:
+        week_start_value = inception_stats["week_start_value"]
+        week_start_date  = inception_stats["week_start_date"][:10]
+    elif week_start_snapshot and week_start_snapshot.get("total_value", 0):
+        week_start_value = float(week_start_snapshot["total_value"])
+        week_start_date  = "~7d ago"
+    else:
+        week_start_value = 0.0
+        week_start_date  = "unknown"
+
+    if week_start_value > 0:
         weekly_return_pct = (current_value - week_start_value) / week_start_value * 100
         vs_benchmark      = weekly_return_pct - WEEKLY_BENCHMARK_PCT
-        vs_benchmark_str  = f"{vs_benchmark:+.3f}% vs benchmark"
+        vs_benchmark_str  = f"{vs_benchmark:+.3f}%"
     else:
         weekly_return_pct = 0.0
-        vs_benchmark_str  = "N/A (no prior snapshot)"
+        vs_benchmark_str  = "N/A"
+
+    # Inception return
+    if inception_stats and inception_stats.get("total_start_value", 0) > 0:
+        inception_value   = inception_stats["total_start_value"]
+        inception_date    = inception_stats["total_start_date"][:10]
+        inception_return  = (current_value - inception_value) / inception_value * 100
+        days_live         = (datetime.now(timezone.utc).date() -
+                             datetime.fromisoformat(inception_stats["total_start_date"]).date()
+                             ).days
+        # Annualised benchmark for same period
+        annual_bench_pct  = 6.19 / 365 * days_live
+        vs_inception_bench = inception_return - annual_bench_pct
+        inception_block   = (
+            f"Inception Value : {inception_value:.2f}  ({inception_date})\n"
+            f"Total Return    : {inception_return:+.3f}%  ({days_live}d)\n"
+            f"Benchmark (same): {annual_bench_pct:+.3f}%\n"
+            f"vs Benchmark    : {vs_inception_bench:+.3f}%"
+        )
+    else:
+        inception_block = "Inception data  : not yet available"
 
     portfolio_block = (
         f"Current Value   : {current_value:.2f}\n"
-        f"Week-start Value: {week_start_value:.2f}\n"
+        f"Week-start Value: {week_start_value:.2f}  ({week_start_date})\n"
         f"Weekly Return   : {weekly_return_pct:+.3f}%\n"
         f"Benchmark (wk)  : {WEEKLY_BENCHMARK_PCT:.3f}%  (6.19% ann.)\n"
-        f"vs Benchmark    : {vs_benchmark_str}"
+        f"vs Benchmark    : {vs_benchmark_str}\n\n"
+        f"{inception_block}"
     )
 
     # ── Market signal activity ────────────────────────────────────────────

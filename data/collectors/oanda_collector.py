@@ -15,7 +15,7 @@ def _client() -> oandapyV20.API:
                           environment="practice")
 
 
-def get_forex_bars(instrument: str, lookback_days: int = 60,
+def get_forex_bars(instrument: str, lookback_days: int = 90,
                    granularity: str = "D") -> pd.DataFrame:
     """
     Fetch OHLCV candles for an OANDA instrument (e.g. EUR_USD or EUR/USD).

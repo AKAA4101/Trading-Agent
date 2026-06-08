@@ -37,37 +37,43 @@ def route(
 ) -> RouteResult:
     """Route a signal to the correct execution engine and update the signal record."""
 
+    logger.info(
+        "ROUTER ENTRY | signal_id=%s %s %s market_type=%s units=%.4f "
+        "entry=%.5f SL=%.5f TP=%.5f",
+        signal_id, direction, symbol, market_type, units,
+        entry_price or 0, stop_loss or 0, take_profit or 0,
+    )
+
     # ── Global position guard ─────────────────────────────────────────────
     open_count = db.count_open_trades()
+    logger.info("ROUTER | open positions: %d / %d", open_count, MAX_OPEN_POSITIONS)
     if open_count >= MAX_OPEN_POSITIONS:
         msg = f"Global position limit: {open_count}/{MAX_OPEN_POSITIONS} open"
-        logger.warning("ROUTE BLOCKED %s — %s", symbol, msg)
+        logger.warning("ROUTER BLOCKED %s — %s", symbol, msg)
         db.update_signal_action(signal_id, f"SKIPPED: {msg}")
         return RouteResult(False, f"SKIPPED: {msg}", None, None, None, msg)
 
-    logger.info(
-        "Routing | %s %s market_type=%s units=%.4f SL=%.5f TP=%.5f",
-        direction, symbol, market_type, units, stop_loss, take_profit,
-    )
-
     if market_type in ("us_equity", "crypto"):
+        logger.info("ROUTER | %s → Alpaca paper (market_type=%s)", symbol, market_type)
         return _route_alpaca(
             symbol, market_type, direction, units, stop_loss, take_profit,
             signal_id, db, entry_price,
         )
     elif market_type == "forex":
+        logger.info("ROUTER | %s → OANDA practice", symbol)
         return _route_oanda(
             symbol, direction, units, stop_loss, take_profit,
             signal_id, db,
         )
     elif market_type == "yfinance":
+        logger.info("ROUTER | %s → paper_sim", symbol)
         return _route_paper_sim(
             symbol, direction, units, stop_loss, take_profit,
             signal_id, db, entry_price,
         )
     else:
         msg = f"No execution path for market_type={market_type}"
-        logger.warning("ROUTE SKIPPED %s — %s", symbol, msg)
+        logger.warning("ROUTER SKIPPED %s — %s", symbol, msg)
         db.update_signal_action(signal_id, f"SKIPPED: {msg}")
         return RouteResult(False, f"SKIPPED: {msg}", None, None, None, msg)
 
@@ -77,6 +83,7 @@ def route(
 def _route_alpaca(symbol, market_type, direction, units, stop_loss, take_profit,
                   signal_id, db, entry_price):
     from execution.alpaca_executor import submit_bracket_order
+    logger.info("ALPACA | submitting bracket order %s %s qty=%.4f", direction, symbol, units)
     result = submit_bracket_order(
         symbol=symbol,
         direction=direction,
@@ -91,14 +98,17 @@ def _route_alpaca(symbol, market_type, direction, units, stop_loss, take_profit,
     if result.success:
         action = "QUEUED_GTC" if result.queued else "EXECUTED"
         db.update_signal_action(signal_id, action)
-        logger.info("Alpaca route OK: %s %s → %s", direction, symbol, action)
+        logger.info(
+            "ALPACA OK | %s %s → action=%s order_id=%s trade_db_id=%s queued=%s",
+            direction, symbol, action, result.order_id, result.trade_db_id, result.queued,
+        )
         return RouteResult(
             True, action, result.order_id, result.trade_db_id, "alpaca_paper", result.message
         )
     else:
         action = f"EXECUTION_FAILED: {result.message}"
         db.update_signal_action(signal_id, action)
-        logger.error("Alpaca route FAILED: %s %s — %s", direction, symbol, result.message)
+        logger.error("ALPACA FAILED | %s %s — %s", direction, symbol, result.message)
         return RouteResult(
             False, action, None, None, "alpaca_paper", result.message
         )
@@ -106,6 +116,7 @@ def _route_alpaca(symbol, market_type, direction, units, stop_loss, take_profit,
 
 def _route_oanda(symbol, direction, units, stop_loss, take_profit, signal_id, db):
     from execution.oanda_executor import submit_bracket_order
+    logger.info("OANDA | submitting order %s %s units=%.4f", direction, symbol, units)
     result = submit_bracket_order(
         instrument=symbol,
         direction=direction,
@@ -118,14 +129,17 @@ def _route_oanda(symbol, direction, units, stop_loss, take_profit, signal_id, db
     if result.success:
         action = "QUEUED" if result.queued else "EXECUTED"
         db.update_signal_action(signal_id, action)
-        logger.info("OANDA route OK: %s %s → %s", direction, symbol, action)
+        logger.info(
+            "OANDA OK | %s %s → action=%s order_id=%s trade_db_id=%s queued=%s",
+            direction, symbol, action, result.order_id, result.trade_db_id, result.queued,
+        )
         return RouteResult(
             True, action, result.order_id, result.trade_db_id, "oanda_practice", result.message
         )
     else:
         action = f"EXECUTION_FAILED: {result.message}"
         db.update_signal_action(signal_id, action)
-        logger.error("OANDA route FAILED: %s %s — %s", direction, symbol, result.message)
+        logger.error("OANDA FAILED | %s %s — %s", direction, symbol, result.message)
         return RouteResult(
             False, action, None, None, "oanda_practice", result.message
         )
@@ -134,6 +148,8 @@ def _route_oanda(symbol, direction, units, stop_loss, take_profit, signal_id, db
 def _route_paper_sim(symbol, direction, units, stop_loss, take_profit,
                      signal_id, db, entry_price):
     from execution.paper_broker import execute_paper_sim
+    logger.info("PAPER_SIM | opening position %s %s qty=%.4f entry=%.5f",
+                direction, symbol, units, entry_price or 0)
     result = execute_paper_sim(
         symbol=symbol,
         direction=direction,
@@ -146,14 +162,17 @@ def _route_paper_sim(symbol, direction, units, stop_loss, take_profit,
     )
     if result.success:
         db.update_signal_action(signal_id, "PAPER_SIM_OPEN")
-        logger.info("paper_sim route OK: %s %s trade_id=%s", direction, symbol, result.trade_db_id)
+        logger.info(
+            "PAPER_SIM OK | %s %s trade_db_id=%s",
+            direction, symbol, result.trade_db_id,
+        )
         return RouteResult(
             True, "PAPER_SIM_OPEN", None, result.trade_db_id, "paper_sim", result.message
         )
     else:
         action = f"PAPER_SIM_FAILED: {result.message}"
         db.update_signal_action(signal_id, action)
-        logger.error("paper_sim route FAILED: %s %s — %s", direction, symbol, result.message)
+        logger.error("PAPER_SIM FAILED | %s %s — %s", direction, symbol, result.message)
         return RouteResult(
             False, action, None, None, "paper_sim", result.message
         )

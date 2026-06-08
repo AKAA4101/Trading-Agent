@@ -15,6 +15,12 @@ from config import config
 logger = logging.getLogger(__name__)
 
 SCHEMA = """
+CREATE TABLE IF NOT EXISTS agent_config (
+    key        TEXT PRIMARY KEY,
+    value      TEXT,
+    updated_at TEXT
+);
+
 CREATE TABLE IF NOT EXISTS signals (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
     timestamp       TEXT    NOT NULL,
@@ -146,6 +152,37 @@ class DBManager:
                 conn.execute(sql)
             except Exception:
                 pass  # column already exists — safe to ignore
+
+    # ── Agent config (persistent key/value store) ─────────────────────────
+
+    def get_config(self, key: str) -> str | None:
+        if self._sb:
+            try:
+                resp = self._sb.table("agent_config").select("value").eq("key", key).execute()
+                if resp.data:
+                    return resp.data[0]["value"]
+            except Exception as exc:
+                logger.warning("Supabase get_config fallback for %s: %s", key, exc)
+        with self._conn() as conn:
+            row = conn.execute("SELECT value FROM agent_config WHERE key=?", (key,)).fetchone()
+            return row[0] if row else None
+
+    def set_config(self, key: str, value: str) -> None:
+        updated_at = datetime.now(timezone.utc).isoformat()
+        with self._conn() as conn:
+            conn.execute(
+                "INSERT INTO agent_config (key, value, updated_at) VALUES (?,?,?) "
+                "ON CONFLICT(key) DO UPDATE SET value=excluded.value, updated_at=excluded.updated_at",
+                (key, value, updated_at),
+            )
+        if self._sb:
+            try:
+                self._sb.table("agent_config").upsert(
+                    {"key": key, "value": value, "updated_at": updated_at},
+                    on_conflict="key",
+                ).execute()
+            except Exception as exc:
+                logger.error("Supabase set_config [%s] failed: %s", key, exc)
 
     # ── Supabase helpers ───────────────────────────────────────────────────
 

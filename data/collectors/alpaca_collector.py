@@ -19,7 +19,7 @@ def _crypto_client() -> CryptoHistoricalDataClient:
     return CryptoHistoricalDataClient(config.ALPACA_API_KEY, config.ALPACA_SECRET_KEY)
 
 
-def get_equity_bars(symbol: str, lookback_days: int = 60) -> pd.DataFrame:
+def get_equity_bars(symbol: str, lookback_days: int = 90) -> pd.DataFrame:
     """Return daily OHLCV bars for a US equity symbol."""
     end = datetime.now(timezone.utc)
     start = end - timedelta(days=lookback_days)
@@ -46,7 +46,7 @@ def get_equity_bars(symbol: str, lookback_days: int = 60) -> pd.DataFrame:
         return pd.DataFrame()
 
 
-def get_crypto_bars(symbol: str, lookback_days: int = 60) -> pd.DataFrame:
+def get_crypto_bars(symbol: str, lookback_days: int = 90) -> pd.DataFrame:
     """Return daily OHLCV bars for a crypto pair (e.g. BTC/USD)."""
     end = datetime.now(timezone.utc)
     start = end - timedelta(days=lookback_days)

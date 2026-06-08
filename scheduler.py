@@ -290,8 +290,8 @@ def run_portfolio_snapshot(db: DBManager) -> None:
     alpaca = alpaca_account()
     oanda  = oanda_account()
 
-    alpaca_value   = alpaca.get("portfolio_value", 0)
-    oanda_value    = oanda.get("nav", 0)
+    alpaca_value       = alpaca.get("portfolio_value", 0)
+    oanda_value        = oanda.get("nav", 0)
     paper_sim_realized = db.get_paper_sim_realized_pnl()
     paper_sim_value    = PAPER_SIM_STARTING_VALUE + paper_sim_realized
 
@@ -306,22 +306,48 @@ def run_portfolio_snapshot(db: DBManager) -> None:
     initial = snap.get("total_value", total_value) if snap else total_value
     drawdown_pct = max(0.0, (initial - total_value) / initial * 100) if initial > 0 else 0.0
 
-    # Week-start baseline: earliest snapshot from this Monday onwards
-    week_start_value = None
-    weekly_return_pct = None
-    week_snap = db.get_week_start_snapshot()
-    if week_snap:
-        wv = week_snap.get("total_value")
-        if wv and float(wv) > 0:
-            week_start_value = float(wv)
-            weekly_return_pct = round((total_value - week_start_value) / week_start_value * 100, 4)
+    now_iso = datetime.now(timezone.utc).isoformat()
+
+    # ── Inception baseline (set once, never overwritten) ─────────────────
+    if db.get_config("total_start_value") is None:
+        db.set_config("total_start_value", str(total_value))
+        db.set_config("total_start_date", now_iso)
+        logger.info("Inception baseline set: %.2f on %s", total_value, now_iso)
+
+    # ── Week-start baseline (reset every Monday) ──────────────────────────
+    today_weekday = datetime.now(timezone.utc).weekday()  # 0 = Monday
+    week_start_str = db.get_config("week_start_value")
+    week_start_date = db.get_config("week_start_date")
+
+    # Set on first run or on Monday if date has moved to new week
+    need_new_week_baseline = week_start_str is None or (
+        today_weekday == 0 and (
+            week_start_date is None or
+            week_start_date[:10] < datetime.now(timezone.utc).date().isoformat()
+        )
+    )
+    if need_new_week_baseline:
+        db.set_config("week_start_value", str(total_value))
+        db.set_config("week_start_date", now_iso)
+        logger.info("Week-start baseline set/reset: %.2f on %s", total_value, now_iso)
+
+    week_start_value  = float(db.get_config("week_start_value") or total_value)
+    weekly_return_pct = round(
+        (total_value - week_start_value) / week_start_value * 100, 4
+    ) if week_start_value > 0 else 0.0
+
+    # Total return since inception
+    inception_value = float(db.get_config("total_start_value") or total_value)
+    total_return_pct = round(
+        (total_value - inception_value) / inception_value * 100, 4
+    ) if inception_value > 0 else 0.0
 
     db.insert_snapshot(
         total_value=total_value,
         cash=cash,
         open_positions=open_pos,
         daily_pnl=daily_pnl,
-        total_pnl=0,
+        total_pnl=round(total_value - inception_value, 2),
         drawdown_pct=drawdown_pct,
         alpaca_value=alpaca_value,
         oanda_value=oanda_value,
@@ -335,8 +361,10 @@ def run_portfolio_snapshot(db: DBManager) -> None:
         send_drawdown_alert(drawdown_pct)
 
     logger.info(
-        "Portfolio snapshot: alpaca=%.2f oanda=%.2f paper_sim=%.2f total=%.2f drawdown=%.2f%%",
-        alpaca_value, oanda_value, paper_sim_value, total_value, drawdown_pct,
+        "Portfolio snapshot: alpaca=%.2f oanda=%.2f paper_sim=%.2f total=%.2f "
+        "week_return=%.3f%% total_return=%.3f%% drawdown=%.2f%%",
+        alpaca_value, oanda_value, paper_sim_value, total_value,
+        weekly_return_pct, total_return_pct, drawdown_pct,
     )
 
 
@@ -361,11 +389,20 @@ def run_daily_summary(db: DBManager) -> None:
 
 def run_weekly_summary(db: DBManager) -> None:
     from notifications.email_notifier import send_weekly_summary
-    signals_week      = db.get_signals_this_week()
-    closed_week       = db.get_closed_trades_this_week()
-    snap              = db.latest_portfolio_snapshot()
-    week_start_snap   = db.get_snapshot_days_ago(7)
-    send_weekly_summary(signals_week, closed_week, snap, week_start_snap)
+    signals_week    = db.get_signals_this_week()
+    closed_week     = db.get_closed_trades_this_week()
+    snap            = db.latest_portfolio_snapshot()
+    week_start_snap = db.get_snapshot_days_ago(7)
+
+    # Pull inception and week baseline from agent_config
+    inception_stats = {
+        "total_start_value": float(db.get_config("total_start_value") or 0),
+        "total_start_date":  db.get_config("total_start_date") or "unknown",
+        "week_start_value":  float(db.get_config("week_start_value") or 0),
+        "week_start_date":   db.get_config("week_start_date") or "unknown",
+    }
+    send_weekly_summary(signals_week, closed_week, snap, week_start_snap,
+                        inception_stats=inception_stats)
     logger.info("Weekly summary email sent")
 
 
