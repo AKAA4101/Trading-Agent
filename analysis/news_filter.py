@@ -2,12 +2,13 @@
 News and macro sentiment filter.
 Step 1: Pull headlines from NewsAPI for the instrument.
 Step 2: Scrape Forex Factory RSS for high-impact calendar events.
-Step 3: Ask Claude claude-sonnet-4-20250514 for a risk verdict.
+Step 3: Ask Claude claude-sonnet-4-6 for a risk verdict.
 """
 import json
 import logging
 import os
 import re
+import threading
 import time
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
@@ -20,10 +21,13 @@ from config import config
 
 logger = logging.getLogger(__name__)
 
-CLAUDE_MODEL = "claude-sonnet-4-5"
+CLAUDE_MODEL = "claude-sonnet-4-6"
 
 NEWS_CACHE_PATH = "/opt/trading-agent/data/news_cache.json"
 NEWS_CACHE_TTL_SECONDS = 3600  # 1 hour per query
+
+_cache_lock = threading.Lock()
+_anthropic_client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY)
 
 # ── International ticker → meaningful NewsAPI search term ──────────────────
 # Without this mapping, searching for "7203.T" or "0700.HK" returns nothing.
@@ -237,7 +241,12 @@ def _save_news_cache(cache: dict) -> None:
 
 
 def _fetch_headlines(query: str) -> list[str]:
-    """Fetch last-24h headlines from NewsAPI with file-based caching to avoid rate limits."""
+    """Fetch last-24h headlines from NewsAPI with file-based caching to avoid rate limits.
+
+    Uses double-checked locking to prevent concurrent threads from issuing
+    duplicate NewsAPI requests for the same query during a cold-cache cycle.
+    """
+    # First check — no lock, fast path for warm cache
     cache = _load_news_cache()
     entry = cache.get(query)
     if entry:
@@ -246,32 +255,42 @@ def _fetch_headlines(query: str) -> list[str]:
             logger.debug("NewsAPI cache hit for %r (age %.0fs)", query, age)
             return entry["headlines"]
 
-    try:
-        since = (datetime.now(timezone.utc) - timedelta(hours=24)).strftime("%Y-%m-%dT%H:%M:%S")
-        url = "https://newsapi.org/v2/everything"
-        params = {
-            "q": query,
-            "from": since,
-            "sortBy": "publishedAt",
-            "pageSize": 20,
-            "language": "en",
-            "apiKey": config.NEWS_API_KEY,
-        }
-        resp = requests.get(url, params=params, timeout=10)
-        resp.raise_for_status()
-        articles = resp.json().get("articles", [])
-        headlines = [f"{a['title']} — {a.get('description', '')}" for a in articles if a.get("title")]
-        cache[query] = {"timestamp": time.time(), "headlines": headlines}
-        _save_news_cache(cache)
-        logger.debug("NewsAPI fetched %d headlines for %r", len(headlines), query)
-        return headlines
-    except Exception as exc:
-        logger.warning("NewsAPI fetch failed for %r: %s", query, exc)
-        # Return stale cache if available
+    with _cache_lock:
+        # Second check — another thread may have populated the cache while we waited
+        cache = _load_news_cache()
+        entry = cache.get(query)
         if entry:
-            logger.info("Using stale news cache for %r", query)
-            return entry["headlines"]
-        return []
+            age = time.time() - entry.get("timestamp", 0)
+            if age < NEWS_CACHE_TTL_SECONDS:
+                logger.debug("NewsAPI cache hit for %r (age %.0fs, post-lock)", query, age)
+                return entry["headlines"]
+
+        try:
+            since = (datetime.now(timezone.utc) - timedelta(hours=24)).strftime("%Y-%m-%dT%H:%M:%S")
+            url = "https://newsapi.org/v2/everything"
+            params = {
+                "q": query,
+                "from": since,
+                "sortBy": "publishedAt",
+                "pageSize": 20,
+                "language": "en",
+                "apiKey": config.NEWS_API_KEY,
+            }
+            resp = requests.get(url, params=params, timeout=10)
+            resp.raise_for_status()
+            articles = resp.json().get("articles", [])
+            headlines = [f"{a['title']} — {a.get('description', '')}" for a in articles if a.get("title")]
+            cache[query] = {"timestamp": time.time(), "headlines": headlines}
+            _save_news_cache(cache)
+            logger.debug("NewsAPI fetched %d headlines for %r", len(headlines), query)
+            return headlines
+        except Exception as exc:
+            logger.warning("NewsAPI fetch failed for %r: %s", query, exc)
+            # Return stale cache if available
+            if entry:
+                logger.info("Using stale news cache for %r", query)
+                return entry["headlines"]
+            return []
 
 
 def _fetch_calendar_events(instrument: str) -> list[str]:
@@ -420,14 +439,33 @@ def _instrument_news_query(instrument: str) -> str:
     return clean
 
 
-def analyse(instrument: str) -> NewsResult:
-    """Run the full news + calendar analysis for an instrument."""
-    query = _instrument_news_query(instrument)
+def analyse(symbol: str, technical_score: float = 0.0) -> NewsResult:
+    """Run the full news + calendar analysis for an instrument.
+
+    Args:
+        symbol:          Instrument symbol (e.g. EUR_USD, BHP.AX, BTC/USD).
+        technical_score: Optional technical score from analysis.technical.compute().
+                         When provided and below 45, the instrument cannot reach the
+                         70% confidence threshold regardless of news (45 * 0.40 + 35
+                         + 25 = 78 max), so all external API calls are skipped.
+    """
+    # ── Technical pre-screen gate ────────────────────────────────────────────
+    if technical_score > 0 and technical_score < 45:
+        return NewsResult(
+            verdict="GREEN",
+            confidence_impact=0,
+            reasoning="Pre-screen: technical score below threshold, news analysis skipped.",
+            key_risk="",
+            headlines_count=0,
+            calendar_events=[],
+        )
+
+    query = _instrument_news_query(symbol)
     headlines = _fetch_headlines(query)
-    calendar_events = _fetch_calendar_events(instrument)
+    calendar_events = _fetch_calendar_events(symbol)
 
     user_content = (
-        f"Instrument: {instrument}\n\n"
+        f"Instrument: {symbol}\n\n"
         f"Recent headlines (last 24h):\n"
         + ("\n".join(f"- {h}" for h in headlines) if headlines else "- No recent headlines found")
         + "\n\nUpcoming high-impact economic events (next 48h):\n"
@@ -435,10 +473,9 @@ def analyse(instrument: str) -> NewsResult:
     )
 
     try:
-        client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY)
-        message = client.messages.create(
+        message = _anthropic_client.messages.create(
             model=CLAUDE_MODEL,
-            max_tokens=256,
+            max_tokens=1024,
             system=SYSTEM_PROMPT,
             messages=[{"role": "user", "content": user_content}],
         )
@@ -460,7 +497,7 @@ def analyse(instrument: str) -> NewsResult:
         )
 
     except Exception as exc:
-        logger.error("News filter Claude call failed for %s: %s", instrument, exc)
+        logger.error("News filter Claude call failed for %s: %s", symbol, exc)
         # Conservative fallback
         return NewsResult(
             verdict="AMBER",

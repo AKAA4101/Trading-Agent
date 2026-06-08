@@ -84,3 +84,60 @@ def get_latest_price(symbol: str, market_type: str) -> float | None:
     except Exception as exc:
         logger.error("Failed to get latest price for %s: %s", symbol, exc)
         return None
+
+
+def get_equity_bars_weekly(symbol: str, lookback_weeks: int = 52) -> pd.DataFrame | None:
+    """Fetch weekly OHLCV bars for a US equity — used for multi-timeframe analysis."""
+    try:
+        end   = datetime.now(timezone.utc)
+        start = end - timedelta(weeks=lookback_weeks)
+        req = StockBarsRequest(
+            symbol_or_symbols=symbol,
+            timeframe=TimeFrame.Week,
+            start=start,
+            end=end,
+            feed="iex",
+        )
+        bars = _stock_client().get_stock_bars(req)
+        df   = bars.df
+        if df is None or df.empty:
+            return None
+        if isinstance(df.index, pd.MultiIndex):
+            df = df.xs(symbol, level=0)
+        df = df.rename(columns={
+            "open": "Open", "high": "High", "low": "Low",
+            "close": "Close", "volume": "Volume",
+        })
+        df.index = pd.to_datetime(df.index, utc=True)
+        return df[["Open", "High", "Low", "Close", "Volume"]].copy()
+    except Exception as e:
+        logger.warning("Weekly equity bars failed for %s: %s", symbol, e)
+        return None
+
+
+def get_crypto_bars_weekly(symbol: str, lookback_weeks: int = 52) -> pd.DataFrame | None:
+    """Fetch weekly OHLCV bars for a crypto asset — used for multi-timeframe analysis."""
+    try:
+        end   = datetime.now(timezone.utc)
+        start = end - timedelta(weeks=lookback_weeks)
+        req = CryptoBarsRequest(
+            symbol_or_symbols=symbol,
+            timeframe=TimeFrame.Week,
+            start=start,
+            end=end,
+        )
+        bars = _crypto_client().get_crypto_bars(req)
+        df   = bars.df
+        if df is None or df.empty:
+            return None
+        if isinstance(df.index, pd.MultiIndex):
+            df = df.xs(symbol, level=0)
+        df = df.rename(columns={
+            "open": "Open", "high": "High", "low": "Low",
+            "close": "Close", "volume": "Volume",
+        })
+        df.index = pd.to_datetime(df.index, utc=True)
+        return df[["Open", "High", "Low", "Close", "Volume"]].copy()
+    except Exception as e:
+        logger.warning("Weekly crypto bars failed for %s: %s", symbol, e)
+        return None

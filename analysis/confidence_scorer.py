@@ -18,7 +18,7 @@ W_CALENDAR  = 0.25
 # News verdict → base news component (out of 35 pts before impact adj)
 NEWS_BASE = {"GREEN": 35.0, "AMBER": 17.5, "RED": 0.0}
 
-# Calendar impact mapping (events_count + max_impact → calendar pts out of 25)
+# Calendar impact mapping
 CALENDAR_PTS = {
     "none":   25.0,
     "low":    20.0,
@@ -34,6 +34,9 @@ class SignalResult:
     confidence: float         # 0-100
     technical_score: float
     rsi: float
+    adx: float                # NEW
+    sr_context: str           # NEW
+    htf_bias: str             # NEW
     news_verdict: str
     news_impact: int
     calendar_risk: str
@@ -68,15 +71,14 @@ def score(
 
     # ── News component (0–35) ────────────────────────────────────
     news_base = NEWS_BASE.get(news.verdict, 17.5)
-    # Apply confidence_impact (range -30..+10) scaled to news weight
-    news_adj = news.confidence_impact * (W_NEWS / 10)
+    news_adj  = news.confidence_impact * (W_NEWS / 10)
     news_component = max(0.0, min(35.0, news_base + news_adj))
 
     # ── Calendar component (0–25) ────────────────────────────────
-    cal_risk = _calendar_risk_level(news.calendar_events)
+    cal_risk      = _calendar_risk_level(news.calendar_events)
     cal_component = CALENDAR_PTS.get(cal_risk, 10.0)
 
-    raw_score = tech_component + news_component + cal_component
+    raw_score  = tech_component + news_component + cal_component
     confidence = round(max(0.0, min(100.0, raw_score)), 1)
 
     # ── Prices (entry / SL / TP via ATR) ─────────────────────────
@@ -95,17 +97,34 @@ def score(
         and news.verdict != "RED"
     )
 
+    # ── Reasoning string — now includes ADX, S/R, MTF ────────────
+    adx_str = f"ADX={tech.adx:.1f}"
+    sr_str  = f"S/R={tech.sr_context}"
+    if tech.sr_context == "NEAR_SUPPORT":
+        sr_str += f"(sup={tech.nearest_support:.4f})"
+    elif tech.sr_context == "NEAR_RESISTANCE":
+        sr_str += f"(res={tech.nearest_resistance:.4f})"
+
+    mtf_str = f"HTF={tech.htf_bias}(x{tech.mtf_multiplier:.2f})"
+
     reasoning = (
-        f"Tech score {tech.score}/100 (trend={tech.breakdown['trend']}, "
-        f"RSI={tech.rsi:.1f}, MACD_hist={tech.macd_hist:+.5f}). "
+        f"Tech score {tech.score}/100 ("
+        f"trend={tech.breakdown.get('trend', 0)}, "
+        f"adx={tech.breakdown.get('adx', 0)} [{adx_str}], "
+        f"RSI={tech.rsi:.1f}, "
+        f"MACD_hist={tech.macd_hist:+.5f}, "
+        f"sr={tech.breakdown.get('support_resistance', 0)} [{sr_str}], "
+        f"{mtf_str}). "
         f"News: {news.verdict} — {news.reasoning}. "
         f"Calendar risk: {cal_risk}. "
         f"Combined confidence: {confidence}%."
     )
 
     logger.info(
-        "%s | dir=%s conf=%.1f tech=%.1f news=%s cal=%s actionable=%s",
-        instrument, tech.direction, confidence, tech.score, news.verdict, cal_risk, actionable,
+        "%s | dir=%s conf=%.1f tech=%.1f adx=%.1f sr=%s htf=%s(x%.2f) news=%s cal=%s actionable=%s",
+        instrument, tech.direction, confidence, tech.score,
+        tech.adx, tech.sr_context, tech.htf_bias, tech.mtf_multiplier,
+        news.verdict, cal_risk, actionable,
     )
 
     return SignalResult(
@@ -114,6 +133,9 @@ def score(
         confidence=confidence,
         technical_score=tech.score,
         rsi=tech.rsi,
+        adx=tech.adx,
+        sr_context=tech.sr_context,
+        htf_bias=tech.htf_bias,
         news_verdict=news.verdict,
         news_impact=news.confidence_impact,
         calendar_risk=cal_risk,

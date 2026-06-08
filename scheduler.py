@@ -184,8 +184,36 @@ def _analyse_instrument(inst, db, risk_mgr, portfolio_value,
         logger.warning("No price data for %s — skipping", symbol)
         return None
 
+    # ── 1b. Higher timeframe data for multi-timeframe analysis ────
+    # Fetch weekly bars as the higher timeframe. Failures are non-fatal —
+    # if df_higher is None, tech_compute() defaults MTF multiplier to 1.0.
+    df_higher = None
+    try:
+        if inst.market_type == "forex":
+            from data.collectors.oanda_collector import get_forex_bars_weekly
+            df_higher = get_forex_bars_weekly(symbol)
+        elif inst.market_type == "crypto":
+            from data.collectors.alpaca_collector import get_crypto_bars_weekly
+            df_higher = get_crypto_bars_weekly(symbol)
+        elif inst.market_type == "us_equity":
+            from data.collectors.alpaca_collector import get_equity_bars_weekly
+            df_higher = get_equity_bars_weekly(symbol)
+        elif inst.market_type == "yfinance":
+            from data.collectors.yfinance_collector import get_yfinance_bars_weekly
+            df_higher = get_yfinance_bars_weekly(symbol)
+        else:
+            from data.collectors.massive_collector import get_global_equity_bars_weekly
+            df_higher = get_global_equity_bars_weekly(symbol)
+        if df_higher is not None:
+            logger.debug("HTF weekly bars fetched for %s: %d rows", symbol, len(df_higher))
+        else:
+            logger.debug("HTF weekly bars unavailable for %s — MTF bias neutral", symbol)
+    except Exception as htf_exc:
+        logger.warning("HTF fetch failed for %s: %s — continuing without MTF bias", symbol, htf_exc)
+        df_higher = None
+
     # ── 2. Technical analysis ─────────────────────────────────────
-    tech = tech_compute(df)
+    tech = tech_compute(df, df_higher)
     if tech is None:
         logger.warning("Insufficient data for technical analysis: %s", symbol)
         return None
@@ -193,7 +221,7 @@ def _analyse_instrument(inst, db, risk_mgr, portfolio_value,
     current_price = float(df["Close"].iloc[-1])
 
     # ── 3. News / sentiment filter ────────────────────────────────
-    news = news_analyse(symbol)
+    news = news_analyse(symbol, technical_score=tech.score)
 
     if news.verdict == "RED":
         logger.warning("RED verdict for %s — %s", symbol, news.reasoning)

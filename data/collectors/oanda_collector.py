@@ -1,4 +1,7 @@
 import logging
+import os
+import pickle
+import time
 from datetime import datetime, timedelta, timezone
 
 import pandas as pd
@@ -6,6 +9,9 @@ import oandapyV20
 import oandapyV20.endpoints.instruments as instruments
 
 from config import config
+
+_WEEKLY_CACHE_DIR = "/opt/trading-agent/data/cache/weekly/"
+_WEEKLY_CACHE_TTL = 86400  # 24 hours
 
 logger = logging.getLogger(__name__)
 
@@ -68,6 +74,86 @@ def get_latest_price(instrument: str) -> float | None:
         return float(df["Close"].iloc[-1])
     except Exception as exc:
         logger.error("Failed to get latest OANDA price for %s: %s", instrument, exc)
+        return None
+
+
+def get_forex_bars_weekly(instrument: str, lookback_weeks: int = 52) -> pd.DataFrame | None:
+    """
+    Fetch weekly OHLCV bars for a forex pair — used for multi-timeframe analysis.
+    Results are cached for 24 hours. On fetch failure, a stale cache is returned
+    rather than None so MTF bias is preserved across transient API outages.
+    """
+    cache_path = os.path.join(_WEEKLY_CACHE_DIR, f"{instrument}_oanda_weekly.pkl")
+
+    # ── Cache read ────────────────────────────────────────────────
+    stale_df = None
+    if os.path.exists(cache_path):
+        try:
+            with open(cache_path, "rb") as f:
+                cached_df = pickle.load(f)
+            if time.time() - os.path.getmtime(cache_path) < _WEEKLY_CACHE_TTL:
+                logger.debug("Weekly cache hit for %s", instrument)
+                return cached_df
+            stale_df = cached_df  # expired but keep as fallback
+        except Exception as cache_exc:
+            logger.debug("Weekly cache read failed for %s: %s", instrument, cache_exc)
+
+    # ── Fetch from OANDA ──────────────────────────────────────────
+    try:
+        oanda_instrument = instrument.replace("/", "_")
+        start = datetime.now(timezone.utc) - timedelta(weeks=lookback_weeks)
+        params = {
+            "from":        start.strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "granularity": "W",
+            "price":       "M",
+        }
+        client = _client()
+        req = instruments.InstrumentsCandles(instrument=oanda_instrument, params=params)
+        client.request(req)
+        raw = req.response.get("candles", [])
+        if not raw:
+            if stale_df is not None:
+                logger.warning("OANDA returned no weekly candles for %s — returning stale cache", instrument)
+                return stale_df
+            return None
+        rows = []
+        for c in raw:
+            if not c.get("complete", True):
+                continue
+            mid = c.get("mid", {})
+            rows.append({
+                "Open":   float(mid.get("o", 0)),
+                "High":   float(mid.get("h", 0)),
+                "Low":    float(mid.get("l", 0)),
+                "Close":  float(mid.get("c", 0)),
+                "Volume": float(c.get("volume", 0)),
+                "time":   c["time"],
+            })
+        if not rows:
+            if stale_df is not None:
+                logger.warning("OANDA returned empty weekly rows for %s — returning stale cache", instrument)
+                return stale_df
+            return None
+        df = pd.DataFrame(rows)
+        df["time"] = pd.to_datetime(df["time"], utc=True)
+        df = df.set_index("time").sort_index()
+        df = df[["Open", "High", "Low", "Close", "Volume"]].copy()
+
+        # ── Cache write ───────────────────────────────────────────
+        try:
+            os.makedirs(_WEEKLY_CACHE_DIR, exist_ok=True)
+            with open(cache_path, "wb") as f:
+                pickle.dump(df, f)
+        except Exception as cache_exc:
+            logger.debug("Weekly cache write failed for %s: %s", instrument, cache_exc)
+
+        return df
+
+    except Exception as e:
+        if stale_df is not None:
+            logger.warning("Weekly forex bars fetch failed for %s: %s — returning stale cache", instrument, e)
+            return stale_df
+        logger.warning("Weekly forex bars failed for %s: %s", instrument, e)
         return None
 
 
