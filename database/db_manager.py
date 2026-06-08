@@ -133,9 +133,13 @@ class DBManager:
             "ALTER TABLE trades ADD COLUMN take_profit REAL",
             "ALTER TABLE trades ADD COLUMN unrealised_pnl REAL DEFAULT 0",
             "ALTER TABLE trades ADD COLUMN exit_reason TEXT",
+            "ALTER TABLE trades ADD COLUMN current_price REAL DEFAULT 0",
+            "ALTER TABLE trades ADD COLUMN last_checked TEXT",
             "ALTER TABLE portfolio_snapshots ADD COLUMN alpaca_value REAL",
             "ALTER TABLE portfolio_snapshots ADD COLUMN oanda_value REAL",
             "ALTER TABLE portfolio_snapshots ADD COLUMN paper_sim_value REAL",
+            "ALTER TABLE portfolio_snapshots ADD COLUMN week_start_value REAL",
+            "ALTER TABLE portfolio_snapshots ADD COLUMN weekly_return_pct REAL",
         ]
         for sql in migrations:
             try:
@@ -308,6 +312,20 @@ class DBManager:
                 (unrealised_pnl, trade_id),
             )
         self._sb_update("trades", trade_id, {"unrealised_pnl": unrealised_pnl})
+
+    def update_trade_live(self, trade_id: int, current_price: float, unrealised_pnl: float) -> None:
+        """Update current_price, unrealised_pnl, and last_checked timestamp together."""
+        last_checked = datetime.now(timezone.utc).isoformat()
+        with self._conn() as conn:
+            conn.execute(
+                "UPDATE trades SET current_price=?, unrealised_pnl=?, last_checked=? WHERE id=?",
+                (current_price, unrealised_pnl, last_checked, trade_id),
+            )
+        self._sb_update("trades", trade_id, {
+            "current_price": current_price,
+            "unrealised_pnl": unrealised_pnl,
+            "last_checked": last_checked,
+        })
 
     def count_open_trades(self) -> int:
         if self._sb:
@@ -514,6 +532,34 @@ class DBManager:
             return float(row[0]) if row else 0.0
 
     # ── Portfolio snapshots ────────────────────────────────────────────────
+
+    def get_week_start_snapshot(self) -> dict | None:
+        """Return the earliest portfolio snapshot from this calendar week (Mon–Sun)."""
+        now = datetime.now(timezone.utc)
+        monday = (now - timedelta(days=now.weekday())).replace(
+            hour=0, minute=0, second=0, microsecond=0
+        )
+        monday_iso = monday.isoformat()
+        if self._sb:
+            try:
+                resp = (
+                    self._sb.table("portfolio_snapshots")
+                    .select("*")
+                    .gte("timestamp", monday_iso)
+                    .order("local_id")
+                    .limit(1)
+                    .execute()
+                )
+                if resp.data:
+                    return resp.data[0]
+            except Exception as exc:
+                logger.warning("Supabase get_week_start_snapshot fallback: %s", exc)
+        with self._conn() as conn:
+            row = conn.execute(
+                "SELECT * FROM portfolio_snapshots WHERE timestamp >= ? ORDER BY id ASC LIMIT 1",
+                (monday_iso,),
+            ).fetchone()
+            return dict(row) if row else None
 
     def insert_snapshot(self, **kwargs) -> int:
         kwargs.setdefault("timestamp", datetime.now(timezone.utc).isoformat())

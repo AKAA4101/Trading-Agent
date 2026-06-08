@@ -142,7 +142,7 @@ def _check_paper_sim(db: DBManager) -> dict:
             else:
                 unrealised_pct = (entry - price) / entry * 100
 
-            db.update_trade_unrealised_pnl(trade_id, round(unrealised_pct, 4))
+            db.update_trade_live(trade_id, round(price, 6), round(unrealised_pct, 4))
             updated += 1
             logger.debug(
                 "paper_sim HOLD | %s %s unrealised=%.2f%% current=%.5f",
@@ -233,16 +233,18 @@ def _check_alpaca(db: DBManager) -> dict:
             )
             reconciled += 1
         else:
-            # Still open — update unrealised P&L
+            # Still open — update current price and unrealised P&L
             pos = alpaca_positions[raw_symbol]
             try:
                 unrealised_pct = float(pos.unrealized_plpc) * 100
-                db.update_trade_unrealised_pnl(trade_id, round(unrealised_pct, 4))
+                current_price = float(pos.current_price)
+                db.update_trade_live(trade_id, round(current_price, 6), round(unrealised_pct, 4))
                 logger.debug(
-                    "Alpaca HOLD | %s unrealised=%.2f%%", raw_symbol, unrealised_pct
+                    "Alpaca HOLD | %s current=%.5f unrealised=%.2f%%",
+                    raw_symbol, current_price, unrealised_pct,
                 )
             except Exception as exc:
-                logger.warning("Failed to update Alpaca unrealised P&L for %s: %s", raw_symbol, exc)
+                logger.warning("Failed to update Alpaca live price for %s: %s", raw_symbol, exc)
 
     return {"checked": len(db_trades), "reconciled": reconciled, "errors": errors}
 

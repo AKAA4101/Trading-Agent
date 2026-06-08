@@ -97,7 +97,6 @@ def run_analysis_cycle(db: DBManager) -> None:
         try:
             verdict = _analyse_instrument(
                 inst, db, risk_mgr, portfolio_value,
-                alpaca_exec, oanda_exec,
                 send_signal_alert, send_red_alert,
             )
             if verdict is not None:
@@ -134,7 +133,6 @@ def run_analysis_cycle(db: DBManager) -> None:
 
 
 def _analyse_instrument(inst, db, risk_mgr, portfolio_value,
-                         _alpaca_exec_unused, _oanda_exec_unused,
                          send_signal_alert, send_red_alert):
     from data.collectors.alpaca_collector import get_equity_bars, get_crypto_bars
     from data.collectors.oanda_collector import get_forex_bars
@@ -295,6 +293,16 @@ def run_portfolio_snapshot(db: DBManager) -> None:
     initial = snap.get("total_value", total_value) if snap else total_value
     drawdown_pct = max(0.0, (initial - total_value) / initial * 100) if initial > 0 else 0.0
 
+    # Week-start baseline: earliest snapshot from this Monday onwards
+    week_start_value = None
+    weekly_return_pct = None
+    week_snap = db.get_week_start_snapshot()
+    if week_snap:
+        wv = week_snap.get("total_value")
+        if wv and float(wv) > 0:
+            week_start_value = float(wv)
+            weekly_return_pct = round((total_value - week_start_value) / week_start_value * 100, 4)
+
     db.insert_snapshot(
         total_value=total_value,
         cash=cash,
@@ -305,6 +313,8 @@ def run_portfolio_snapshot(db: DBManager) -> None:
         alpaca_value=alpaca_value,
         oanda_value=oanda_value,
         paper_sim_value=paper_sim_value,
+        week_start_value=week_start_value,
+        weekly_return_pct=weekly_return_pct,
     )
 
     if drawdown_pct >= config.DAILY_DRAWDOWN_LIMIT_PCT:
